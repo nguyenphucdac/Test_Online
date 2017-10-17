@@ -1,0 +1,57 @@
+﻿@using Test_Online.Models
+@model IEnumerable<Document>
+
+@{
+    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
+    ViewBag.Title = "Tài liệu";
+    Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+}
+
+<div class="header">
+    <h2>Quản Lý Tài liệu tham khảo</h2>
+    <div style="height:1px;background-color:black; margin-top: 10px"></div>
+    <a href="@Url.Action("Create", "Document_Admin")" class="btn btn-default" style="float:right; margin-top : 10px; margin-right : 10px;">Thêm Mới</a>
+
+</div>
+
+@if (Model != null)
+{
+    @grid.GetHtml(
+        tableStyle: "table",
+        headerStyle: "gridHead",
+        footerStyle: "gridFooter",
+        rowStyle: "gridRow",
+        alternatingRowStyle: "gridAltRow",
+        columns: grid.Columns(
+             grid.Column("Id", "Mã Môn Học"),
+             grid.Column("Topic_Id", "Chủ đề"),
+             grid.Column("Link", "Mã Môn Học"),
+             grid.Column("Created_By", "Người upload"),
+             grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "Document_Admin", new { Id = p.Id }, null)),
+             grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "Document_Admin", new { Id = p.Id }, null))
+        )
+    )
+}
+else
+{
+
+}
+<style>
+    .gridFooter {
+        border: 1px solid black;
+        color: white;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .gridRow {
+        background-color: #e6d8d8;
+    }
+
+    .header {
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
