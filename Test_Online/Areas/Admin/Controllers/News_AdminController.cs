@@ -9,7 +9,8 @@ namespace Test_Online.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var lstNews = db.News;
+            return View(lstNews);
         }
 
         public ActionResult Create()

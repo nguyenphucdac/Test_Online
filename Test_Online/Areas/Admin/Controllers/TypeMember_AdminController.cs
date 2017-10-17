@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
@@ -9,7 +10,8 @@ namespace Test_Online.Areas.Admin.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var lstTypeMember = db.Type_Member;
+            return View(lstTypeMember);
         }
 
         public ActionResult Create()
@@ -17,24 +19,48 @@ namespace Test_Online.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Save(Type_Member tm)
+        public ActionResult Save(Type_Member typeMember)
         {
-            return View();
+            if (typeMember == null)
+            {
+                return Content("<script>alert('Loại thành viên không hợp lệ !!!')</script>");
+            }
+            db.Type_Member.Add(typeMember);
+            db.SaveChanges();
+            return RedirectToAction("Index", "TypeMember_Admin");
         }
 
         public ActionResult Edit(int Id)
         {
-            return View();
+            Type_Member typeMember = db.Type_Member.SingleOrDefault(n => n.Id == Id);
+            if (typeMember == null)
+            {
+                return Content("<script>alert('Loại thành viên không hợp lệ !!!')</script>");
+            }
+            return View(typeMember);
         }
 
-        public ActionResult Update(Type_Member tm)
+        public ActionResult Update(Type_Member typeMember)
         {
-            return View();
+            if (typeMember == null)
+            {
+                return Content("<script>alert('Loại thành viên không hợp lệ !!!')</script>");
+            }
+            db.Entry(typeMember).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "TypeMember_Admin");
         }
 
         public ActionResult Delete(int Id)
         {
-            return View();
+            Type_Member typeMember = db.Type_Member.SingleOrDefault(n => n.Id == Id);
+            if (typeMember == null)
+            {
+                return Content("<script>alert('Loại thành viên không hợp lệ !!!')</script>");
+            }
+            db.Type_Member.Remove(typeMember);
+            db.SaveChanges();
+            return RedirectToAction("Index", "TypeMember_Admin");
         }
     }
 }

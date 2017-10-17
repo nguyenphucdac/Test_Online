@@ -12,7 +12,8 @@ namespace Test_Online.Areas.Admin.Controllers
         Test_Online_DBEntities db = new Test_Online_DBEntities();
         public ActionResult Index()
         {
-            return View();
+            var lstRole = db.Roles;
+            return View(lstRole);
         }
 
         public ActionResult Create()
@@ -22,22 +23,46 @@ namespace Test_Online.Areas.Admin.Controllers
 
         public ActionResult Save(Role role)
         {
-            return View();
+            if (role == null)
+            {
+                return Content("<script>alert('Quyền không hợp lệ !!!')</script>");
+            }
+            db.Roles.Add(role);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Role_Admin");
         }
 
         public ActionResult Edit(int Id)
         {
-            return View();
+            Role role = db.Roles.SingleOrDefault(n => n.Id == Id);
+            if (role == null)
+            {
+                return Content("<script>alert('Quyền không hợp lệ !!!')</script>");
+            }
+            return View(role);
         }
 
         public ActionResult Update(Role role)
         {
-            return View();
+            if (role == null)
+            {
+                return Content("<script>alert('Quyền không hợp lệ !!!')</script>");
+            }
+            db.Entry(role).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "TypeMember_Admin");
         }
 
         public ActionResult Delete(int Id)
         {
-            return View();
+            Role role = db.Roles.SingleOrDefault(n => n.Id == Id);
+            if (role == null)
+            {
+                return Content("<script>alert('Quyền không hợp lệ !!!')</script>");
+            }
+            db.Roles.Remove(role);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Role_Admin");
         }
     }
 }

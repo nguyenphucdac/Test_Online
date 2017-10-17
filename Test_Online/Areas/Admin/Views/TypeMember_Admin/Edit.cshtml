@@ -1,0 +1,43 @@
+﻿@model Test_Online.Models.Type_Member
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa loại thành viên</h2>
+
+@using (Html.BeginForm("Update", "TypeMember_Admin"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "name_type" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default"  id="btnSave"/>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $("#btnSave").click(function () {
+        if ($("#name_type").val() == "") {
+            alert("Tên loại thành viên không hợp lệ !!!");
+            return false;
+        }
+        return true;
+    })
+</script>
