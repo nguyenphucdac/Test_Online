@@ -23,11 +23,11 @@
         rowStyle: "gridRow",
         alternatingRowStyle: "gridAltRow",
         columns: grid.Columns(
-             grid.Column("Id", "Mã Môn Học"),
-             grid.Column("title", "Tên Môn Học"),
-             grid.Column("Content", "Mã Môn Học"),
-             grid.Column("Image", "Tên Môn Học"),
-             grid.Column("View", "Mã Môn Học"),
+             grid.Column("Id", "Mã tin"),
+             grid.Column("title", "Tiêu đề"),
+             grid.Column("Image", "Ảnh"),
+             grid.Column("View", "Lượt xem"),
+              grid.Column("Ngày tạo", "Lượt xem"),
              grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "News_Admin", new { Id = p.Id }, null)),
              grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "News_Admin", new { Id = p.Id }, null))
         )

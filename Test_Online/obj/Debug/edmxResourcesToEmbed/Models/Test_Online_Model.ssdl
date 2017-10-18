@@ -18,6 +18,7 @@
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Image" Type="nvarchar" MaxLength="50" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Document">
     <Key>
@@ -26,6 +27,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_by" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="History">
@@ -36,6 +38,7 @@
     <Property Name="Member_Id" Type="int" Nullable="false" />
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="isTrue" Type="bit" Nullable="false" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Member">
     <Key>
@@ -56,6 +59,8 @@
     <Property Name="Content" Type="nvarchar(max)" />
     <Property Name="Image" Type="nvarchar" MaxLength="50" />
     <Property Name="View" Type="int" />
+    <Property Name="Created_Time" Type="datetime" />
+    <Property Name="Created_By" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Question">
     <Key>
@@ -66,6 +71,7 @@
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Image" Type="nvarchar" MaxLength="50" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Role">
@@ -92,6 +98,8 @@
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="image" Type="nvarchar" MaxLength="50" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
+    <Property Name="Created_by" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Subject">
     <Key>
@@ -162,6 +170,18 @@
       </Principal>
       <Dependent Role="Document">
         <PropertyRef Name="Created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_ToTable">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="News" Type="Self.News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="Created_By" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -242,6 +262,18 @@
       </Principal>
       <Dependent Role="Solution">
         <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solution_ToTable_1">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Solution" Type="Self.Solution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solution">
+        <PropertyRef Name="Created_by" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -339,6 +371,10 @@
       <End Role="Member" EntitySet="Member" />
       <End Role="Document" EntitySet="Document" />
     </AssociationSet>
+    <AssociationSet Name="FK_News_ToTable" Association="Self.FK_News_ToTable">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
     <AssociationSet Name="FK_Question_ToTable" Association="Self.FK_Question_ToTable">
       <End Role="Subject" EntitySet="Subject" />
       <End Role="Question" EntitySet="Question" />
@@ -361,6 +397,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Solution_ToTable" Association="Self.FK_Solution_ToTable">
       <End Role="Question" EntitySet="Question" />
+      <End Role="Solution" EntitySet="Solution" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solution_ToTable_1" Association="Self.FK_Solution_ToTable_1">
+      <End Role="Member" EntitySet="Member" />
       <End Role="Solution" EntitySet="Solution" />
     </AssociationSet>
     <AssociationSet Name="FK_Solution_ToTable12" Association="Self.FK_Solution_ToTable12">

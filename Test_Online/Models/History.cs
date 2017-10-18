@@ -17,6 +17,7 @@ namespace Test_Online.Models
         public int Member_Id { get; set; }
         public int Question_Id { get; set; }
         public bool isTrue { get; set; }
+        public System.DateTime Created_Time { get; set; }
     
         public virtual Question Question { get; set; }
         public virtual Member Member { get; set; }

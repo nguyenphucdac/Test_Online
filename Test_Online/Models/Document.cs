@@ -18,6 +18,7 @@ namespace Test_Online.Models
         public int Topic_Id { get; set; }
         public string Link { get; set; }
         public int Created_by { get; set; }
+        public System.DateTime Created_Time { get; set; }
     
         public virtual Topic Topic { get; set; }
         public virtual Member Member { get; set; }

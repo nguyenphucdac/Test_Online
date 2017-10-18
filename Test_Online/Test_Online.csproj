@@ -479,7 +479,6 @@
     <Content Include="Areas\Admin\Views\TypeMember_Admin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Role_Admin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Role_Admin\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\News_Admin\Create.cshtml" />
     <Content Include="Content\common\tinymce\js\tinymce\langs\readme.md" />
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
@@ -487,6 +486,7 @@
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.eot" />
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Areas\Admin\Views\News_Admin\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

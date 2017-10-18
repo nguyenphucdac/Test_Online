@@ -19,5 +19,9 @@ namespace Test_Online.Models
         public string Content { get; set; }
         public string Image { get; set; }
         public Nullable<int> View { get; set; }
+        public Nullable<System.DateTime> Created_Time { get; set; }
+        public int Created_By { get; set; }
+    
+        public virtual Member Member { get; set; }
     }
 }

@@ -21,6 +21,7 @@
     <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Member" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="Member" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Comment_ToTable_1" FromRole="Comment" ToRole="Question" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="Document">
     <Key>
@@ -32,6 +33,7 @@
     <NavigationProperty Name="Topic" Relationship="Self.FK_Document_ToTable" FromRole="Document" ToRole="Topic" />
     <Property Name="Created_by" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Document" ToRole="Member" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="History">
     <Key>
@@ -43,6 +45,7 @@
     <Property Name="isTrue" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Table_ToTable_1" FromRole="History" ToRole="Question" />
     <NavigationProperty Name="Member" Relationship="Self.FK_Table_ToTable12" FromRole="History" ToRole="Member" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="Member">
     <Key>
@@ -58,6 +61,8 @@
     <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_2" FromRole="Member" ToRole="Question" />
     <NavigationProperty Name="Type_Member" Relationship="Self.FK_Table_ToTable" FromRole="Member" ToRole="Type_Member" />
     <NavigationProperty Name="Documents" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Member" ToRole="Document" />
+    <NavigationProperty Name="News" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="Member" ToRole="News" />
+    <NavigationProperty Name="Solutions" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Member" ToRole="Solution" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -68,6 +73,9 @@
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="View" Type="Int32" />
+    <Property Name="Created_Time" Type="DateTime" Precision="3" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="News" ToRole="Member" />
   </EntityType>
   <EntityType Name="Question">
     <Key>
@@ -86,6 +94,7 @@
     <NavigationProperty Name="Subject" Relationship="Self.FK_Question_ToTable" FromRole="Question" ToRole="Subject" />
     <NavigationProperty Name="Topic" Relationship="Self.FK_Question_ToTable_1" FromRole="Question" ToRole="Topic" />
     <NavigationProperty Name="Solutions" Relationship="Self.FK_Solution_ToTable" FromRole="Question" ToRole="Solution" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -115,6 +124,9 @@
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Solution_ToTable" FromRole="Solution" ToRole="Question" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Created_by" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Solution" ToRole="Member" />
   </EntityType>
   <EntityType Name="Subject">
     <Key>
@@ -401,6 +413,14 @@
       <End Role="Member" EntitySet="Members" />
       <End Role="Document" EntitySet="Documents" />
     </AssociationSet>
+    <AssociationSet Name="FK_News_ToTable" Association="Test_Online_DBModel.FK_News_ToTable">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solution_ToTable_1" Association="Test_Online_DBModel.FK_Solution_ToTable_1">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Solution" EntitySet="Solutions" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Document_ToTable_1">
     <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
@@ -410,6 +430,30 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Document">
+        <PropertyRef Name="Created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_ToTable">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solution_ToTable_1">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Solution" Role="Solution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solution">
         <PropertyRef Name="Created_by" />
       </Dependent>
     </ReferentialConstraint>

@@ -133,6 +133,5 @@ D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Microsoft.AI.WindowsServer.xml
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Microsoft.AI.Web.xml
-D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\obj\Debug\Test_Online.csprojResolveAssemblyReference.cache
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\obj\Debug\Test_Online.dll
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\obj\Debug\Test_Online.pdb

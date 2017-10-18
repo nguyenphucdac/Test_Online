@@ -14,6 +14,7 @@
     <EntitySetMapping Name="Comments">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
           <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
@@ -25,6 +26,7 @@
     <EntitySetMapping Name="Documents">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Document">
         <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Created_by" ColumnName="Created_by" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Topic_Id" ColumnName="Topic_Id" />
@@ -35,6 +37,7 @@
     <EntitySetMapping Name="Histories">
       <EntityTypeMapping TypeName="Test_Online_DBModel.History">
         <MappingFragment StoreEntitySet="History">
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
           <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
           <ScalarProperty Name="isTrue" ColumnName="isTrue" />
@@ -55,6 +58,8 @@
     <EntitySetMapping Name="News">
       <EntityTypeMapping TypeName="Test_Online_DBModel.News">
         <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="Content" ColumnName="Content" />
@@ -66,6 +71,7 @@
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Question">
         <MappingFragment StoreEntitySet="Question">
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
           <ScalarProperty Name="Topic_Id" ColumnName="Topic_Id" />
@@ -95,6 +101,8 @@
     <EntitySetMapping Name="Solutions">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Solution">
         <MappingFragment StoreEntitySet="Solution">
+          <ScalarProperty Name="Created_by" ColumnName="Created_by" />
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
           <ScalarProperty Name="Content" ColumnName="Content" />

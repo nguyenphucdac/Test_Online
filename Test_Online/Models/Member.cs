@@ -20,6 +20,8 @@ namespace Test_Online.Models
             this.Histories = new HashSet<History>();
             this.Questions = new HashSet<Question>();
             this.Documents = new HashSet<Document>();
+            this.News = new HashSet<News>();
+            this.Solutions = new HashSet<Solution>();
         }
     
         public int Id { get; set; }
@@ -33,5 +35,7 @@ namespace Test_Online.Models
         public virtual ICollection<Question> Questions { get; set; }
         public virtual Type_Member Type_Member { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<News> News { get; set; }
+        public virtual ICollection<Solution> Solutions { get; set; }
     }
 }
