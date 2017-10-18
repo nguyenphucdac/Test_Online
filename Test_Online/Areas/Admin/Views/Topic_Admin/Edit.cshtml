@@ -1,32 +1,40 @@
-﻿@model Test_Online.Models.Type_Member
+﻿@model Test_Online.Models.Topic
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
 }
 
-<h2>Chỉnh sửa loại thành viên</h2>
+<h2>Edit</h2>
 
-@using (Html.BeginForm("Update", "TypeMember_Admin"))
+@using (Html.BeginForm("Update", "Topic_Admin"))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>Topic</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "name_type" } })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id= "btnSave" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subject_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.DropDownList("Subject_Id", null, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Id)
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default"  id="btnSave"/>
+                <input type="submit" value="Save" class="btn btn-default" id="btnSave" />
             </div>
         </div>
     </div>
@@ -34,8 +42,8 @@
 
 <script>
     $("#btnSave").click(function () {
-        if ($("#name_type").val() == "") {
-            alert("Tên loại thành viên không hợp lệ !!!");
+        if ($("#name_topic").val() == "") {
+            alert("Tên chủ đề không hợp lệ !!!");
             return false;
         }
         return true;

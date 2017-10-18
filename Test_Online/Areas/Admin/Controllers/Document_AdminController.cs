@@ -12,7 +12,8 @@ namespace Test_Online.Areas.Admin.Controllers
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
         public ActionResult Index()
         {
-            return View();
+            var lstDocument = db.Documents;
+            return View(lstDocument);
         }
 
         public ActionResult Create()

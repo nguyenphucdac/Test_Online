@@ -487,6 +487,9 @@
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.ttf" />
     <Content Include="Content\common\tinymce\js\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\News_Admin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\News_Admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic_Admin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Topic_Admin\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

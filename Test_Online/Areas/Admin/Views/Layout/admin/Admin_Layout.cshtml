@@ -20,10 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="~/Content/admin/js/custom.js"></script>
     <script src="~/Content/admin/js/screenfull.js"></script>
     <script src="~/Content/common/tinymce/js/tinymce/tinymce.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <script type="text/javascript">
         $(function () {
             $('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
@@ -80,13 +77,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--skycons-icons-->
     <script src="~/Content/admin/js/skycons.js"></script>
     <!--//skycons-icons-->
+
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 </head>
 <body>
     <div id="wrapper">
         @Html.Action("BannerMenu", "Partial_Admin")
         <div id="page-wrapper" class="gray-bg dashbard-1">
             @RenderBody()
-         </div>
+        </div>
     </div>
     <!---->
     <!--scrolling js-->

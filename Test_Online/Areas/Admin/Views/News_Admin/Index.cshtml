@@ -27,7 +27,7 @@
              grid.Column("title", "Tiêu đề"),
              grid.Column("Image", "Ảnh"),
              grid.Column("View", "Lượt xem"),
-              grid.Column("Ngày tạo", "Lượt xem"),
+             grid.Column("Ngày tạo", "Lượt xem"),
              grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "News_Admin", new { Id = p.Id }, null)),
              grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "News_Admin", new { Id = p.Id }, null))
         )
