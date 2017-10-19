@@ -18,7 +18,7 @@
     <Property Name="Member_Id" Type="Int32" Nullable="false" />
     <Property Name="Question_Id" Type="Int32" Nullable="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Member" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="Member" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Comment_ToTable_1" FromRole="Comment" ToRole="Question" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
@@ -34,6 +34,7 @@
     <Property Name="Created_by" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Document" ToRole="Member" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="File" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="History">
     <Key>
@@ -53,8 +54,8 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Type_Member_Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Rank" Type="Int32" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ToTable" FromRole="Member" ToRole="Comment" />
     <NavigationProperty Name="Histories" Relationship="Self.FK_Table_ToTable12" FromRole="Member" ToRole="History" />
@@ -69,11 +70,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="View" Type="Int32" />
-    <Property Name="Created_Time" Type="DateTime" Precision="3" />
+    <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="View" Type="Int32" Nullable="false" />
+    <Property Name="Created_Time" Type="DateTime" Precision="3" Nullable="false" />
     <Property Name="Created_By" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="News" ToRole="Member" />
   </EntityType>
@@ -85,7 +86,7 @@
     <Property Name="Subject_Id" Type="Int32" Nullable="false" />
     <Property Name="Topic_Id" Type="Int32" Nullable="false" />
     <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Created_By" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Answers" Relationship="Self.FK_Solution_ToTable12" FromRole="Question" ToRole="Answer" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ToTable_1" FromRole="Question" ToRole="Comment" />
@@ -101,7 +102,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Role_Member" Relationship="Self.FK_Role_Member_ToTable_1" FromRole="Role" ToRole="Role_Member" />
   </EntityType>
   <EntityType Name="Role_Member">
@@ -122,7 +123,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Question_Id" Type="Int32" Nullable="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Solution_ToTable" FromRole="Solution" ToRole="Question" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Created_by" Type="Int32" Nullable="false" />
@@ -133,7 +134,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable" FromRole="Subject" ToRole="Question" />
     <NavigationProperty Name="Topics" Relationship="Self.FK_Topic_ToTable" FromRole="Subject" ToRole="Topic" />
   </EntityType>
@@ -143,7 +144,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Subject_Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Documents" Relationship="Self.FK_Document_ToTable" FromRole="Topic" ToRole="Document" />
     <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_1" FromRole="Topic" ToRole="Question" />
     <NavigationProperty Name="Subject" Relationship="Self.FK_Topic_ToTable" FromRole="Topic" ToRole="Subject" />
@@ -153,7 +154,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Members" Relationship="Self.FK_Table_ToTable" FromRole="Type_Member" ToRole="Member" />
     <NavigationProperty Name="Role_Member" Relationship="Self.FK_Role_Member_Type_Member" FromRole="Type_Member" ToRole="Role_Member" />
   </EntityType>

@@ -1,0 +1,69 @@
+﻿@using Test_Online.Models
+@model Type_Member
+@{
+    ViewBag.Title = "ChooseRole";
+    Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+
+    IEnumerable<Role> lstRole = (IEnumerable<Role>)ViewBag.Role;
+    IEnumerable<Role_Member> lstRoleMember = (IEnumerable<Role_Member>)ViewBag.RoleMember;
+}
+
+<div class="header">
+    <h2>Chọn quyền</h2>
+    <div style="height:1px;background-color:black; margin-top: 10px"></div>
+</div>
+<div style="margin-top: 50px">
+    <h3>Loại thành viên  : @Model.Name</h3>
+</div>
+@using (Html.BeginForm("AcceptRole", "TypeMember_Admin"))
+{
+@Html.Hidden("idTypeMember", Model.Id)
+<div style="margin-top: 30px;" class="container">
+    <div>
+        @if(lstRoleMember == null || lstRoleMember.Count() == 0)
+        {
+            for(int i = 0; i < lstRole.Count() ; i++)
+            {
+                <div class="col-md-12">
+                    <input type="checkbox" name="@Url.Content("[" + i + "].Id")"  value="@lstRole.ElementAt(i).Id"/>
+                    <span style="margin-left: 5%" >@lstRole.ElementAt(i).Name</span>
+                </div>
+            }
+        }
+        else
+        {
+            for (int i = 0; i < lstRole.Count(); i++)
+            {
+                int check = 0;
+                for (int j = 0; j < lstRoleMember.Count(); j++)
+                {
+                    if (lstRole.ElementAt(i).Id == lstRoleMember.ElementAt(j).Role_Id)
+                    {
+                        check++;
+                        break;
+                    }
+                }
+                if (check != 0)
+                {
+                    <div class="col-md-12">
+                        <input type="checkbox" name="@Url.Content("[" + i + "].Id")" value="@lstRole.ElementAt(i).Id" checked="checked" />
+                        <span style="margin-left: 5%">@lstRole.ElementAt(i).Name</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <input type="checkbox" name="@Url.Content("[" + i + "].Id")" value="@lstRole.ElementAt(i).Id" />
+                        <span style="margin-left: 5%">@lstRole.ElementAt(i).Name</span>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <div style="margin-top:15%;">
+        <input type="submit" class="btn btn-default" value="Xác Nhận" />
+    </div>
+</div>
+
+
+}

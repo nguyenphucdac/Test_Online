@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Document_AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MaintainController.cs" />
     <Compile Include="Areas\Admin\Controllers\Home_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Member_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\News_AdminController.cs" />
@@ -490,6 +491,10 @@
     <Content Include="Areas\Admin\Views\News_Admin\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Topic_Admin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Topic_Admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Member_Admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Maintain\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeMember_Admin\ChooseRole.cshtml" />
+    <Content Include="Areas\Admin\Views\Document_Admin\Create.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -518,6 +523,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Error\" />
+    <Folder Include="Content\common\file\" />
     <Folder Include="Views\Acount\" />
   </ItemGroup>
   <ItemGroup>

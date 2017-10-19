@@ -1,0 +1,18 @@
+﻿danh sách mã màu 
+#define NAVI_BG_COLOR rgb(244,165,165)
+#define ORANGE_COLOR rgb(255,166,4)
+#define _PINK_COLOR rgb(231,137,183)
+#define PINK_COLOR rgb(216,32,42)
+#define REDBUTTON rgb(216,32,42)
+#define YELLOW_COLOR RGB(244,151,120)
+#define LITE_YELLOW_COLOR rgb(234,203,14)
+#define GREEN_COLOR rgb(124,217,124)
+#define BLUE_COLOR RGB(147,196,216)
+#define GRAYCOLOR rgb(200,200,200)
+#define WHITE_COLOR [UIColor whiteColor]
+#define BLACK_TEXT_COLOR rgb(69,89,104)
+#define VIBER_COLOR RGB(143,93,183)
+#define SUCCESS_COLOR RGB(236,132,132)
+#define FAIL_COLOR rgb(120,120,120)
+#define BORDER_COLOR rgb(193,193,193)
+#define NAVI_BG_IMAGE [UIImage imageNamed:@"navigation_bg"

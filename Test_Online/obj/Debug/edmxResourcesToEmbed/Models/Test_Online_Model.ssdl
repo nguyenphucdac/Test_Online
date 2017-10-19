@@ -17,7 +17,7 @@
     <Property Name="Member_Id" Type="int" Nullable="false" />
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Image" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Document">
@@ -27,6 +27,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="File" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_by" Type="int" Nullable="false" />
   </EntityType>
@@ -46,8 +47,8 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type_Member_Id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Rank" Type="int" />
   </EntityType>
   <EntityType Name="News">
@@ -55,11 +56,11 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="title" Type="nvarchar" MaxLength="50" />
-    <Property Name="Content" Type="nvarchar(max)" />
-    <Property Name="Image" Type="nvarchar" MaxLength="50" />
-    <Property Name="View" Type="int" />
-    <Property Name="Created_Time" Type="datetime" />
+    <Property Name="title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="View" Type="int" Nullable="false" />
+    <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Question">
@@ -70,7 +71,7 @@
     <Property Name="Subject_Id" Type="int" Nullable="false" />
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Image" Type="nvarchar" MaxLength="50" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
   </EntityType>
@@ -79,7 +80,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Role_Member">
     <Key>
@@ -97,7 +98,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="image" Type="nvarchar" MaxLength="50" />
+    <Property Name="image" Type="nvarchar" MaxLength="100" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_by" Type="int" Nullable="false" />
   </EntityType>
@@ -106,7 +107,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Topic">
     <Key>
@@ -114,14 +115,14 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject_Id" Type="int" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Type_Member">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <Association Name="FK_Comment_ToTable">
     <End Role="Member" Type="Self.Member" Multiplicity="1" />

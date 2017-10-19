@@ -25,6 +25,7 @@
         columns: grid.Columns(
              grid.Column("Id", "Mã loại thành viên"),
              grid.Column("Name", "Tên loại thành viên"),
+             grid.Column(format: p => @Html.ActionLink("Phân quyền", "ChooseRole", "TypeMember_Admin", new { Id = p.Id }, null)),
              grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "TypeMember_Admin", new { Id = p.Id }, null)),
              grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "TypeMember_Admin", new { Id = p.Id }, null))
         )
