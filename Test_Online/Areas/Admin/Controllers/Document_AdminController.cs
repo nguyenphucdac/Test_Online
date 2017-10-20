@@ -76,17 +76,78 @@ namespace Test_Online.Areas.Admin.Controllers
 
         public ActionResult Edit(int Id)
         {
-            return View();
+            try
+            {
+                Document document = db.Documents.SingleOrDefault(n => n.Id == Id);
+                if(document == null)
+                {
+                    return Content("<script>alert('Tài liệu không hợp lệ')</script>");
+                }
+                ViewBag.Topic_Id = new SelectList(db.Topics.OrderBy(n => n.Name), "Id", "Name", document.Topic_Id);
+                return View(document);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
 
-        public ActionResult Update(Document document)
+        public ActionResult Update(Document document, HttpPostedFileBase file, string fileName)
         {
-            return View();
+            try
+            {
+                if(file == null || fileName == Path.GetFileName(file.FileName))
+                {
+                    document.File = fileName;
+                }
+                else
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/common/images"), Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    document.File = file.FileName;
+                }
+                db.Entry(document).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Document_Admin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
 
         public ActionResult Delete(int Id)
         {
-            return View();
+            try
+            {
+                Document document = db.Documents.SingleOrDefault(n => n.Id == Id);
+                if(document == null)
+                {
+                    return Content("<script>alert('Tài liệu không hợp lệ')</script>");
+                }
+                db.Documents.Remove(document);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Document_Admin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult Dowload(int Id)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
     }
 }
