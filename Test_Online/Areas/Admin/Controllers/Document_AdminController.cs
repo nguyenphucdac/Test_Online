@@ -137,11 +137,18 @@ namespace Test_Online.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult Dowload(int Id)
+        public ActionResult Download(int Id)
         {
             try
             {
-                return View();
+                Document document = db.Documents.SingleOrDefault(n => n.Id == Id);
+               
+                var fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/Content/common/file/" + document.File));
+                var fileResult = new FileContentResult(fileBytes, "application/octet-stream")
+                {
+                    FileDownloadName = document.File
+                };
+                return fileResult;
             }
             catch (Exception ex)
             {

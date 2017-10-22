@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Test_Online.Models;
 
 namespace Test_Online.Controllers
 {
     public class PartialController : Controller
     {
-        // GET: Partial
+        Test_Online_DBEntities db = new Test_Online_DBEntities();
+
         public ActionResult Banner()
         {
-            return PartialView();
+            try
+            {
+                var lstSubject = db.Subjects;
+                return PartialView(lstSubject);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Partial / Banner Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
         public ActionResult SlideBar()
         {

@@ -1,4 +1,6 @@
-﻿
+﻿@using Test_Online.Models
+@model IEnumerable<Subject>
+
 <div class="main_section_agile">
     <div class="w3_agile_banner_top" style="background-color: #808080">
         <div class="agile_phone_mail">
@@ -29,28 +31,28 @@
                         <li class="dropdown menu__item">
                             <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Thi thử<b class="caret"></b></a>
                             <ul class="dropdown-menu agile_short_dropdown">
-                                <li><a href="icons.html">Toán</a></li>
-                                <li><a href="typography.html">Lý</a></li>
-                                <li><a href="typography.html">Hóa</a></li>
-                                <li><a href="typography.html">Tiếng anh</a></li>
+                                @for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                                }
                             </ul>
                         </li>
                         <li class="dropdown menu__item">
                             <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Luyện thi<b class="caret"></b></a>
                             <ul class="dropdown-menu agile_short_dropdown">
-                                <li><a href="icons.html">Toán</a></li>
-                                <li><a href="typography.html">Lý</a></li>
-                                <li><a href="typography.html">Hóa</a></li>
-                                <li><a href="typography.html">Tiếng anh</a></li>
+                                @for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                                }
                             </ul>
                         </li>
                         <li class="dropdown menu__item">
                             <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Tài liệu tham khảo<b class="caret"></b></a>
                             <ul class="dropdown-menu agile_short_dropdown">
-                                <li><a href="icons.html">Toán</a></li>
-                                <li><a href="typography.html">Lý</a></li>
-                                <li><a href="typography.html">Hóa</a></li>
-                                <li><a href="typography.html">Tiếng anh</a></li>
+                                @for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                                }
                             </ul>
                         </li>
                         <li class="menu__item menu__item--current">

@@ -2,7 +2,6 @@
 @model IEnumerable<News>
 
 @{
-    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
     ViewBag.Title = "Tin tức";
     Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
 }
@@ -13,28 +12,34 @@
     <a href="@Url.Action("Create", "News_Admin")" class="btn btn-default" style="float:right; margin-top : 10px; margin-right : 10px;">Thêm Mới</a>
 
 </div>
-
 @if (Model != null)
 {
-    @grid.GetHtml(
-        tableStyle: "table",
-        headerStyle: "gridHead",
-        footerStyle: "gridFooter",
-        rowStyle: "gridRow",
-        alternatingRowStyle: "gridAltRow",
-        columns: grid.Columns(
-             grid.Column("Id", "Mã tin"),
-             grid.Column("title", "Tiêu đề"),
-             grid.Column("View", "Lượt xem"),
-             grid.Column("Created_time", "Ngày tạo"),
-             grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "News_Admin", new { Id = p.Id }, null)),
-             grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "News_Admin", new { Id = p.Id }, null))
-        )
-    )
-}
-else
-{
-
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Mã tin</th>
+                <th>Tiêu đề </th>
+                <th>Ngày đăng </th>
+                <th>Lượt xem</th>
+                <th>Người đăng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@Model.ElementAt(i).Id</td>
+                    <td style="font-size:10px">@Html.Raw(Model.ElementAt(i).title)</td>
+                    <td>@Model.ElementAt(i).Created_Time</td>
+                    <td>@Model.ElementAt(i).View</td>
+                    <td>@Model.ElementAt(i).Member.Name</td>
+                    
+                    <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
+                    <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 <style>
     .gridFooter {

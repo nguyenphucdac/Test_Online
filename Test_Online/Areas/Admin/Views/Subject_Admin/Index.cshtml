@@ -2,7 +2,6 @@
 @model IEnumerable<Subject>
 
 @{
-    WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
     ViewBag.Title = "Môn học";
     Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
 }
@@ -16,23 +15,26 @@
 
 @if (Model != null)
 {
-    @grid.GetHtml(
-        tableStyle: "table",
-        headerStyle: "gridHead",
-        footerStyle: "gridFooter",
-        rowStyle: "gridRow",
-        alternatingRowStyle: "gridAltRow",
-        columns: grid.Columns(
-             grid.Column("Id", "Mã Môn Học"),
-             grid.Column("Name", "Tên Môn Học"),
-             grid.Column(format: p => @Html.ActionLink("Sửa", "Edit", "Subject_Admin", new { Id = p.Id }, null)),
-             grid.Column(format: p => @Html.ActionLink("Xóa", "Delete", "Subject_Admin", new { Id = p.Id }, null))
-        )
-    )
-}
-else
-{
-
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Mã môn học</th>
+                <th>Tên </th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@Model.ElementAt(i).Id</td>
+                    <td>@Model.ElementAt(i).Name</td>
+                    <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
+                    <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 <style>
     .gridFooter {
