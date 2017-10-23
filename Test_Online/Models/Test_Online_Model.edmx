@@ -54,7 +54,8 @@
           <Property Name="Type_Member_Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Rank" Type="int" />
+          <Property Name="Rank" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -296,9 +297,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Table_ToTable">
-          <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1" />
           <End Role="Member" Type="Self.Member" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Type_Member">
@@ -490,7 +489,7 @@
           <Property Name="Type_Member_Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Rank" Type="Int32" />
+          <Property Name="Rank" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ToTable" FromRole="Member" ToRole="Comment" />
           <NavigationProperty Name="Histories" Relationship="Self.FK_Table_ToTable12" FromRole="Member" ToRole="History" />
           <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_2" FromRole="Member" ToRole="Question" />
@@ -498,6 +497,7 @@
           <NavigationProperty Name="Documents" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Member" ToRole="Document" />
           <NavigationProperty Name="News" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="Member" ToRole="News" />
           <NavigationProperty Name="Solutions" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Member" ToRole="Solution" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -946,6 +946,7 @@
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="Test_Online_DBModel.Member">
               <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type_Member_Id" ColumnName="Type_Member_Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

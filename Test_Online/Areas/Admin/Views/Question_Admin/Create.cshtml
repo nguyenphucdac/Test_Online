@@ -1,0 +1,93 @@
+﻿@model Test_Online.Models.Question
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Save", "Question", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Question</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <span class="control-label col-md-2">Subject</span>
+            <div class="col-md-5">
+               @Html.DropDownList("Subject_Id", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+           <span class="control-label col-md-2">Topic</span>
+            <div class="col-md-5">
+                @Html.DropDownList("Topic_id", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                <input type="text" name="Title" class="textarea" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Solution</span>
+            <div class="col-md-8">
+                <input type="text" name="Solution" class="textarea" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">answer 1</span>
+            <div class="col-md-5">
+                <input name="answer1" class="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">answer 2</span>
+            <div class="col-md-5">
+                <input name="answer2" class="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">answer 3</span>
+            <div class="col-md-10">
+                <input name="answer3" class="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">answer 4</span>
+            <div class="col-md-5">
+                <input name="answer4" class="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $("#date").datepicker();
+    });
+    tinymce.init({
+        selector: ".textarea",
+        paste_data_images: true,
+        images_upload_url: '/Question_Admin/UploadImageToTiny',
+        images_upload_base_path: '~/Content/common/images',
+        file_browser_callback_types: 'file image media',
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste",
+            "insertdatetime media table contextmenu paste imagetools"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+</script>

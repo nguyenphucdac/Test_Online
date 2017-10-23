@@ -12,5 +12,9 @@ namespace Test_Online.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult NotFound()
+        {
+            return View();
+        }
     }
 }

@@ -24,6 +24,27 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
+        public ActionResult SignIn()
+        {
+            return PartialView();
+        }
+        public ActionResult Menu()
+        {
+            try
+            {
+                var lstSubject = db.Subjects;
+                return PartialView(lstSubject);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Partial / Banner Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult BannerBottom()
+        {
+            return PartialView();
+        }
         public ActionResult SlideBar()
         {
             return PartialView();

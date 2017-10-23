@@ -496,10 +496,14 @@
     <Content Include="Areas\Admin\Views\TypeMember_Admin\ChooseRole.cshtml" />
     <Content Include="Areas\Admin\Views\Document_Admin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Document_Admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Question_Admin\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Maintain\NotFound.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -521,12 +525,15 @@
     <Content Include="Views\Partial\SlideBar.cshtml" />
     <Content Include="Views\Partial\Footer.cshtml" />
     <Content Include="Areas\Admin\Views\Layout\admin\Admin_Layout.cshtml" />
+    <Content Include="Views\Partial\Menu.cshtml" />
+    <Content Include="Views\Acount\SignUp.cshtml" />
+    <Content Include="Views\Partial\BannerBottom.cshtml" />
+    <Content Include="Views\Acount\ChangeInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Error\" />
     <Folder Include="Content\common\file\" />
-    <Folder Include="Views\Acount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

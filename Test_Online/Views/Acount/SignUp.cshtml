@@ -1,0 +1,76 @@
+﻿@model Test_Online.Models.Member
+
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+}
+@using (Ajax.BeginForm("Save", "Acount",  new AjaxOptions { InsertionMode = InsertionMode.Replace , UpdateTargetId = "checkName"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <h4 class="control-label col-md-2">SignUp</h4>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                <span id="checkName"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" onclick="openPopupAlert()" data-toggle="modal" data-target="#myModal" />
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="signin-form profile">
+                    <h3 class="agileinfo_sign">Thông báo</h3>
+
+                    <span id="content-alert"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function openPopupAlert() {
+        $.ajax({
+            Cache: false,
+            type: "POST",
+            contentType: "application/json; charsett = utf-8",
+            dataType: 'json',
+            url: "/Acount/Save",
+            data: param,
+            success: function (data) {
+                $("#content-alert").html(data);
+            }
+        });
+    }
+</script>

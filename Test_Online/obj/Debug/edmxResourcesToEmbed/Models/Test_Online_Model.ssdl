@@ -49,7 +49,8 @@
     <Property Name="Type_Member_Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="Rank" Type="int" />
+    <Property Name="Rank" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -291,9 +292,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Table_ToTable">
-    <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+    <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1" />
     <End Role="Member" Type="Self.Member" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Type_Member">

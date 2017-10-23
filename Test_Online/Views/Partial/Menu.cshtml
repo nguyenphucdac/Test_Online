@@ -1,0 +1,60 @@
+﻿@using Test_Online.Models
+@model IEnumerable<Subject>
+
+<div class="agileits_w3layouts_banner_nav" style="height: 40px">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header navbar-left">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <h1><a class="navbar-brand" href="@Url.Action("Index","Home")"><i>T</i><span>est Online</span></a></h1>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+            <nav class="menu--iris">
+                <ul class="nav navbar-nav menu__list">
+                    <li class="menu__item menu__item--current"><a href="@Url.Action("Index","Home")" class="menu__link">Trang chủ</a></li>
+                    <li class="dropdown menu__item">
+                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Thi thử<b class="caret"></b></a>
+                        <ul class="dropdown-menu agile_short_dropdown">
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown menu__item">
+                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Luyện thi<b class="caret"></b></a>
+                        <ul class="dropdown-menu agile_short_dropdown">
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown menu__item">
+                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown">Tài liệu tham khảo<b class="caret"></b></a>
+                        <ul class="dropdown-menu agile_short_dropdown">
+                            @for (int i = 0; i < Model.Count(); i++)
+                            {
+                                <li><a href="typography.html">@Model.ElementAt(i).Name</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="menu__item menu__item--current">
+                        <form action="#" method="post">
+                            <input class="btn-default btn" type="search" name="Search" placeholder="Tìm kiếm" required="">
+                            <button id="btnsearch" type="submit" class="btn-default btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </form>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+    </nav>
+</div>
+
+<hr />

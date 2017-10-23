@@ -28,7 +28,8 @@ namespace Test_Online.Models
         public int Type_Member_Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public Nullable<int> Rank { get; set; }
+        public int Rank { get; set; }
+        public string Password { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<History> Histories { get; set; }
