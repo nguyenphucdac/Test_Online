@@ -8,6 +8,7 @@ using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "7")]
     public class Document_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
@@ -59,8 +60,16 @@ namespace Test_Online.Areas.Admin.Controllers
                     }
                 }
 
+                Member member = (Member)Session["member"];
+
+                if (member == null)
+                {
+                    return RedirectToAction("Index", "Maintain");
+                }
+
                 document.Created_Time = DateTime.Now;
-                document.Created_by = 1;
+                document.Created_by = member.Id;
+
                 db.Documents.Add(document);
                 db.SaveChanges();
 

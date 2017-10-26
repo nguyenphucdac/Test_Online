@@ -7,6 +7,7 @@ using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "2")]
     public class News_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
@@ -50,9 +51,16 @@ namespace Test_Online.Areas.Admin.Controllers
                     }
                 }
 
+                Member member = (Member)Session["member"];
+
+                if(member == null)
+                {
+                    return RedirectToAction("Index", "Maintain");
+                }
+
                 news.View = 0;
                 news.Created_Time = DateTime.Now;
-                news.Created_By = 1;
+                news.Created_By = member.Id;
 
                 db.News.Add(news);
                 db.SaveChanges();

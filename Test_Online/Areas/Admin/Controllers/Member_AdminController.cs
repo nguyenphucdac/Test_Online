@@ -7,6 +7,7 @@ using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "8")]
     public class Member_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
