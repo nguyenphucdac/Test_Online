@@ -11,11 +11,14 @@ namespace Test_Online.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class News
     {
         public int Id { get; set; }
+        [AllowHtml]
         public string title { get; set; }
+        [AllowHtml]
         public string Content { get; set; }
         public string Image { get; set; }
         public int View { get; set; }

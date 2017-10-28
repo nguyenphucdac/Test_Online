@@ -53,11 +53,6 @@ namespace Test_Online.Areas.Admin.Controllers
 
                 Member member = (Member)Session["member"];
 
-                if(member == null)
-                {
-                    return RedirectToAction("Index", "Maintain");
-                }
-
                 news.View = 0;
                 news.Created_Time = DateTime.Now;
                 news.Created_By = member.Id;

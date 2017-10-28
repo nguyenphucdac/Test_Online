@@ -11,11 +11,14 @@ namespace Test_Online.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Answer
     {
         public int Id { get; set; }
         public int Question_Id { get; set; }
+
+        [AllowHtml]
         public string Content { get; set; }
         public bool IsTrue { get; set; }
     

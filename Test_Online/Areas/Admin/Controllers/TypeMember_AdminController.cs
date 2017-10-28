@@ -6,6 +6,7 @@ using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "6")]
     public class TypeMember_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
@@ -131,9 +132,8 @@ namespace Test_Online.Areas.Admin.Controllers
 
                 if (lstRoleOld != null)
                 {
-                    foreach (var item in lstRoleMember)
+                    foreach (var item in lstRoleOld)
                     {
-                        item.Type_Member_Id = idTypeMember;
                         db.Role_Member.Remove(item);
                     }
                 }
@@ -144,8 +144,8 @@ namespace Test_Online.Areas.Admin.Controllers
                         item.Type_Member_Id = idTypeMember;
                         db.Role_Member.Add(item);
                     }
-                    db.SaveChanges();
                 }
+                db.SaveChanges();
                 return RedirectToAction("Index", "TypeMember_Admin");
             }
             catch (Exception ex)

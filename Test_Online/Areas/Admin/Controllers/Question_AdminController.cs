@@ -7,6 +7,7 @@ using Test_Online.Models;
 
 namespace Test_Online.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "4")]
     public class Question_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
@@ -38,25 +39,211 @@ namespace Test_Online.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Question");
             }
         }
-
-        public ActionResult Save(Question question)
+        [ValidateInput(false)]
+        [HttpPost]
+        public ActionResult Save(Question question, string solution, string an1, string an2, string an3, string an4, string isTrue)
         {
-            return View();
+            try
+            {
+                //insert question to db
+                question.Created_By = ((Member) Session["member"]).Id;
+                question.Created_Time = DateTime.Now;
+                db.Questions.Add(question);
+                db.SaveChanges();
+
+                Question lastQuestion = db.Questions.SingleOrDefault(n => n.Title == question.Title && n.Topic_Id == question.Topic_Id && n.Subject_Id == question.Subject_Id);
+
+                // init and insert solution of question above
+                Solution solutionDB = new Solution();
+                solutionDB.Content = solution;
+                solutionDB.Question_Id = lastQuestion.Id;
+                solutionDB.Created_by = ((Member)Session["member"]).Id;
+                solutionDB.Created_Time = DateTime.Now;
+                db.Solutions.Add(solutionDB);
+                db.SaveChanges();
+
+                //init and insert answer1 
+
+                Answer answer1 = new Answer();
+                answer1.Question_Id = lastQuestion.Id;
+                answer1.Content = an1;
+
+                Answer answer2 = new Answer();
+                answer2.Question_Id = lastQuestion.Id;
+                answer2.Content = an2;
+
+                Answer answer3 = new Answer();
+                answer3.Question_Id = lastQuestion.Id;
+                answer3.Content = an3;
+
+                Answer answer4 = new Answer();
+                answer4.Question_Id = lastQuestion.Id;
+                answer4.Content = an1;
+
+               if(isTrue == "1")
+                {
+                    answer1.IsTrue = true;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = false;
+                }
+               else if(isTrue == "2")
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = true;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = false;
+                }
+               else if(isTrue == "3")
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = true;
+                    answer4.IsTrue = false;
+                }
+                else
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = true;
+                }
+
+                db.Answers.Add(answer1);
+                db.Answers.Add(answer2);
+                db.Answers.Add(answer3);
+                db.Answers.Add(answer4);
+
+                db.SaveChanges();
+                return RedirectToAction("Index", "Question_Admin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Question / Index Error is " + ex);
+                return RedirectToAction("Index", "Question");
+            }
         }
 
         public ActionResult Edit(int Id)
         {
-            return View();
+            try
+            {
+                Question question = db.Questions.SingleOrDefault(n => n.Id == Id);
+                ViewBag.Subject_Id = new SelectList(db.Subjects.OrderBy(n => n.Name), "Id", "Name", question.Subject_Id);
+                ViewBag.Topic_Id = new SelectList(db.Topics.OrderBy(n => n.Name), "Id", "Name", question.Topic_Id);
+
+                Solution solution = db.Solutions.SingleOrDefault(n => n.Question_Id == Id);
+                ViewBag.solution = solution;
+
+                ViewBag.lstAnswer = db.Answers.Where(n => n.Question_Id == Id);
+                
+                return View(question);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Question / Index Error is " + ex);
+                return RedirectToAction("Index", "Question");
+            }
         }
 
-        public ActionResult Update(Question question)
+        public ActionResult Update(Question question, string solution, string an1, string an2, string an3, string an4, string isTrue)
         {
-            return View();
+
+            try
+            {
+                // update question
+                db.Entry(question).State = System.Data.EntityState.Modified;
+
+                // update solution
+                Solution solutionDB = db.Solutions.SingleOrDefault(n => n.Question_Id == question.Id);
+                solutionDB.Content = solution;
+                db.Entry(solutionDB).State = System.Data.EntityState.Modified;
+
+                //update answer
+                var lstAnswer = db.Answers.Where(n => n.Question_Id == question.Id).OrderBy(n => n.Id);
+
+                Answer answer1 = lstAnswer.ElementAt(0);
+                answer1.Content = an1;
+
+                Answer answer2 = lstAnswer.ElementAt(1);
+                answer2.Content = an2;
+
+                Answer answer3 = lstAnswer.ElementAt(2);
+                answer3.Content = an3;
+
+                Answer answer4 = lstAnswer.ElementAt(3);
+                answer4.Content = an4;
+
+
+                if (isTrue == "1")
+                {
+                    answer1.IsTrue = true;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = false;
+                }
+                else if (isTrue == "2")
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = true;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = false;
+                }
+                else if (isTrue == "3")
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = true;
+                    answer4.IsTrue = false;
+                }
+                else
+                {
+                    answer1.IsTrue = false;
+                    answer2.IsTrue = false;
+                    answer3.IsTrue = false;
+                    answer4.IsTrue = true;
+                }
+
+                db.Entry(answer1).State = System.Data.EntityState.Modified;
+                db.Entry(answer2).State = System.Data.EntityState.Modified;
+                db.Entry(answer3).State = System.Data.EntityState.Modified;
+                db.Entry(answer4).State = System.Data.EntityState.Modified;
+
+                db.SaveChanges();
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Question / Index Error is " + ex);
+                return RedirectToAction("Index", "Question");
+            }
         }
 
         public ActionResult Delete(int Id)
         {
-            return View();
+            try
+            {
+                Question question = db.Questions.SingleOrDefault(n => n.Id == Id);
+                db.Questions.Remove(question);
+                Solution solution = db.Solutions.SingleOrDefault(n => n.Question_Id == Id);
+                db.Solutions.Remove(solution);
+
+                var lstanswer = db.Answers.Where(n => n.Question_Id == Id);
+                for(int i = 0; i < lstanswer.Count(); i++)
+                {
+                    Answer answer = lstanswer.ElementAt(i);
+                    db.Answers.Remove(answer);
+
+                }
+
+                return RedirectToAction("Index", "Question_Admin");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" Question / Index Error is " + ex);
+                return RedirectToAction("Index", "Question");
+            }
         }
         public ActionResult UploadImageToTiny(HttpPostedFileBase file)
         {

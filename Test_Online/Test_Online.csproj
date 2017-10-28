@@ -499,6 +499,7 @@
     <Content Include="Areas\Admin\Views\Question_Admin\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Maintain\NotFound.cshtml" />
     <Content Include="Areas\Admin\Views\Maintain\ErrorRole.cshtml" />
+    <Content Include="Areas\Admin\Views\Question_Admin\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

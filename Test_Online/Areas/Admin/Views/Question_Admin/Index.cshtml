@@ -34,8 +34,8 @@
                     <td>@Model.ElementAt(i).Id</td>
                     <td>@Model.ElementAt(i).Subject.Name</td>
                     <td>@Model.ElementAt(i).Topic.Name</td>
-                    <td>@Model.ElementAt(i).Title</td>
-                    <td>@Model.ElementAt(i).Created_Time</td>
+                    <td>@Html.Raw(Model.ElementAt(i).Title)</td>
+                    @*<td>@Model.ElementAt(i).Created_Time</td>*@
                     <td>@Model.ElementAt(i).Member.Name</td>
                     <td>@Html.ActionLink("chi tiết", "Detail", new { @Id = @Model.ElementAt(i).Id })</td>
                     <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
