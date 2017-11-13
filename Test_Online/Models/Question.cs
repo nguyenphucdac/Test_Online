@@ -11,8 +11,7 @@ namespace Test_Online.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-
+    
     public partial class Question
     {
         public Question()
@@ -21,13 +20,13 @@ namespace Test_Online.Models
             this.Comments = new HashSet<Comment>();
             this.Histories = new HashSet<History>();
             this.Solutions = new HashSet<Solution>();
+            this.Rate_Document = new HashSet<Rate_Document>();
+            this.Rate_Question = new HashSet<Rate_Question>();
         }
     
         public int Id { get; set; }
         public int Subject_Id { get; set; }
         public int Topic_Id { get; set; }
-
-        [AllowHtml]
         public string Title { get; set; }
         public string Image { get; set; }
         public int Created_By { get; set; }
@@ -40,5 +39,7 @@ namespace Test_Online.Models
         public virtual Subject Subject { get; set; }
         public virtual Topic Topic { get; set; }
         public virtual ICollection<Solution> Solutions { get; set; }
+        public virtual ICollection<Rate_Document> Rate_Document { get; set; }
+        public virtual ICollection<Rate_Question> Rate_Question { get; set; }
     }
 }

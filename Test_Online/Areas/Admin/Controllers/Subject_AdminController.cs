@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Test_Online.Models;
 
@@ -27,7 +29,7 @@ namespace Test_Online.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult Save(Subject subject)
+        public ActionResult Save(Subject subject, HttpPostedFileBase image)
         {
             try
             {
@@ -35,6 +37,22 @@ namespace Test_Online.Areas.Admin.Controllers
                 {
                     return Content("<script>alert('Môn học không hợp lệ !!!')</script>");
                 }
+                if (image != null && image.ContentLength > 0)
+                {
+                    var imageName = Path.GetFileName(image.FileName);
+                    var imagePath = Path.Combine(Server.MapPath("~/Content/common/images"), imageName);
+
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        subject.Image = image.FileName;
+                    }
+                    else
+                    {
+                        image.SaveAs(imagePath);
+                        subject.Image = image.FileName;
+                    }
+                }
+              
                 db.Subjects.Add(subject);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Subject_Admin");
@@ -66,13 +84,23 @@ namespace Test_Online.Areas.Admin.Controllers
           
         }
 
-        public ActionResult Update(Subject subject)
+        public ActionResult Update(Subject subject, HttpPostedFileBase image, string imageName)
         {
             try
             {
                 if (subject == null)
                 {
                     return Content("<script>alert('Môn học không hợp lệ !!!')</script>");
+                }
+                if (image == null || imageName == Path.GetFileName(image.FileName))
+                {
+                    subject.Image = imageName;
+                }
+                else
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/common/images"), Path.GetFileName(image.FileName));
+                    image.SaveAs(path);
+                    subject.Image = image.FileName;
                 }
                 db.Entry(subject).State = System.Data.EntityState.Modified;
                 db.SaveChanges();

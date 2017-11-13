@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question_Id" Type="int" Nullable="false" />
-    <Property Name="Content" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IsTrue" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Comment">
@@ -76,6 +76,24 @@
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Rate_Document">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Document_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="int" Nullable="false" />
+    <Property Name="Document_Id" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rate_Question">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Question_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="int" Nullable="false" />
+    <Property Name="Question_Id" Type="int" Nullable="false" />
+    <Property Name="Rate" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="Id" />
@@ -100,6 +118,7 @@
     <Property Name="Question_Id" Type="int" Nullable="false" />
     <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="image" Type="nvarchar" MaxLength="100" />
+    <Property Name="Rate" Type="int" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_by" Type="int" Nullable="false" />
   </EntityType>
@@ -109,6 +128,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Topic">
     <Key>
@@ -117,6 +137,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Subject_Id" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="Percen" Type="float" />
   </EntityType>
   <EntityType Name="Type_Member">
     <Key>
@@ -224,6 +246,54 @@
       </Principal>
       <Dependent Role="Question">
         <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Document_Document">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Rate_Document" Type="Self.Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Document_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Rate_Document" Type="Self.Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Question">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Rate_Question" Type="Self.Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Question_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -349,6 +419,8 @@
     <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rate_Document" EntityType="Self.Rate_Document" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rate_Question" EntityType="Self.Rate_Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role_Member" EntityType="Self.Role_Member" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Solution" EntityType="Self.Solution" Schema="dbo" store:Type="Tables" />
@@ -386,6 +458,22 @@
     <AssociationSet Name="FK_Question_ToTable_2" Association="Self.FK_Question_ToTable_2">
       <End Role="Member" EntitySet="Member" />
       <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Document_Document" Association="Self.FK_Rate_Document_Document">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Document_Member" Association="Self.FK_Rate_Document_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Member" Association="Self.FK_Rate_Question_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Question" Association="Self.FK_Rate_Question_Question">
+      <End Role="Question" EntitySet="Question" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
     </AssociationSet>
     <AssociationSet Name="FK_Role_Member_ToTable_1" Association="Self.FK_Role_Member_ToTable_1">
       <End Role="Role" EntitySet="Role" />

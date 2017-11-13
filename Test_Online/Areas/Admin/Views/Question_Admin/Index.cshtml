@@ -22,7 +22,7 @@
                 <th>Môn học </th>
                 <th>Chủ đề</th>
                 <th>Tiêu đề</th>
-                <th>Ngày tạo</th>
+                @*<th>Ngày tạo</th>*@
                 <th>Người tạo</th>
 
             </tr>
@@ -34,7 +34,7 @@
                     <td>@Model.ElementAt(i).Id</td>
                     <td>@Model.ElementAt(i).Subject.Name</td>
                     <td>@Model.ElementAt(i).Topic.Name</td>
-                    <td>@Html.Raw(Model.ElementAt(i).Title)</td>
+                    <td style="color:black">@Html.Raw(Model.ElementAt(i).Title)</td>
                     @*<td>@Model.ElementAt(i).Created_Time</td>*@
                     <td>@Model.ElementAt(i).Member.Name</td>
                     <td>@Html.ActionLink("chi tiết", "Detail", new { @Id = @Model.ElementAt(i).Id })</td>

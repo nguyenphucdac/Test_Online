@@ -11,18 +11,16 @@ namespace Test_Online.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-
+    
     public partial class Solution
     {
         public int Id { get; set; }
         public int Question_Id { get; set; }
-
-        [AllowHtml]
         public string Content { get; set; }
         public string image { get; set; }
         public System.DateTime Created_Time { get; set; }
         public int Created_by { get; set; }
+        public Nullable<int> Rate { get; set; }
     
         public virtual Question Question { get; set; }
         public virtual Member Member { get; set; }

@@ -7,7 +7,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Update", "Topic_Admin"))
+@using (Html.BeginForm("Update", "Topic_Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -16,6 +16,8 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.Hidden("imageName", Model.Image)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
@@ -30,7 +32,13 @@
                 @Html.ValidationMessageFor(model => model.Id)
             </div>
         </div>
-
+        <div class="form-group">
+            <span class="control-label col-md-2">Ảnh</span>
+            <div class="col-md-5">
+                <input type="file" name="image" />
+                <img src="~/Content/common/images/@Model.Image" height="100" width="100" />
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

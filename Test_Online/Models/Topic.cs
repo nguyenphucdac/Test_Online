@@ -23,6 +23,8 @@ namespace Test_Online.Models
         public int Id { get; set; }
         public int Subject_Id { get; set; }
         public string Name { get; set; }
+        public string Image { get; set; }
+        public Nullable<double> Percen { get; set; }
     
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Question> Questions { get; set; }

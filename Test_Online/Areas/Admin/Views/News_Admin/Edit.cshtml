@@ -21,21 +21,21 @@
         @Html.Hidden("imageName", Model.Image)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
+           <span class = "control-label col-md-2">Tiêu đề</span>
+            <div class="col-md-8">
                 <input type="text" class="textarea form-control" name="title" value="@Model.title" />
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2">Nội dung</span>
             <div class="col-md-8">
                 <input type="text" class="textarea form-control" name="Content" value="@Model.Content" />
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2">Ảnh</span>
             <div class="col-md-5">
                 <input type="file" name="image" />
                 <img src="~/Content/common/images/@Model.Image" height="100" width="100" />

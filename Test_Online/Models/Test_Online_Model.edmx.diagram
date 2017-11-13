@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5de60d39cb2f4b1cb2a9cc2906a6313d" Name="Diagram1">
-        <EntityTypeShape EntityType="Test_Online_DBModel.Answer" Width="1.5" PointX="10.375" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Answer" Width="1.5" PointX="8.875" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Comment" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Document" Width="1.5" PointX="10.625" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.History" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Test_Online_DBModel.Member" Width="1.5" PointX="2.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Member" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.News" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Question" Width="1.5" PointX="7.875" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Role" Width="1.5" PointX="3.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Test_Online_DBModel.Role_Member" Width="1.5" PointX="1" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Test_Online_DBModel.Solution" Width="1.5" PointX="5.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Role_Member" Width="1.5" PointX="0.625" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Solution" Width="1.5" PointX="5.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Subject" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Test_Online_DBModel.Topic" Width="1.5" PointX="10.625" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Topic" Width="1.5" PointX="9.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Test_Online_DBModel.Type_Member" Width="1.5" PointX="0.5" PointY="3.25" IsExpanded="true" />
         <AssociationConnector Association="Test_Online_DBModel.FK_Solution_ToTable12" ManuallyRouted="false" />
         <AssociationConnector Association="Test_Online_DBModel.FK_Comment_ToTable" ManuallyRouted="false" />
@@ -35,6 +35,12 @@
         <AssociationConnector Association="Test_Online_DBModel.FK_Document_ToTable_1" />
         <AssociationConnector Association="Test_Online_DBModel.FK_News_ToTable" />
         <AssociationConnector Association="Test_Online_DBModel.FK_Solution_ToTable_1" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Rate_Document" Width="1.5" PointX="10.75" PointY="5.375" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Rate_Question" Width="1.5" PointX="7.125" PointY="5.5" />
+        <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Document_Member" />
+        <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Question_Member" />
+        <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Document_Document" />
+        <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Question_Question" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

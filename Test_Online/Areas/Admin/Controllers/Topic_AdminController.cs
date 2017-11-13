@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,14 +40,26 @@ namespace Test_Online.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Save(Topic topic)
+        public ActionResult Save(Topic topic, HttpPostedFileBase image)
         {
             try
             {
-                if (topic == null)
+                if (image != null && image.ContentLength > 0)
                 {
-                    return Content("<script>alert('Chủ đề không hợp lệ !!!')</script>");
+                    var imageName = Path.GetFileName(image.FileName);
+                    var imagePath = Path.Combine(Server.MapPath("~/Content/common/images"), imageName);
+
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        topic.Image = image.FileName;
+                    }
+                    else
+                    {
+                        image.SaveAs(imagePath);
+                        topic.Image = image.FileName;
+                    }
                 }
+
                 db.Topics.Add(topic);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Topic_Admin");
@@ -78,13 +91,19 @@ namespace Test_Online.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Update(Topic topic)
+        public ActionResult Update(Topic topic, HttpPostedFileBase image, string imageName)
         {
             try
             {
-                if (topic == null)
+                if (image == null || imageName == Path.GetFileName(image.FileName))
                 {
-                    return Content("<script>alert('Chủ đề không hợp lệ !!!')</script>");
+                    topic.Image = imageName;
+                }
+                else
+                {
+                    var path = Path.Combine(Server.MapPath("~/Content/common/images"), Path.GetFileName(image.FileName));
+                    image.SaveAs(path);
+                    topic.Image = image.FileName;
                 }
                 db.Entry(topic).State = System.Data.EntityState.Modified;
                 db.SaveChanges();

@@ -160,6 +160,7 @@
     <Compile Include="Areas\Admin\Controllers\Topic_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeMember_AdminController.cs" />
     <Compile Include="Controllers\AcountController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartialController.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +185,12 @@
       <DependentUpon>Test_Online_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
+      <DependentUpon>Test_Online_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate_Document.cs">
+      <DependentUpon>Test_Online_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Rate_Question.cs">
       <DependentUpon>Test_Online_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
@@ -532,6 +539,8 @@
     <Content Include="Views\Partial\BannerBottom.cshtml" />
     <Content Include="Views\Acount\ChangeInfo.cshtml" />
     <Content Include="Views\Acount\ViewProfile.cshtml" />
+    <Content Include="Views\Exam\Index.cshtml" />
+    <Content Include="Views\Exam\ToTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

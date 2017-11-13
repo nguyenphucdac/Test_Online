@@ -60,7 +60,7 @@ namespace Test_Online.Areas.Admin.Controllers
                 solutionDB.Created_by = ((Member)Session["member"]).Id;
                 solutionDB.Created_Time = DateTime.Now;
                 db.Solutions.Add(solutionDB);
-                db.SaveChanges();
+               
 
                 //init and insert answer1 
 

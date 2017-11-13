@@ -8,13 +8,14 @@
     IEnumerable<Topic> lstTopicMath = ViewBag.lstTopicMath;
     IEnumerable<Topic> lstTopicPhysical = ViewBag.lstTopicPhysical;
     IEnumerable<Topic> lstTopicChemistry = ViewBag.lstTopicChemistry;
+    IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
 
 }
 
 <div class="banner-bottom">
     <div class="container">
-        <div style="height: 30px; background-color:#fcfcfc;">
-            <span style="color:darkslateblue; font-size: 25px">Tin tức giáo dục</span>
+        <div style="height: 30px; background-color:#ede7e7;">
+            <span style="color:darkslateblue; font-size: 25px; font-weight:bold">Tin tức giáo dục</span>
         </div>
         <div class="agileits_banner_bottom_grids">
             
@@ -22,7 +23,9 @@
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" "   />
+                        <div class="hovereffect w3ls_banner_bottom_grid">
+                            <img height="150" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " />
+                        </div>
 
                     </div>
                     <div class="w3-agile-post-info">
@@ -30,7 +33,7 @@
                             <span style="font-size: 12px; font-style:italic; color:darkslateblue">By admin</span>
                             <span style="font-size: 12px; font-style:italic; color:#ef5050">@lstNews.ElementAt(i).Created_Time</span>
                         </div>
-                        <div style="font-size: 14px">
+                        <div style="font-size: 11px;font-weight: bold">
                             @Html.Raw(lstNews.ElementAt(i).title)
                         </div>
                     </div>
@@ -40,9 +43,31 @@
             <div class="clearfix"> </div>
         </div>
 
+        <div style="height: 30px; background-color:#ede7e7;">
+            <span style="color:darkslateblue; font-size: 25px;font-weight:bold">Thư viện đề thi</span>
+        </div>
+
+        <div class="agileits_banner_bottom_grids">
+            @for (int i = 0; i < lstSubject.Count(); i++)
+            {
+                <div class="col-md-3 agileits_banner_bottom_grid">
+                    <div class="hovereffect w3ls_banner_bottom_grid">
+                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstSubject.ElementAt(i).Image)" alt=" " />
+                    </div>
+                    <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
+                        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = lstSubject.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstSubject.ElementAt(i).Name</a>
+
+                    </div>
+                </div>
+            }
+
+
+            <div class="clearfix"> </div>
+        </div>
+
         
-        <div style="height: 30px; background-color:#fcfcfc;">
-            <span style="color:darkslateblue; font-size: 25px">Ôn tập các chủ đề</span>
+        <div style="height: 30px; background-color:#ede7e7;">
+            <span style="color:darkslateblue; font-size: 25px;font-weight:bold">Ôn tập các chủ đề</span>
         </div>
        
         <div class="agileits_banner_bottom_grids">
@@ -50,10 +75,10 @@
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img src="~/Content/web/images/3.jpg" alt=" " class="img-responsive" />
+                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicMath.ElementAt(i).Image)" alt=" " />
                     </div>
                     <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black;">@lstTopicMath.ElementAt(i).Name</a>
+                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicMath.ElementAt(i).Name</a>
                        
                     </div>
                 </div>
@@ -69,10 +94,10 @@
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img src="~/Content/web/images/3.jpg" alt=" " class="img-responsive" />
+                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicPhysical.ElementAt(i).Image)" alt=" " />
                     </div>
                     <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black;">@lstTopicPhysical.ElementAt(i).Name</a>
+                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicPhysical.ElementAt(i).Name</a>
 
                     </div>
                 </div>
@@ -88,10 +113,10 @@
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img src="~/Content/web/images/3.jpg" alt=" " class="img-responsive" />
+                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicChemistry.ElementAt(i).Image)" alt=" " />
                     </div>
                     <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black;">@lstTopicChemistry.ElementAt(i).Name</a>
+                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicChemistry.ElementAt(i).Name</a>
 
                     </div>
                 </div>
@@ -101,59 +126,7 @@
             <div class="clearfix"> </div>
         </div>
 
-
-        @*<h4 class="w3l_header w3_agileits_header" style="margin : 40px">Thành viên tiêu biểu</h4>
-        <div class="agileits_banner_bottom_grids">
-            <div class="col-md-3 agileits_banner_bottom_grid">
-                <div class="hovereffect w3ls_banner_bottom_grid">
-                    <img src="~/Content/web/images/1.jpg" alt=" " class="img-responsive" />
-                </div>
-                <div class="w3-agile-post-info">
-                    <h4><a href="#">Quisque a rhoncus</a></h4>
-                    <span style="font-size: 10px; font-style:italic; color:darkslateblue">By admin</span>
-                    <span style="font-size: 10px; font-style:italic; color:#ef5050">25-10-2017</span>
-                    <p>Suspendisse in nisl at ipsum molestie dignissim.</p>
-                </div>
-            </div>
-            <div class="col-md-3 agileits_banner_bottom_grid">
-                <div class="hovereffect w3ls_banner_bottom_grid">
-                    <img src="~/Content/web/images/2.jpg" alt=" " class="img-responsive" />
-                </div>
-                <div class="w3-agile-post-info">
-                    <h4><a href="#">Quisque a rhoncus</a></h4>
-                    <span style="font-size: 10px; font-style:italic; color:darkslateblue">By admin</span>
-                    <span style="font-size: 10px; font-style:italic; color:#ef5050">25-10-2017</span>
-                    <p>Suspendisse in nisl at ipsum molestie dignissim.</p>
-                </div>
-            </div>
-            <div class="col-md-3 agileits_banner_bottom_grid">
-                <div class="hovereffect w3ls_banner_bottom_grid">
-                    <img src="~/Content/web/images/3.jpg" alt=" " class="img-responsive" />
-
-                </div>
-                <div class="w3-agile-post-info">
-                    <h4><a href="#">Quisque a rhoncus</a></h4>
-                    <span style="font-size: 10px; font-style:italic; color:darkslateblue">By admin</span>
-                    <span style="font-size: 10px; font-style:italic; color:#ef5050">25-10-2017</span>
-                    <p>Suspendisse in nisl at ipsum molestie dignissim.</p>
-                </div>
-            </div>
-            <div class="col-md-3 agileits_banner_bottom_grid">
-                <div class="hovereffect w3ls_banner_bottom_grid">
-                    <img src="~/Content/web/images/4.jpg" alt=" " class="img-responsive" />
-
-                </div>
-                <div class="w3-agile-post-info">
-                    <h4><a href="#">Quisque a rhoncus</a></h4>
-                    <span style="font-size: 10px; font-style:italic; color:darkslateblue">By admin</span>
-                    <span style="font-size: 10px; font-style:italic; color:#ef5050">25-10-2017</span>
-                    <p>Suspendisse in nisl at ipsum molestie dignissim.</p>
-                </div>
-            </div>
-            <div class="clearfix"> </div>
-        </div>*@
-
-
+       
     </div>
 </div>
 

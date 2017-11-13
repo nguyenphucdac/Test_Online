@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Question_Id" Type="Int32" Nullable="false" />
-    <Property Name="Content" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Question" Relationship="Self.FK_Solution_ToTable12" FromRole="Answer" ToRole="Question" />
     <Property Name="IsTrue" Type="Boolean" Nullable="false" />
   </EntityType>
@@ -65,6 +65,8 @@
     <NavigationProperty Name="News" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="Member" ToRole="News" />
     <NavigationProperty Name="Solutions" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Member" ToRole="Solution" />
     <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Member" ToRole="Rate_Document" />
+    <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Member" ToRole="Rate_Question" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -97,6 +99,8 @@
     <NavigationProperty Name="Topic" Relationship="Self.FK_Question_ToTable_1" FromRole="Question" ToRole="Topic" />
     <NavigationProperty Name="Solutions" Relationship="Self.FK_Solution_ToTable" FromRole="Question" ToRole="Solution" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Question" ToRole="Rate_Document" />
+    <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -129,6 +133,7 @@
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Created_by" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Solution" ToRole="Member" />
+    <Property Name="Rate" Type="Int32" />
   </EntityType>
   <EntityType Name="Subject">
     <Key>
@@ -138,6 +143,7 @@
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable" FromRole="Subject" ToRole="Question" />
     <NavigationProperty Name="Topics" Relationship="Self.FK_Topic_ToTable" FromRole="Subject" ToRole="Topic" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Topic">
     <Key>
@@ -149,6 +155,8 @@
     <NavigationProperty Name="Documents" Relationship="Self.FK_Document_ToTable" FromRole="Topic" ToRole="Document" />
     <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_1" FromRole="Topic" ToRole="Question" />
     <NavigationProperty Name="Subject" Relationship="Self.FK_Topic_ToTable" FromRole="Topic" ToRole="Subject" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Percen" Type="Double" />
   </EntityType>
   <EntityType Name="Type_Member">
     <Key>
@@ -423,6 +431,24 @@
       <End Role="Member" EntitySet="Members" />
       <End Role="Solution" EntitySet="Solutions" />
     </AssociationSet>
+    <EntitySet Name="Rate_Document" EntityType="Test_Online_DBModel.Rate_Document" />
+    <EntitySet Name="Rate_Question" EntityType="Test_Online_DBModel.Rate_Question" />
+    <AssociationSet Name="FK_Rate_Document_Member" Association="Test_Online_DBModel.FK_Rate_Document_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Member" Association="Test_Online_DBModel.FK_Rate_Question_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Document_Document" Association="Test_Online_DBModel.FK_Rate_Document_Document">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Question" Association="Test_Online_DBModel.FK_Rate_Question_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Document_ToTable_1">
     <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
@@ -457,6 +483,76 @@
       </Principal>
       <Dependent Role="Solution">
         <PropertyRef Name="Created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Rate_Document">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Document_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Document_Id" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Rate_Document" ToRole="Member" />
+    <NavigationProperty Name="Question" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Rate_Document" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Rate_Question">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Question_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Rate_Question" ToRole="Member" />
+    <NavigationProperty Name="Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Rate_Question" ToRole="Question" />
+  </EntityType>
+  <Association Name="FK_Rate_Document_Member">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Document" Role="Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Member">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Question" Role="Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Document_Document">
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Document" Role="Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Question">
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Question" Role="Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Question_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
