@@ -1,0 +1,15 @@
+﻿@using Test_Online.Models;
+
+
+@{
+    ViewBag.Title = "OptionTest";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+}
+
+<div class="container">
+    <div>
+        <button class="btn btn-primary">Chọn mức độ</button>
+        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = Model.Id})" class="btn btn-primary" style="color:black; font-size: 13px; font-weight: bold">Tạo đề thi</a>
+    </div>
+</div>
+

@@ -1,0 +1,38 @@
+﻿@using Test_Online.Models;
+@model IEnumerable<Question>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+
+    IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
+}
+
+<div class="container">
+    <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+        <span style="color:white; font-size: 20px;font-weight:bold">Câu hỏi chủ đề : @ViewBag.nameTopic</span>
+        <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Đánh giá</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < lstQuestion.Count(); i++)
+                {
+                    <tr>
+                        <td style="color:black" class="col-md-9"><span style="font-weight:bold">Câu @(i + 1) : </span> @Html.Raw(lstQuestion.ElementAt(i).Title)</td>
+                        <td style="color:black" class="col-md-2"><img width="100" height="20" src="~/Content/web/images/ratting.jpg" /></td>
+                       
+                        <td style="color:black" class="col-md-1">@Html.ActionLink("chi tiết", "Detail", new { @Id = @lstQuestion.ElementAt(i).Id })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

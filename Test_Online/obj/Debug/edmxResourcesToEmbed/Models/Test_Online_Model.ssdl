@@ -72,6 +72,7 @@
     <Property Name="Subject_Id" Type="int" Nullable="false" />
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rank" Type="nvarchar(max)" />
     <Property Name="Image" Type="nvarchar" MaxLength="100" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />

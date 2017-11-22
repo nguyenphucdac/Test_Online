@@ -101,6 +101,7 @@
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Question" ToRole="Rate_Document" />
     <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
+    <Property Name="Rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Role">
     <Key>

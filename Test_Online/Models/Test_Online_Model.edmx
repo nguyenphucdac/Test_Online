@@ -77,6 +77,7 @@
           <Property Name="Subject_Id" Type="int" Nullable="false" />
           <Property Name="Topic_Id" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rank" Type="nvarchar(max)" />
           <Property Name="Image" Type="nvarchar" MaxLength="100" />
           <Property Name="Created_Time" Type="datetime" Nullable="false" />
           <Property Name="Created_By" Type="int" Nullable="false" />
@@ -622,6 +623,7 @@
           <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Question" ToRole="Rate_Document" />
           <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
+          <Property Name="Rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -1155,6 +1157,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="Test_Online_DBModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Rank" ColumnName="Rank" />
                 <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />

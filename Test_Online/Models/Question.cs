@@ -31,6 +31,7 @@ namespace Test_Online.Models
         public string Image { get; set; }
         public int Created_By { get; set; }
         public System.DateTime Created_Time { get; set; }
+        public string Rank { get; set; }
     
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

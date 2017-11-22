@@ -11,51 +11,112 @@
     IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
 
 }
+<div class="container">
+    <div class="testimonials">
+        <div class="col-md-8" style="background-color:white; height:40%">
+            <section class="slider">
+                <div class="flexslider">
+                    <div class="flex-viewport" style="overflow: hidden; position: relative;">
+                        <ul class="slides" style="width: 800%; transition-duration: 0s; transform: translate3d(-484px, 0px, 0px);">
+                            <li class="clone" style="width: 484px; float: left; display: block;">
+                                <div class="w3_event_right_grid">
+                                    <div class="w3layouts_event_right_para">
+                                        <p style="padding-left: 60px; font-weight: bold">
+                                            Học là cách duy nhất để thay đổi thế giới
+                                        </p>
+                                        <div class="w3layouts_event_right_para_pos">
+                                            <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w3_agile_event_right_grids">
+                                        <div class="col-xs-4 w3_agile_event_right_grid_left">
+                                            <img src="~/Content/web/images/test.jpg" alt=" " class="img-responsive">
+                                        </div>
+                                        <div class="col-xs-8 w3_agile_event_right_grid_right">
+                                            <h4>Nelson Mandela</h4>
 
-<div class="banner-bottom">
-    <div class="container">
-        <div style="height: 30px; background-color:#ede7e7;">
-            <span style="color:darkslateblue; font-size: 25px; font-weight:bold">Tin tức giáo dục</span>
-        </div>
-        <div class="agileits_banner_bottom_grids">
-            
-            @for (int i = 0; i < lstNews.Count(); i++)
-            {
-                <div class="col-md-3 agileits_banner_bottom_grid">
-                    <div class="hovereffect w3ls_banner_bottom_grid">
-                        <div class="hovereffect w3ls_banner_bottom_grid">
-                            <img height="150" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " />
-                        </div>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="clone" style="width: 484px; float: left; display: block;">
+                                <div class="w3_event_right_grid">
+                                    <div class="w3layouts_event_right_para">
+                                        <p style="padding-left: 60px; font-weight:bold">
+                                            Học, học nữa, học mãi
+                                        </p>
+                                        <div class="w3layouts_event_right_para_pos">
+                                            <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w3_agile_event_right_grids">
+                                        <div class="col-xs-4 w3_agile_event_right_grid_left">
+                                            <img src="~/Content/web/images/test.jpg" alt=" " class="img-responsive">
+                                        </div>
+                                        <div class="col-xs-8 w3_agile_event_right_grid_right">
+                                            <h4>Nelson Mandela</h4>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </li>
 
+                        </ul>
                     </div>
-                    <div class="w3-agile-post-info">
-                        <div>
-                            <span style="font-size: 12px; font-style:italic; color:darkslateblue">By admin</span>
-                            <span style="font-size: 12px; font-style:italic; color:#ef5050">@lstNews.ElementAt(i).Created_Time</span>
-                        </div>
-                        <div style="font-size: 11px;font-weight: bold">
-                            @Html.Raw(lstNews.ElementAt(i).title)
-                        </div>
-                    </div>
+                    @*<ol class="flex-control-nav flex-control-paging"><li><a class="flex-active">1</a></li><li><a class="">2</a></li></ol><ul class="flex-direction-nav"><li><a class="flex-prev" href="#"> </a></li><li><a class="flex-next" href="#"> </a></li></ul>*@
                 </div>
-            }
-
-            <div class="clearfix"> </div>
+            </section>
         </div>
 
-        <div style="height: 30px; background-color:#ede7e7;">
-            <span style="color:darkslateblue; font-size: 25px;font-weight:bold">Thư viện đề thi</span>
+        <div class="col-md-4" style="height:40%">
+            <div class="col-md-12" style="height: 48px; background-color:#4e9b1f;">
+                <span style="color:white; font-size: 20px;font-weight:bold">Tin tức giáo dục</span>
+                
+            </div>
+            <div style="padding-left:10px; background-color:white" class="col-md-12">
+                @for (int i = 0; i < lstNews.Count(); i++)
+            {
+
+                    <div class="col-md-12">
+                        <div class="col-md-8">
+                            <div>
+                                <span style="font-size: 12px; font-weight:bold">@Html.Raw(lstNews.ElementAt(i).title)</span>
+                            </div>
+                            <div>
+                                <span style="font-size: 11px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="align-content:center">
+                            <div class="hovereffect w3ls_banner_bottom_grid" style="text-align:center">
+                                <img style="padding-top:10px" height="80" width="100" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
+                }
+            </div>
+            <div class="col-md-12" style="height: 22px; background-color:#4e9b1f;">
+               
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div style="background-color:white">
+        <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+            <span style="color:white; font-size: 20px;font-weight:bold">Thư viện đề thi</span>
+            <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
         </div>
 
-        <div class="agileits_banner_bottom_grids">
+        <div class="agileits_banner_bottom_grids" style="margin-top:20px">
             @for (int i = 0; i < lstSubject.Count(); i++)
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstSubject.ElementAt(i).Image)" alt=" " />
+                        <a href="@Url.Action("OptionTest", "Exam", new { @subjectId = lstSubject.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstSubject.ElementAt(i).Image)" alt=" " /></a>
                     </div>
                     <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = lstSubject.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstSubject.ElementAt(i).Name</a>
+                        <a href="@Url.Action("OptionTest", "Exam", new { @subjectId = lstSubject.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstSubject.ElementAt(i).Name</a>
 
                     </div>
                 </div>
@@ -65,58 +126,23 @@
             <div class="clearfix"> </div>
         </div>
 
-        
-        <div style="height: 30px; background-color:#ede7e7;">
-            <span style="color:darkslateblue; font-size: 25px;font-weight:bold">Ôn tập các chủ đề</span>
-        </div>
-       
-        <div class="agileits_banner_bottom_grids">
-            @for (int i = 0; i < lstTopicMath.Count(); i++)
-            {
-                <div class="col-md-3 agileits_banner_bottom_grid">
-                    <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicMath.ElementAt(i).Image)" alt=" " />
-                    </div>
-                    <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicMath.ElementAt(i).Name</a>
-                       
-                    </div>
-                </div>
-            }
-            
-           
-            <div class="clearfix"> </div>
+    </div>
+
+    <div style="background-color:white;margin-top:20px">
+        <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+            <span style="color:white; font-size: 20px;font-weight:bold">Ôn tập các chủ đề</span>
+            <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
         </div>
 
-       
-        <div class="agileits_banner_bottom_grids">
-            @for (int i = 0; i < lstTopicPhysical.Count(); i++)
-            {
-                <div class="col-md-3 agileits_banner_bottom_grid">
-                    <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicPhysical.ElementAt(i).Image)" alt=" " />
-                    </div>
-                    <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicPhysical.ElementAt(i).Name</a>
-
-                    </div>
-                </div>
-            }
-
-
-            <div class="clearfix"> </div>
-        </div>
-
-       
         <div class="agileits_banner_bottom_grids">
             @for (int i = 0; i < lstTopicChemistry.Count(); i++)
             {
                 <div class="col-md-3 agileits_banner_bottom_grid">
                     <div class="hovereffect w3ls_banner_bottom_grid">
-                        <img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicChemistry.ElementAt(i).Image)" alt=" " />
+                        <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicChemistry.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicChemistry.ElementAt(i).Image)" alt=" " /></a>
                     </div>
                     <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
-                        <a href="#" style="color:black; font-size: 13px; font-weight: bold">@lstTopicChemistry.ElementAt(i).Name</a>
+                        <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicChemistry.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstTopicChemistry.ElementAt(i).Name</a>
 
                     </div>
                 </div>
@@ -125,11 +151,51 @@
 
             <div class="clearfix"> </div>
         </div>
+        <div class="agileits_banner_bottom_grids">
+            @for (int i = 0; i < lstTopicPhysical.Count(); i++)
+            {
+                <div class="col-md-3 agileits_banner_bottom_grid">
+                    <div class="hovereffect w3ls_banner_bottom_grid">
+                        <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicPhysical.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicPhysical.ElementAt(i).Image)" alt=" " /></a>
+                    </div>
+                    <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
+                        <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicPhysical.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstTopicPhysical.ElementAt(i).Name</a>
 
-       
+                    </div>
+                </div>
+            }
+
+
+            <div class="clearfix"> </div>
+        </div>
+        <div class="agileits_banner_bottom_grids">
+            @for (int i = 0; i < lstTopicMath.Count(); i++)
+            {
+            <div class="col-md-3 agileits_banner_bottom_grid">
+                <div class="hovereffect w3ls_banner_bottom_grid">
+                    <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicMath.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicMath.ElementAt(i).Image)" alt=" " /></a>
+                </div>
+                <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
+                    <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicMath.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstTopicMath.ElementAt(i).Name</a>
+                </div>
+            </div>
+            }
+
+
+            <div class="clearfix"> </div>
+        </div>
     </div>
 </div>
-
-
-
-
+<!-- flexSlider -->
+<script defer src="~/Content/web/js/jquery.flexslider.js"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            start: function (slider) {
+                $('body').removeClass('loading');
+            }
+        });
+    });
+</script>
+<!-- //flexSlider -->

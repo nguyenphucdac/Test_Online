@@ -14,6 +14,8 @@ namespace Test_Online.Controllers
         {
             return View();
         }
+
+      
         public ActionResult ToTest(int subjectId)
         {
             try
@@ -27,6 +29,19 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
           
+        }
+        public ActionResult OptionTest(int subjectId)
+        {
+            try
+            {
+                Subject subject = db.Subjects.SingleOrDefault(n => n.Id == subjectId);
+                return View(subject);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Error in OptionTst : " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
     }
 }

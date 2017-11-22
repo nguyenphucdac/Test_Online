@@ -178,5 +178,19 @@ namespace Test_Online.Controllers
             }
             return resultstring.ToString();
         }
+
+        public ActionResult Profile(int id)
+        {
+            try
+            {
+                
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Topic Controller error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
     }
 }
