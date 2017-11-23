@@ -191,6 +191,9 @@
     <Compile Include="Models\Question.cs">
       <DependentUpon>Test_Online_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Rank.cs">
+      <DependentUpon>Test_Online_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Rate_Document.cs">
       <DependentUpon>Test_Online_Model.tt</DependentUpon>
     </Compile>
@@ -550,12 +553,14 @@
     <Content Include="Views\Question\Index.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Document\GetListDocument.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Question\QuestionDetail.cshtml" />
+    <Content Include="Views\News\NewsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Error\" />
     <Folder Include="Content\common\file\" />
-    <Folder Include="Views\News\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -40,5 +40,6 @@ namespace Test_Online.Models
         public DbSet<Type_Member> Type_Member { get; set; }
         public DbSet<Rate_Document> Rate_Document { get; set; }
         public DbSet<Rate_Question> Rate_Question { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
     }
 }

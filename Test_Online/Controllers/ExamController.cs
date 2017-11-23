@@ -35,6 +35,8 @@ namespace Test_Online.Controllers
             try
             {
                 Subject subject = db.Subjects.SingleOrDefault(n => n.Id == subjectId);
+                ViewBag.lstTopic = db.Topics.Where(n => n.Subject_Id == subjectId);
+
                 return View(subject);
             }
             catch(Exception ex)

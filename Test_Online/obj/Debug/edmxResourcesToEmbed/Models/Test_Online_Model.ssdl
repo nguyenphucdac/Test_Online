@@ -72,10 +72,17 @@
     <Property Name="Subject_Id" Type="int" Nullable="false" />
     <Property Name="Topic_Id" Type="int" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Rank" Type="nvarchar(max)" />
+    <Property Name="Rank_Id" Type="int" />
     <Property Name="Image" Type="nvarchar" MaxLength="100" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Rate_Document">
     <Key>
@@ -250,6 +257,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Question_ToTable_3">
+    <End Role="Rank" Type="Self.Rank" Multiplicity="0..1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Rank_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Rate_Document_Document">
     <End Role="Question" Type="Self.Question" Multiplicity="1" />
     <End Role="Rate_Document" Type="Self.Rate_Document" Multiplicity="*" />
@@ -420,6 +439,7 @@
     <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rank" EntityType="Self.Rank" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rate_Document" EntityType="Self.Rate_Document" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Rate_Question" EntityType="Self.Rate_Question" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -458,6 +478,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Question_ToTable_2" Association="Self.FK_Question_ToTable_2">
       <End Role="Member" EntitySet="Member" />
+      <End Role="Question" EntitySet="Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_ToTable_3" Association="Self.FK_Question_ToTable_3">
+      <End Role="Rank" EntitySet="Rank" />
       <End Role="Question" EntitySet="Question" />
     </AssociationSet>
     <AssociationSet Name="FK_Rate_Document_Document" Association="Self.FK_Rate_Document_Document">

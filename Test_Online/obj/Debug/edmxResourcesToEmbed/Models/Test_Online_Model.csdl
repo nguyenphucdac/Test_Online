@@ -101,7 +101,8 @@
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Question" ToRole="Rate_Document" />
     <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
-    <Property Name="Rank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Rank_Id" Type="Int32" />
+    <NavigationProperty Name="Rank1" Relationship="Test_Online_DBModel.FK_Question_ToTable_3" FromRole="Question" ToRole="Rank" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -450,6 +451,11 @@
       <End Role="Question" EntitySet="Questions" />
       <End Role="Rate_Question" EntitySet="Rate_Question" />
     </AssociationSet>
+    <EntitySet Name="Ranks" EntityType="Test_Online_DBModel.Rank" />
+    <AssociationSet Name="FK_Question_ToTable_3" Association="Test_Online_DBModel.FK_Question_ToTable_3">
+      <End Role="Rank" EntitySet="Ranks" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Document_ToTable_1">
     <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
@@ -554,6 +560,26 @@
       </Principal>
       <Dependent Role="Rate_Question">
         <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Rank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Questions" Relationship="Test_Online_DBModel.FK_Question_ToTable_3" FromRole="Rank" ToRole="Question" />
+  </EntityType>
+  <Association Name="FK_Question_ToTable_3">
+    <End Type="Test_Online_DBModel.Rank" Role="Rank" Multiplicity="0..1" />
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Rank_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

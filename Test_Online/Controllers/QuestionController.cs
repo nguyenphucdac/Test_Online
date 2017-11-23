@@ -30,6 +30,8 @@ namespace Test_Online.Controllers
         {
             try
             {
+                ViewBag.question = db.Questions.SingleOrDefault(n => n.Id == questionId);
+                ViewBag.lstAnswer = db.Answers.Where(n => n.Question_Id == questionId);
 
                 return View();
             }

@@ -73,7 +73,7 @@
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Question">
         <MappingFragment StoreEntitySet="Question">
-          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="Rank_Id" ColumnName="Rank_Id" />
           <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
@@ -157,6 +157,14 @@
           <ScalarProperty Name="Rate" ColumnName="Rate" />
           <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
           <ScalarProperty Name="Member_Id" ColumnName="Member_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ranks">
+      <EntityTypeMapping TypeName="Test_Online_DBModel.Rank">
+        <MappingFragment StoreEntitySet="Rank">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

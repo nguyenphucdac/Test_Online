@@ -4,12 +4,35 @@
 @{
     ViewBag.Title = "OptionTest";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+
+    IEnumerable<Topic> lstTopic = ViewBag.lstTopic;
 }
 
-<div class="container">
-    <div>
-        <button class="btn btn-primary">Chọn mức độ</button>
-        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = Model.Id})" class="btn btn-primary" style="color:black; font-size: 13px; font-weight: bold">Tạo đề thi</a>
+<div class="container" style="margin-bottom: 100px; margin-top: 100px">
+
+    <div class="col-md-12">
+        <span style="font-weight:bold" class="col-md-2">Chọn chủ đề : </span>
+        <select required class="col-md-4">
+            <option value="0">Tổng hợp</option>
+            @for (int i = 0; i < lstTopic.Count(); i++)
+            {
+                <option value="@lstTopic.ElementAt(i).Id">@lstTopic.ElementAt(i).Name</option>
+            }
+        </select>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12" style="margin-top: 30px">
+        <span style="font-weight:bold" class="col-md-2">Chọn độ khó : </span>
+        <select required class="col-md-4">
+            <option value="1">Dễ</option>
+            <option value="2">Trung bình</option>
+            <option value="3">khó</option>
+        </select>
+    </div>
+
+    <div class="col-md-12" style="margin-top: 50px;text-align:center">
+        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = Model.Id})" class="btn btn-primary" style="color:white;">Tạo đề thi</a>
     </div>
 </div>
 

@@ -1,0 +1,63 @@
+﻿@using Test_Online.Models
+@model IEnumerable<Answer>
+
+@{
+    ViewBag.Title = "QuestionDetail";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+    Question question = ViewBag.question;
+    IEnumerable<Answer> lstAnswer = ViewBag.lstAnswer;
+
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <span style="font-weight:bold">Đề bài : </span> @Html.Raw(question.Title)
+    </div>
+
+    <div class="col-md-12">
+        @for (int i = 0; i< lstAnswer.Count(); i++)
+        {
+            <div class="col-md-12">
+                @if (i == 0)
+                {
+                    <span style="font-size: 13px;font-weight: bold">A. @Html.Raw(lstAnswer.ElementAt(i).Content)</span>
+                }
+                else if (i == 1)
+                {
+                    <span style="font-size: 13px;font-weight: bold">B. @Html.Raw(lstAnswer.ElementAt(i).Content)</span>
+                }
+                else if (i == 2)
+                {
+                    <span style="font-size: 13px;font-weight: bold">C. @Html.Raw(lstAnswer.ElementAt(i).Content)</span>
+                }
+                else
+                {
+                    <span style="font-size: 13px;font-weight: bold">D. @Html.Raw(lstAnswer.ElementAt(i).Content)</span>
+                }
+
+            </div>
+        }
+    </div>
+    
+    <div class="col-md-12">
+        <div class="fb-share-button btn btn-primary"
+             data-href="http://localhost:55702"
+             data-layout="button_count"
+             size="small "
+             style="float:right"
+             >
+            
+        </div>
+        
+        <button class="btn btn-success" style="float:right; margin-right: 10px">Đánh giá câu hỏi này</button>
+        <button class="btn btn-primary" style="float:right; margin-right: 10px">Xem lời giải</button>
+    </div>
+    <div class="col-md-12" style="margin-top: 50px; margin-bottom: 100px">
+        <span style="font-weight:bold; font-size: 20px;"><u>Bình luận về câu hỏi này</u></span><br />
+        <div class="col-md-12" style="height:500px; background:#ebeaea">
+            <div class="fb-comments" data-href="http://localhost:55702/Question/QuestionDetail/@question.Id" data-colorscheme="light" data-numposts="5" data-width="100%"></div>
+        </div>
+
+    </div>
+</div>
+

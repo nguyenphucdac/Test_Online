@@ -11,9 +11,9 @@
     IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
 
 }
-<div class="container">
+<div class="container" style="margin-bottom: 50px">
     <div class="testimonials">
-        <div class="col-md-8" style="background-color:white; height:40%">
+        <div class="col-md-7" style="background-color:#ebeaea; height:40%">
             <section class="slider">
                 <div class="flexslider">
                     <div class="flex-viewport" style="overflow: hidden; position: relative;">
@@ -69,19 +69,19 @@
             </section>
         </div>
 
-        <div class="col-md-4" style="height:40%">
+        <div class="col-md-5">
             <div class="col-md-12" style="height: 48px; background-color:#4e9b1f;">
                 <span style="color:white; font-size: 20px;font-weight:bold">Tin tức giáo dục</span>
                 
             </div>
-            <div style="padding-left:10px; background-color:white" class="col-md-12">
+            <div style="padding-left:10px; background-color:#ebeaea" class="col-md-12">
                 @for (int i = 0; i < lstNews.Count(); i++)
             {
 
-                    <div class="col-md-12">
+                    <div style="padding-bottom:20px">
                         <div class="col-md-8">
                             <div>
-                                <span style="font-size: 12px; font-weight:bold">@Html.Raw(lstNews.ElementAt(i).title)</span>
+                                <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><span style="font-size: 13px; color:black">@Html.Raw(lstNews.ElementAt(i).title)</span></a>
                             </div>
                             <div>
                                 <span style="font-size: 11px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
@@ -89,11 +89,11 @@
                         </div>
                         <div class="col-md-4" style="align-content:center">
                             <div class="hovereffect w3ls_banner_bottom_grid" style="text-align:center">
-                                <img style="padding-top:10px" height="80" width="100" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " />
+                                <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><img style="" height="80" width="120" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " /></a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
+                    <div class="col-md-12" style="background-color:white; height:1px"></div>
                 }
             </div>
             <div class="col-md-12" style="height: 22px; background-color:#4e9b1f;">
@@ -111,7 +111,7 @@
         <div class="agileits_banner_bottom_grids" style="margin-top:20px">
             @for (int i = 0; i < lstSubject.Count(); i++)
             {
-                <div class="col-md-3 agileits_banner_bottom_grid">
+                <div class="col-md-3 agileits_banner_bottom_grid" style="background-color:#ebeaea">
                     <div class="hovereffect w3ls_banner_bottom_grid">
                         <a href="@Url.Action("OptionTest", "Exam", new { @subjectId = lstSubject.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstSubject.ElementAt(i).Image)" alt=" " /></a>
                     </div>
@@ -137,7 +137,7 @@
         <div class="agileits_banner_bottom_grids">
             @for (int i = 0; i < lstTopicChemistry.Count(); i++)
             {
-                <div class="col-md-3 agileits_banner_bottom_grid">
+                <div class="col-md-3 agileits_banner_bottom_grid" style="background-color:#ebeaea">
                     <div class="hovereffect w3ls_banner_bottom_grid">
                         <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicChemistry.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicChemistry.ElementAt(i).Image)" alt=" " /></a>
                     </div>
@@ -154,7 +154,7 @@
         <div class="agileits_banner_bottom_grids">
             @for (int i = 0; i < lstTopicPhysical.Count(); i++)
             {
-                <div class="col-md-3 agileits_banner_bottom_grid">
+                <div class="col-md-3 agileits_banner_bottom_grid" style="background-color:#ebeaea">
                     <div class="hovereffect w3ls_banner_bottom_grid">
                         <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicPhysical.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicPhysical.ElementAt(i).Image)" alt=" " /></a>
                     </div>
@@ -171,7 +171,7 @@
         <div class="agileits_banner_bottom_grids">
             @for (int i = 0; i < lstTopicMath.Count(); i++)
             {
-            <div class="col-md-3 agileits_banner_bottom_grid">
+            <div class="col-md-3 agileits_banner_bottom_grid" style="background-color:#ebeaea">
                 <div class="hovereffect w3ls_banner_bottom_grid">
                     <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicMath.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicMath.ElementAt(i).Image)" alt=" " /></a>
                 </div>
@@ -183,6 +183,9 @@
 
 
             <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+           
         </div>
     </div>
 </div>

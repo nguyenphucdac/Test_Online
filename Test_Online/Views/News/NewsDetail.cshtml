@@ -1,0 +1,52 @@
+﻿@using Test_Online.Models;
+
+
+@{
+    ViewBag.Title = "NewsDetail";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+    IEnumerable<News> lstNews = ViewBag.lstNews;
+    News news = ViewBag.News;
+}
+<div class="container" style="margin-bottom: 100px">
+    <div class="col-md-7">
+        <div style="margin-bottom: 50px">
+            <h2>@Html.Raw(news.title)</h2><br />
+            <span style="color: blue"><i>@news.Created_Time</i></span>
+        </div>
+        <div>
+            <span>@Html.Raw(news.Content)</span>
+        </div>
+    </div>
+    <div class="col-md-5">
+
+        <div class="col-md-12" style="height: 48px; background-color:#4e9b1f;">
+            <span style="color:white; font-size: 20px;font-weight:bold">Tin tức giáo dục</span>
+
+        </div>
+        <div style="padding-left:10px; background-color:#ebeaea" class="col-md-12">
+            @for (int i = 0; i < lstNews.Count(); i++)
+            {
+
+                <div style="padding-bottom:20px">
+                    <div class="col-md-8">
+                        <div>
+                            <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><span style="font-size: 13px; color:black">@Html.Raw(lstNews.ElementAt(i).title)</span></a>
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="align-content:center">
+                        <div class="hovereffect w3ls_banner_bottom_grid" style="text-align:center">
+                            <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><img style="" height="80" width="120" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " /></a>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-12" style="background-color:white; height:1px"></div>
+            }
+        </div>
+        
+    </div>
+</div>
+
+

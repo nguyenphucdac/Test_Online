@@ -41,6 +41,8 @@
         <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Question_Member" />
         <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Document_Document" />
         <AssociationConnector Association="Test_Online_DBModel.FK_Rate_Question_Question" />
+        <EntityTypeShape EntityType="Test_Online_DBModel.Rank" Width="1.5" PointX="0.75" PointY="7.875" />
+        <AssociationConnector Association="Test_Online_DBModel.FK_Question_ToTable_3" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
