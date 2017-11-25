@@ -4,18 +4,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Test_Online.Models;
+using PagedList;
 
 namespace Test_Online.Controllers
 {
     public class NewsController : Controller
     {
         Test_Online_DBEntities db = new Test_Online_DBEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex)
         {
             try
             {
-                ViewBag.lstNews = db.News;
-                return View();
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+                var lstNews = db.News;
+                return View(lstNews.OrderBy(n=>n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch (Exception ex)
             {

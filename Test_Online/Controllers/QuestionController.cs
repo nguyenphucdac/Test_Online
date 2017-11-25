@@ -4,21 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Test_Online.Models;
+using PagedList;
 
 namespace Test_Online.Controllers
 {
     public class QuestionController : Controller
     {
         Test_Online_DBEntities db = new Test_Online_DBEntities();
-        public ActionResult Index(int topicId)
+        public ActionResult Index(int topicId, int? pageIndex)
         {
             try
             {
+                int pageSize = 5;
+                int pageNumber = (pageIndex ?? 1);
+
                 Topic topic = db.Topics.SingleOrDefault(n => n.Id == topicId);
                 ViewBag.nameTopic = topic.Name;
-                ViewBag.lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
+                ViewBag.topicId = topic.Id;
+                var lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
+                ViewBag.lstQuestion = lstQuestion;
 
-                return View();
+                return View(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch(Exception ex)
             {

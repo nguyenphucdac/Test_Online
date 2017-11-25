@@ -1,10 +1,11 @@
 ﻿@using Test_Online.Models;
-
+@using PagedList.Mvc
+@model PagedList.IPagedList<News>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
     
-    IEnumerable<News> lstNews = ViewBag.lstNews;
+    
 }
 
 <div class="container" style="margin-bottom: 100px">
@@ -13,27 +14,33 @@
         <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
     </div>
     <div style="padding-left:10px; background-color:white" class="col-md-12">
-        @for (int i = 0; i < lstNews.Count(); i++)
+        @for (int i = 0; i < Model.Count(); i++)
             {
 
             <div class="col-md-12">
                 <div class="col-md-3" style="align-content:center">
                     <div class="hovereffect w3ls_banner_bottom_grid" style="text-align:center">
-                        <img style="padding-top:10px" height="150" width="300" src="@Url.Content("~/Content/common/images/" + lstNews.ElementAt(i).Image)" alt=" " />
+                        <a href="@Url.Action("NewsDetail", "News", new { @newsId = Model.ElementAt(i).Id})"><img style="padding-top:10px" height="150" width="300" src="@Url.Content("~/Content/common/images/" + Model.ElementAt(i).Image)" alt=" " /></a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div style="padding-top:10px">
-                        <span style="font-weight:bold;">@Html.Raw(lstNews.ElementAt(i).title)</span>
+                        <a href="@Url.Action("NewsDetail", "News", new { @newsId = Model.ElementAt(i).Id})"><span style="font-weight:bold;">@Html.Raw(Model.ElementAt(i).title)</span></a>
                     </div>
                     <div>
-                        <span style="font-size: 12px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
+                        <a href="@Url.Action("NewsDetail", "News", new { @newsId = Model.ElementAt(i).Id})"><span style="font-size: 12px; font-style:italic; color:#1013a8">@Model.ElementAt(i).Created_Time</span></a>
                     </div>
                 </div>
                
             </div>
             <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
         }
+    </div>
+    <div class="container col-md-12">
+        @Html.PagedListPager(Model, page => Url.Action("Index", "Question", new
+          {
+              @pageIndex = page
+          }))
     </div>
 
 </div>

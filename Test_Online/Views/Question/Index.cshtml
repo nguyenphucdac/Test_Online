@@ -1,10 +1,12 @@
 ﻿@using Test_Online.Models;
-@model IEnumerable<Question>
+@using PagedList.Mvc
+@model PagedList.IPagedList<Question>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
 
-    IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
+    //IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
 }
 
 <div class="container">
@@ -22,17 +24,25 @@
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < lstQuestion.Count(); i++)
+                @for (int i = 0; i < Model.Count(); i++)
                 {
                     <tr>
-                        <td style="color:black" class="col-md-9"><span style="font-weight:bold">Câu @(i + 1) : </span> @Html.Raw(lstQuestion.ElementAt(i).Title)</td>
+                        <td style="color:black" class="col-md-9"><span style="font-weight:bold">Câu @(i + 1) : </span> @Html.Raw(Model.ElementAt(i).Title)</td>
                         <td style="color:black" class="col-md-2"><img width="100" height="20" src="~/Content/web/images/ratting.jpg" /></td>
-                       
-                        <td style="color:black" class="col-md-1">@Html.ActionLink("chi tiết", "QuestionDetail", new { @questionId = @lstQuestion.ElementAt(i).Id })</td>
+
+                        <td style="color:black" class="col-md-1">@Html.ActionLink("chi tiết", "QuestionDetail", new { @questionId = @Model.ElementAt(i).Id })</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <div class="dlink container">
+       @Html.PagedListPager(Model, page => Url.Action("Index", "Question", new
+      {
+          @topicId = ViewBag.topicId,
+          @pageIndex = page
+      }))
+    </div>
+
 </div>
 
