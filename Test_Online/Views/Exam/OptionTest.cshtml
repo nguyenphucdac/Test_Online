@@ -9,10 +9,13 @@
 }
 
 <div class="container" style="margin-bottom: 100px; margin-top: 100px">
+    @using (Html.BeginForm("CreateTest", "Exam")) { 
+    
+    <input hidden name="subjectId" value="@lstTopic.First().Subject.Id" />
 
     <div class="col-md-12">
         <span style="font-weight:bold" class="col-md-2">Chọn chủ đề : </span>
-        <select required class="col-md-4">
+        <select required class="col-md-4" name="topicId">
             <option value="0">Tổng hợp</option>
             @for (int i = 0; i < lstTopic.Count(); i++)
             {
@@ -24,7 +27,7 @@
     <div class="clearfix"></div>
     <div class="col-md-12" style="margin-top: 30px">
         <span style="font-weight:bold" class="col-md-2">Chọn độ khó : </span>
-        <select required class="col-md-4">
+        <select required class="col-md-4" name="rank">
             <option value="1">Dễ</option>
             <option value="2">Trung bình</option>
             <option value="3">khó</option>
@@ -32,7 +35,8 @@
     </div>
 
     <div class="col-md-12" style="margin-top: 50px;text-align:center">
-        <a href="@Url.Action("ToTest", "Exam", new { @subjectId = Model.Id})" class="btn btn-primary" style="color:white;">Tạo đề thi</a>
+        <input type="submit" value="Tạo đề thi & bắt đầu làm bài" class="btn btn-danger" />
     </div>
+    }
 </div>
 

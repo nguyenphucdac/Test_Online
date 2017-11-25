@@ -25,7 +25,7 @@
             for(int i = 0; i < lstRole.Count() ; i++)
             {
                 <div class="col-md-12">
-                    <input type="checkbox" class="ckb_click" name="@Url.Content("[" + i + "].Role_Id")"  value="@lstRole.ElementAt(i).Id"/>
+                    <input type="checkbox" name="@Url.Content("[" + i + "].Role_Id")"  value="@lstRole.ElementAt(i).Id"/>
                     <span style="margin-left: 5%" >@lstRole.ElementAt(i).Name</span>
                 </div>
             }
@@ -53,7 +53,7 @@
                 else
                 {
                     <div class="col-md-12">
-                        <input type="checkbox" class="ckb_click" name="@Url.Content("[" + i + "].Role_Id")" value="@lstRole.ElementAt(i).Id" />
+                        <input type="checkbox" name="@Url.Content("[" + i + "].Role_Id")" value="@lstRole.ElementAt(i).Id" />
                         <span style="margin-left: 5%">@lstRole.ElementAt(i).Name</span>
                     </div>
                 }

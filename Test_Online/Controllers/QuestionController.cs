@@ -32,6 +32,7 @@ namespace Test_Online.Controllers
             {
                 ViewBag.question = db.Questions.SingleOrDefault(n => n.Id == questionId);
                 ViewBag.lstAnswer = db.Answers.Where(n => n.Question_Id == questionId);
+                ViewBag.lstSolution = db.Solutions.Where(n => n.Question_Id == questionId);
 
                 return View();
             }
@@ -41,10 +42,23 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult RateQuestion(int questionId)
+       
+        public ActionResult RattingQuestion(int questionId, int valueRate)
         {
             try
             {
+                if (Session["member"] != null)
+                {
+                    Member member = (Member) Session["member"];
+                    Rate_Question rateQuestion = new Rate_Question();
+                    rateQuestion.Question_Id = questionId;
+                    rateQuestion.Rate = valueRate;
+                    rateQuestion.Member_Id = member.Id;
+
+                    db.Rate_Question.Add(rateQuestion);
+                    db.SaveChanges();
+                }
+                
                 return View();
             }
             catch (Exception ex)
@@ -53,19 +67,7 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult CommentQuestion(int questionId, String content)
-        {
-            try
-            {
-             
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("System error in Question controller errorr is : " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
-        }
+        
     }
 
 }

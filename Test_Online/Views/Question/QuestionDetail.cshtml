@@ -6,6 +6,7 @@
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
     Question question = ViewBag.question;
     IEnumerable<Answer> lstAnswer = ViewBag.lstAnswer;
+    IEnumerable<Solution> lstSolution = ViewBag.lstSolution;
 
 }
 
@@ -38,7 +39,7 @@
             </div>
         }
     </div>
-    
+   
     <div class="col-md-12">
         <div class="fb-share-button btn btn-primary"
              data-href="http://localhost:55702"
@@ -50,7 +51,7 @@
         </div>
         
         <button class="btn btn-success" style="float:right; margin-right: 10px">Đánh giá câu hỏi này</button>
-        <button class="btn btn-primary" style="float:right; margin-right: 10px">Xem lời giải</button>
+        <button class="btn btn-primary" style="float:right; margin-right: 10px" id="seeSolution" data-toggle="modal" data-target="#Modal_Solution">Xem lời giải</button>
     </div>
     <div class="col-md-12" style="margin-top: 50px; margin-bottom: 100px">
         <span style="font-weight:bold; font-size: 20px;"><u>Bình luận về câu hỏi này</u></span><br />
@@ -60,4 +61,30 @@
 
     </div>
 </div>
+<div class="modal fade" id="Modal_Solution" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal conten\\\\\\\\\\\\\t-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="signin-form profile" style="height: 500px">
+                    <h3 class="agileinfo_sign">Lời giải cho câu hỏi này</h3>
+                   
+                       @for(int i = 0; i < lstSolution.Count(); i++)
+                       {
+                           <div style="float:left">
+                               <span>Lời giải @(i+1) :</span>
+                               <div style="background-color:#808080; color:white">@Html.Raw(lstSolution.ElementAt(i).Content)</div>
+
+                           </div>
+                       }
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

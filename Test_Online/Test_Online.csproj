@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -394,6 +395,9 @@
     <Content Include="Content\common\tinymce\js\tinymce\themes\modern\theme.min.js" />
     <Content Include="Content\common\tinymce\js\tinymce\tinymce.min.js" />
     <Content Include="Content\common\tinymce\LICENSE.TXT" />
+    <Content Include="Content\web\clock_assets\flipclock.css" />
+    <Content Include="Content\web\clock_assets\flipclock.js" />
+    <Content Include="Content\web\clock_assets\jquery.countdown.min.js" />
     <Content Include="Content\web\css\bootstrap.css" />
     <Content Include="Content\web\css\flexslider.css" />
     <Content Include="Content\web\css\font-awesome.css" />
@@ -547,7 +551,6 @@
     <Content Include="Views\Acount\ChangeInfo.cshtml" />
     <Content Include="Views\Acount\ViewProfile.cshtml" />
     <Content Include="Views\Exam\Index.cshtml" />
-    <Content Include="Views\Exam\ToTest.cshtml" />
     <Content Include="Views\Exam\OptionTest.cshtml" />
     <Content Include="Views\Topic\Index.cshtml" />
     <Content Include="Views\Question\Index.cshtml" />
@@ -556,6 +559,8 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Question\QuestionDetail.cshtml" />
     <Content Include="Views\News\NewsDetail.cshtml" />
+    <Content Include="Views\Exam\CreateTest.cshtml" />
+    <Content Include="Views\Exam\ResultTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

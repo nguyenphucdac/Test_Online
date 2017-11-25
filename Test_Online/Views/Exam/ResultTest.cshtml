@@ -1,0 +1,33 @@
+﻿@using Test_Online.Models
+
+@{
+    ViewBag.Title = "ResultTest";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+
+    float score = ViewBag.Score;
+    int numberTrue = ViewBag.NumberTrue;
+}
+
+<div class="container" style="margin-bottom: 500px">
+    <div class="col-md-4" style="border:1px solid black">
+        <div style="text-align:center;">
+            <span style="font-size: 25px; font-weight:bold">Điểm</span>
+        </div>
+        <hr />
+        <div style="height:120px; text-align:center;">
+            <span style="font-size:50px;">@score</span><br />
+            <span><b>Số câu đúng : </b>@numberTrue</span><br />
+        </div>
+    </div>
+    <div class="col-md-8" style="border:1px solid black">
+        <div style="text-align:center;">
+            <span style="font-size: 25px; font-weight:bold">Xem đáp án và lời giải</span>
+        </div>
+        <hr />
+        <div style="height:120px; text-align:center">
+            <a class="btn btn-default" style="margin-top:20px" href="#">Xem đáp án</a>
+            <a class="btn btn-default" style="margin-top:20px" href="#">Chia sẻ</a>
+        </div>
+    </div>
+</div>
+
