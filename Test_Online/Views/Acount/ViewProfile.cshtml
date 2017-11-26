@@ -1,71 +1,50 @@
-﻿
+﻿@using Test_Online.Models
+@model Member
+
 @{
     ViewBag.Title = "ViewProfile";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
-  
+
+    Member member = (Member)Session["member"];
+
 }
 
-<div class=" profile">
-
-    <div class="profile-bottom">
-        <h3><i class="fa fa-user"></i>Profile</h3>
-        <div class="profile-bottom-top">
-            <div class="col-md-4 profile-bottom-img">
-                <img src="images/pr.jpg" alt="">
-            </div>
-            <div class="col-md-8 profile-text">
-                <h6>Jack Dorsey</h6>
-                <table>
-                    <tr>
-                        <td>Department</td>
-                        <td>:</td>
-                        <td>Web Designer</td>
-                    </tr>
-
-                    <tr>
-                        <td>Email</td>
-                        <td> :</td>
-                        <td><a href="info@gmail.com">info@lorem.com</a></td>
-                    </tr>
-                    <tr>
-                        <td>Skills</td>
-                        <td> :</td>
-                        <td> HTML, CSS,Jqury, Bootstrap</td>
-                    </tr>
-                    <tr>
-                        <td>Country </td>
-                        <td>:</td>
-                        <td> United Arab Emirates</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="clearfix"></div>
+<div class="container" style="margin-top:50px; margin-bottom:300px">
+    <div class="col-md-4">
+        <div style="text-align:center">
+            <img src="~/Content/web/images/batman.jpg" width="350" height="200" />
         </div>
-        <div class="profile-bottom-bottom">
-            <div class="col-md-4 profile-fo">
-                <h4>23,5k</h4>
-                <p>Followers</p>
-                <a href="#" class="pro"><i class="fa fa-plus-circle"></i>Follow</a>
+        @using (Ajax.BeginForm("PractiseResult", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
+        {
+            <div style="background-color:#ae1d1d;text-align:center; margin-top:10px;">
+                <input type="submit" value="@member.Name" style="background-color:#ae1d1d; border:0px solid black; font-weight:bold; color:white;font-size:30px" width="350" />
             </div>
-            <div class="col-md-4 profile-fo">
-                <h4>348</h4>
-                <p>Following</p>
-                <a href="#" class="pro1"><i class="fa fa-user"></i>View Profile</a>
+        }
+        @using (Ajax.BeginForm("ChangeInfomation", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
+        {
+            <div style="background-color:#808080;text-align:center; margin-top:10px">
+                <input type="submit" value="Thay đổi thông tin" style="background-color:#808080;border:0px solid black;color:white; font-size:18px" width="350" />
             </div>
-            <div class="col-md-4 profile-fo">
-                <h4>23,5k</h4>
-                <p>Snippets</p>
-                <a href="#"><i class="fa fa-cog"></i>Options</a>
+        }
+        @using (Ajax.BeginForm("ChangeInfomation", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
+        {
+            <div style="background-color:#808080;text-align:center; margin-top:10px">
+                <input type="submit" value="Xem thông báo" style="background-color:#808080;border:0px solid black;color:white; font-size:18px" width="350" />
             </div>
-            <div class="clearfix"></div>
+        }
+    </div>
+    <div class="col-md-8" id="AjaxReplace" style="height:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="signin-form profile" style="height:300px">
+                    <h3 class="agileinfo_sign">Thành tích học tập</h3>
+                    <div class="login-form">
+                        
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="profile-btn">
-
-            <button type="button" href="#" class="btn bg-red">Save changes</button>
-            <div class="clearfix"></div>
-        </div>
-
-
     </div>
 </div>
-

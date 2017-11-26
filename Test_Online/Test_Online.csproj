@@ -402,9 +402,6 @@
     <Content Include="Content\common\tinymce\js\tinymce\tinymce.min.js" />
     <Content Include="Content\common\tinymce\LICENSE.TXT" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\web\clock_assets\flipclock.css" />
-    <Content Include="Content\web\clock_assets\flipclock.js" />
-    <Content Include="Content\web\clock_assets\jquery.countdown.min.js" />
     <Content Include="Content\web\css\bootstrap.css" />
     <Content Include="Content\web\css\flexslider.css" />
     <Content Include="Content\web\css\font-awesome.css" />
@@ -568,6 +565,8 @@
     <Content Include="Views\News\NewsDetail.cshtml" />
     <Content Include="Views\Exam\CreateTest.cshtml" />
     <Content Include="Views\Exam\ResultTest.cshtml" />
+    <Content Include="Views\Acount\ChangeInfomation.cshtml" />
+    <Content Include="Views\Acount\PractiseResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

@@ -92,43 +92,7 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult ViewProfile(int Id)
-        {
-            try
-            {
-                Member member = db.Members.SingleOrDefault(n => n.Id == Id);
-                if (member == null)
-                {
-                    return RedirectToAction("Index", "Maintain");
-                }
-
-                return View(member);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Acount / Logout Error is " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
-
-        }
-        public ActionResult ChangeInfo(int Id)
-        {
-            try
-            {
-                Member member = db.Members.SingleOrDefault(n => n.Id == Id);
-                if(member == null)
-                {
-                    return RedirectToAction("Index", "Maintain");
-                }
-
-                return View(member);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Acount / Logout Error is " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
-        }
+        
         [HttpPost]
         public ActionResult Update(Member member)
         {
@@ -179,12 +143,48 @@ namespace Test_Online.Controllers
             return resultstring.ToString();
         }
 
-        public ActionResult Profile(int id)
+        public ActionResult ViewProfile()
         {
             try
             {
-                
+                if (Session["member"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
                 return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Topic Controller error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult ChangeInfomation()
+        {
+            try
+            {
+                if (Session["member"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Topic Controller error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+
+        public ActionResult PractiseResult()
+        {
+            try
+            {
+                if (Session["member"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                return PartialView();
             }
             catch (Exception ex)
             {

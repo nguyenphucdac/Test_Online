@@ -30,8 +30,8 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">@member.Name</span></a>
                     <ul class="dropdown-menu " role="menu">
-                        <li><a href="@Url.Action("ViewProfile", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-user"></i>Trang cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangeInfo", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-envelope"></i>Thay đổi thông tin</a></li>
+                        <li><a href="@Url.Action("ViewProfile", "Acount")" style="color: black"><i class="fa fa-user"></i>Trang cá nhân</a></li>
+                        
                         <li><a href="@Url.Action("Index", "Admin")" style="color: black"><i class="fa fa-calendar"></i>Quản trị</a></li>
                         
                     </ul>
@@ -53,7 +53,6 @@
                         <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">@member.Name</span></a>
                         <ul class="dropdown-menu " role="menu">
                             <li><a href="@Url.Action("Info", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-user"></i>Trang cá nhân</a></li>
-                            <li><a href="@Url.Action("ChangeInfo", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-envelope"></i>Thay đổi thông tin</a></li>
                             
                         </ul>
                     </li>
