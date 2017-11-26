@@ -1,0 +1,27 @@
+﻿@model Test_Online.Models.Member
+
+
+@using (Ajax.BeginForm("Update", "Acount", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "checkName" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12" style="height:400px">
+       
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <div class="signin-form profile" style="height:300px">
+                    <h3 class="agileinfo_sign">Thành tích học tập</h3>
+                    <div class="login-form">
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+}
+
+
+
