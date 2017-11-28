@@ -6,9 +6,10 @@
 
     float score = ViewBag.Score;
     int numberTrue = ViewBag.NumberTrue;
+    IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
 }
 
-<div class="container" style="margin-bottom: 500px">
+<div class="container" >
     <div class="col-md-4" style="border:1px solid black">
         <div style="text-align:center;">
             <span style="font-size: 25px; font-weight:bold">Điểm</span>
@@ -25,9 +26,23 @@
         </div>
         <hr />
         <div style="height:120px; text-align:center">
-            <a class="btn btn-default" style="margin-top:20px" href="#">Xem đáp án</a>
-            <a class="btn btn-default" style="margin-top:20px" href="#">Chia sẻ</a>
+            @using (Ajax.BeginForm("GetAnswer", "Exam", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
+            {
+                @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
+                @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
+                <input type="submit" style="margin-top:20px" class="btn btn-default" value="Xem đáp án" id="show_answer" />
+            }
         </div>
     </div>
 </div>
+<div class="container" id="AjaxReplace" style="margin-bottom: 500px;">
+    <div id="loadingshow" hidden="hidden" style="text-align:center; margin-top:50px">
+        <img src="~/Content/web/images/loading.gif" width="200" height="200" />
+    </div>
+</div>
 
+<script>
+    $("#show_answer").click(function () {
+        $("#loadingshow").show();
+    });
+</script>

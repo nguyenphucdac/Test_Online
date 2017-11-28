@@ -567,6 +567,7 @@
     <Content Include="Views\Exam\ResultTest.cshtml" />
     <Content Include="Views\Acount\ChangeInfomation.cshtml" />
     <Content Include="Views\Acount\PractiseResult.cshtml" />
+    <Content Include="Views\Exam\GetAnswer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

@@ -10,6 +10,10 @@
 <div class="container" style="margin-bottom: 50px">
     @using (Html.BeginForm("ResultTest", "Exam"))
     {
+
+     @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
+     @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
+    
     <div class="col-md-1">
         
     </div>

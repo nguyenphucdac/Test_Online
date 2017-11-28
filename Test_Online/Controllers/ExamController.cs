@@ -29,23 +29,7 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult CreateTest1()
-        {
-            try
-            {
-                if(Session["member"] != null)
-                {
-                    Member member = (Member)Session["member"];
-
-                }
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in CreateTest : " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
-        }
+        
         public ActionResult CreateTest(int subjectId, int topicId, int rank)
         {
             try
@@ -61,6 +45,9 @@ namespace Test_Online.Controllers
                         && n.Topic_Id == topicId
                     );
                 }
+
+                
+
                 return View();
             }
             catch (Exception ex)
@@ -70,12 +57,13 @@ namespace Test_Online.Controllers
             }
         }
         
-        public ActionResult ResultTest(IEnumerable<Answer> lstAnswer)
+        public ActionResult ResultTest(IEnumerable<Answer> lstAnswer, int subjectId, int topicId)
         {
             try
             {
                 float score = 0f;
                 int numberTrue = 0;
+                
                 if(lstAnswer != null)
                 {
                     for (int i = 0; i < lstAnswer.Count(); i++)
@@ -94,6 +82,19 @@ namespace Test_Online.Controllers
                         }
                     }
                 }
+
+                if (topicId == 0)
+                {
+                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                }
+                else
+                {
+                    ViewBag.lstQuestion = db.Questions.Where(
+                        n => n.Subject_Id == subjectId
+                        && n.Topic_Id == topicId
+                    );
+                }
+
                 ViewBag.Score = score;
                 ViewBag.NumBerTrue = numberTrue;
                 return View();
@@ -104,6 +105,31 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
 
+        }
+        public ActionResult GetAnswer(int subjectId, int topicId)
+        {
+            try
+            {
+                if (topicId == 0)
+                {
+                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                }
+                else
+                {
+                    ViewBag.lstQuestion = db.Questions.Where(
+                        n => n.Subject_Id == subjectId
+                        && n.Topic_Id == topicId
+                    );
+                }
+
+
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in OptionTst : " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
         }
     }
 }
