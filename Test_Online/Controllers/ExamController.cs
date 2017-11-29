@@ -36,17 +36,39 @@ namespace Test_Online.Controllers
             {
                 if(topicId == 0)
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    if(rank == 0)
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    }
+                    else
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId &&
+                            n.Rank_Id == rank
+                            );
+                    }
                 }
                 else
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(
-                        n => n.Subject_Id == subjectId
-                        && n.Topic_Id == topicId
-                    );
+                    if(rank == 0)
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId && 
+                            n.Topic_Id == topicId
+                            );
+                    }
+                    else
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId &&
+                            n.Topic_Id == topicId &&
+                            n.Rank_Id == rank
+                            );
+                    }
                 }
 
-                
+
+                ViewBag.rank = rank;
 
                 return View();
             }
@@ -57,7 +79,7 @@ namespace Test_Online.Controllers
             }
         }
         
-        public ActionResult ResultTest(IEnumerable<Answer> lstAnswer, int subjectId, int topicId)
+        public ActionResult ResultTest(IEnumerable<Answer> lstAnswer, int subjectId, int topicId,int rank)
         {
             try
             {
@@ -76,23 +98,54 @@ namespace Test_Online.Controllers
                             score += 0.5f;
                             numberTrue++;
                         }
-                        else
+                        
+                        if(Session["member"] != null)
                         {
+                            Member member = (Member) Session["member"];
 
+                            History history = new History();
+                            history.Member_Id = member.Id;
+                            history.Question_Id = answer.Question_Id;
+                            history.isTrue = answer.IsTrue;
+
+                            db.Histories.Add(history);
+                            db.SaveChanges();
                         }
+                        
                     }
                 }
 
                 if (topicId == 0)
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    if (rank == 0)
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    }
+                    else
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId &&
+                            n.Rank_Id == rank
+                            );
+                    }
                 }
                 else
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(
-                        n => n.Subject_Id == subjectId
-                        && n.Topic_Id == topicId
-                    );
+                    if (rank == 0)
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId &&
+                            n.Topic_Id == topicId
+                            );
+                    }
+                    else
+                    {
+                        ViewBag.lstQuestion = db.Questions.Where(
+                            n => n.Subject_Id == subjectId &&
+                            n.Topic_Id == topicId &&
+                            n.Rank_Id == rank
+                            );
+                    }
                 }
 
                 ViewBag.Score = score;

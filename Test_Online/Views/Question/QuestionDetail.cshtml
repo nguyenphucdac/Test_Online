@@ -49,8 +49,15 @@
              >
             
         </div>
-        
-        <button class="btn btn-success" style="float:right; margin-right: 10px">Đánh giá câu hỏi này</button>
+        @if (Session["member"] != null)
+        {
+            <button class="btn btn-success" style="float:right; margin-right: 10px" id="btn_ratting" data-toggle="modal" data-target="#Modal_rate">Đánh giá câu hỏi này</button>
+        }
+        else
+        {
+            <button class="btn btn-success" style="float:right; margin-right: 10px" disabled >Đánh giá câu hỏi này</button>
+        }
+
         <button class="btn btn-primary" style="float:right; margin-right: 10px" id="seeSolution" data-toggle="modal" data-target="#Modal_Solution">Xem lời giải</button>
     </div>
     <div class="col-md-12" style="margin-top: 50px; margin-bottom: 100px">
@@ -85,6 +92,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="Modal_rate" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal conten\\\\\\\\\\\\\t-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="signin-form profile" style="height: 300px">
+                    <h3 class="agileinfo_sign">Đánh giá câu hỏi này</h3>
+
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

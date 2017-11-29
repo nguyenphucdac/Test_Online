@@ -6,6 +6,7 @@
 
     IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
     List<Answer> lstAnswer = new List<Answer>();
+    int rank = ViewBag.rank;
 }
 <div class="container" style="margin-bottom: 50px">
     @using (Html.BeginForm("ResultTest", "Exam"))
@@ -13,6 +14,7 @@
 
      @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
      @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
+     @Html.Hidden("rank", rank)
     
     <div class="col-md-1">
         

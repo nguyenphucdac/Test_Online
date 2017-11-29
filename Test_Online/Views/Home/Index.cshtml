@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-md-5">
-            <div class="col-md-12" style="height: 48px; background-color:#4e9b1f;">
+            <div class="col-md-12" style="height: 30px; background-color:#4e9b1f;">
                 <span style="color:white; font-size: 20px;font-weight:bold">Tin tức giáo dục</span>
                 
             </div>
@@ -79,13 +79,13 @@
                 @for (int i = 0; i < lstNews.Count(); i++)
             {
 
-                    <div style="padding-bottom:20px">
+                    <div>
                         <div class="col-md-8">
-                            <div>
-                                <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><span style="font-size: 13px; color:black">@Html.Raw(lstNews.ElementAt(i).title)</span></a>
+                            <div style="margin-top:10px">
+                                <a href="@Url.Action("NewsDetail", "News", new { @newsId = lstNews.ElementAt(i).Id})"><span style="font-size: 15px; color:black">@Html.Raw(lstNews.ElementAt(i).title)</span></a>
                             </div>
-                            <div>
-                                <span style="font-size: 11px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
+                            <div style="margin-bottom:10px">
+                                <span style="font-size: 13px; font-style:italic; color:#1013a8">@lstNews.ElementAt(i).Created_Time</span>
                             </div>
                         </div>
                         <div class="col-md-4" style="align-content:center">
@@ -97,9 +97,7 @@
                     <div class="col-md-12" style="background-color:white; height:1px"></div>
                 }
             </div>
-            <div class="col-md-12" style="height: 22px; background-color:#4e9b1f;">
-               
-            </div>
+           
         </div>
         <div class="clearfix"> </div>
     </div>

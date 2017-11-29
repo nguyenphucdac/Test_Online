@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -107,7 +108,8 @@ namespace Test_Online.Controllers
 
                 db.Entry(member).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                Session["member"] = null;
+                return Content("<script>alert('Thay đổi thành công !!!');location.reload();</script>");
             }
             catch (Exception ex)
             {
@@ -151,6 +153,9 @@ namespace Test_Online.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                Member member = (Member) Session["member"];
+                var history = db.Histories.Where(n => n.Member_Id == member.Id);
+
                 return View();
             }
             catch (Exception ex)
@@ -167,7 +172,8 @@ namespace Test_Online.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
-                return PartialView();
+                Member member = (Member)Session["member"];
+                return PartialView(member);
             }
             catch (Exception ex)
             {
@@ -191,6 +197,60 @@ namespace Test_Online.Controllers
                 Console.WriteLine("Error in Topic Controller error is " + ex);
                 return RedirectToAction("Index", "Maintain");
             }
+        }
+        public ActionResult UploadDocument()
+        {
+            try
+            {
+                if (Session["member"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ViewBag.Topic_Id = new SelectList(db.Topics.OrderBy(n => n.Name), "Id", "Name");
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Topic Controller error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult Uploading(Document document, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine(Server.MapPath("~/Content/common/file"), fileName);
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        document.File = file.FileName;
+                    }
+                    else
+                    {
+                        file.SaveAs(filePath);
+                        document.File = file.FileName;
+                    }
+                }
+
+                Member member = (Member)Session["member"];
+
+                document.Created_Time = DateTime.Now;
+                document.Created_by = member.Id;
+
+                db.Documents.Add(document);
+                db.SaveChanges();
+
+                return Content("<script>alert('Tải tài liệu lên thành công !!!');location.reload();</script>");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+
         }
     }
 }
