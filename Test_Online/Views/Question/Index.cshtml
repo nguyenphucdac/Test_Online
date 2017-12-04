@@ -6,7 +6,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
 
-    //IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
+    IEnumerable<Rate_Question> lstRateQuestion = ViewBag.lstRateQuestion;
 }
 
 <div class="container" style="margin-bottom:500px">
@@ -26,9 +26,72 @@
             <tbody>
                 @for (int i = 0; i < Model.Count(); i++)
                 {
+                    float midleRate = 0;
+                    int count = 0;
                     <tr>
                         <td style="color:black" class="col-md-9"><span style="font-weight:bold">Câu @(i + 1) : </span> @Html.Raw(Model.ElementAt(i).Title)</td>
-                        <td style="color:black" class="col-md-2"><img width="100" height="20" src="~/Content/web/images/ratting.jpg" /></td>
+                        <td style="color:black" class="col-md-2">
+
+                            
+                            @for(int j = 0; j < lstRateQuestion.Count(); j++)
+                            {
+                                if(Model.ElementAt(i).Id == lstRateQuestion.ElementAt(j).Question_Id)
+                                {
+                                    midleRate += lstRateQuestion.ElementAt(j).Rate;
+                                    count++;
+                                }
+                            }
+
+                            @if ( (midleRate  / count) <= 1)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 1 && (midleRate / count) <= 2)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 2 && (midleRate / count) <= 3)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 3 && (midleRate / count) <= 4)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 4 && (midleRate / count) <= 5)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star checked" id="5s"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star " id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+
+                        </td>
 
                         <td style="color:black" class="col-md-1">@Html.ActionLink("chi tiết", "QuestionDetail", new { @questionId = @Model.ElementAt(i).Id })</td>
                     </tr>
@@ -45,4 +108,8 @@
     </div>
 
 </div>
-
+<style>
+    .checked {
+        color: orangered;
+    }
+</style>

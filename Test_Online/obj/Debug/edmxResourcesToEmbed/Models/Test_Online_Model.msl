@@ -48,6 +48,7 @@
     <EntitySetMapping Name="Members">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Member">
         <MappingFragment StoreEntitySet="Member">
+          <ScalarProperty Name="image" ColumnName="image" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type_Member_Id" ColumnName="Type_Member_Id" />

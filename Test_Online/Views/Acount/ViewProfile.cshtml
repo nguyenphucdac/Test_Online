@@ -10,14 +10,21 @@
 }
 
 <div class="container" style="margin-top:50px; margin-bottom:300px">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div style="text-align:center">
-            <img src="~/Content/web/images/batman.jpg" width="350" height="200" />
+            @if (member.image != null)
+            { 
+                <img src = "@Url.Content("~/Content/common/images/" + member.image)" width = "250" height = "250" />
+            }
+            else
+            {
+                <img src="~/Content/web/images/default_user.png" width="250" height="250" />
+            }
         </div>
         @using (Ajax.BeginForm("PractiseResult", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
         {
             <div style="background-color:#ae1d1d;text-align:center; margin-top:10px;">
-                <input type="submit" value="@member.Name" style="background-color:#ae1d1d; border:0px solid black; font-weight:bold; color:white;font-size:30px" width="350" />
+                <input type="submit" value="@member.Name" style="background-color:#ae1d1d; border:0px solid black; font-weight:bold; color:white;font-size:25px" width="350" />
             </div>
         }
         @using (Ajax.BeginForm("ChangeInfomation", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
@@ -39,7 +46,7 @@
             </div>
         }
     </div>
-    <div class="col-md-8" id="AjaxReplace" style="height:500px">
+    <div class="col-md-9" id="AjaxReplace" style="height:500px">
         <div class="modal-content">
             <div class="modal-header">
 
@@ -47,11 +54,11 @@
                     <h3 class="agileinfo_sign">Thành tích học tập</h3>
                     <div class="login-form">
                         <div class="w3layouts_mail_grid">
-                            <div class="col-md-6 agileits_mail_grid_left agileinfo_mail_grid_left">
+                            <div class="col-md-4 agileits_mail_grid_left agileinfo_mail_grid_left">
                                 <div class="agileits_mail_grid_lft_grid wthree_mail_grid_lft_grid">
                                     <ul>
                                         <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số câu hỏi trả lời đúng : </li>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số câu hỏi đã làm   : </li>
+                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số câu hỏi đã làm  : </li>
                                         <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số tài liệu tải lên : </li>
                                         <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Thứ tự xếp hạng : </li>
                                         <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Chủ đề cần cải thiện : </li>

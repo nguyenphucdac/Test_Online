@@ -32,6 +32,7 @@ namespace Test_Online.Models
         public string Email { get; set; }
         public int Rank { get; set; }
         public string Password { get; set; }
+        public string image { get; set; }
     
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<History> Histories { get; set; }

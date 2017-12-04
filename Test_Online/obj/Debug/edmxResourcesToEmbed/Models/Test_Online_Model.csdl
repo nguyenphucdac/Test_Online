@@ -67,6 +67,7 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Member" ToRole="Rate_Document" />
     <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Member" ToRole="Rate_Question" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="News">
     <Key>

@@ -12,7 +12,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <h1> <a class="navbar-brand" href="@Url.Action("Index", "Home")">Test Online</a></h1>
+        <h1> <a class="navbar-brand" href="http://localhost:60574/Home/Index">Test Online</a></h1>
     </div>
     <div class=" border-bottom">
         <div class="drop-men">
@@ -20,8 +20,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle dropdown-at" data-toggle="dropdown"><span class=" name-caret">@member.Name<i class="caret"></i></span><img src="images/wo.jpg"></a>
                     <ul class="dropdown-menu " role="menu">
-                        <li><a href="@Url.Action("ViewProfile", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-user"></i>Trang cá nhân</a></li>
-                        <li><a href="@Url.Action("ChangeInfo", "Acount", new {@Id = member.Id })" style="color: black"><i class="fa fa-envelope"></i>Thay đổi thông tin</a></li>
+                        <li><a href="http://localhost:60574/Acount/ViewProfile?id=@member.Id" style="color: black"><i class="fa fa-user"></i>Trang cá nhân</a></li>
                         <li><a href="@Url.Action("LogOut", "Acount")" style="color: black"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng xuất</a></li>
                     </ul>
                 </li>

@@ -56,6 +56,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Rank" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="image" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -259,18 +260,6 @@
             </Principal>
             <Dependent Role="Question">
               <PropertyRef Name="Created_By" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Question_ToTable_3">
-          <End Role="Rank" Type="Self.Rank" Multiplicity="0..1" />
-          <End Role="Question" Type="Self.Question" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Rank">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Question">
-              <PropertyRef Name="Rank_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,10 +474,6 @@
             <End Role="Member" EntitySet="Member" />
             <End Role="Question" EntitySet="Question" />
           </AssociationSet>
-          <AssociationSet Name="FK_Question_ToTable_3" Association="Self.FK_Question_ToTable_3">
-            <End Role="Rank" EntitySet="Rank" />
-            <End Role="Question" EntitySet="Question" />
-          </AssociationSet>
           <AssociationSet Name="FK_Rate_Document_Document" Association="Self.FK_Rate_Document_Document">
             <End Role="Question" EntitySet="Question" />
             <End Role="Rate_Document" EntitySet="Rate_Document" />
@@ -613,6 +598,7 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Member" ToRole="Rate_Document" />
           <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Member" ToRole="Rate_Question" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -1182,6 +1168,7 @@
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="Test_Online_DBModel.Member">
               <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type_Member_Id" ColumnName="Type_Member_Id" />

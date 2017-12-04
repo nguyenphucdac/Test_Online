@@ -7,6 +7,7 @@
     Question question = ViewBag.question;
     IEnumerable<Answer> lstAnswer = ViewBag.lstAnswer;
     IEnumerable<Solution> lstSolution = ViewBag.lstSolution;
+    IEnumerable<Rate_Question> lstMemberRated = ViewBag.lstMemberRated;
 
 }
 
@@ -51,11 +52,33 @@
         </div>
         @if (Session["member"] != null)
         {
-            <button class="btn btn-success" style="float:right; margin-right: 10px" id="btn_ratting" data-toggle="modal" data-target="#Modal_rate">Đánh giá câu hỏi này</button>
+            int check = 0;
+            Member member = (Member)Session["member"];
+            if(lstMemberRated != null)
+            {
+                for (int i = 0; i < lstMemberRated.Count(); i++)
+                {
+                    if (lstMemberRated.ElementAt(i).Member_Id == member.Id)
+                    {
+                        check++;
+                        break;
+                    }
+                }
+            }
+
+            if (check != 0)
+            {
+                <button class="btn btn-success" style="float:right; margin-right: 10px" onclick="alertRated()">Đánh giá câu hỏi này</button>
+            }
+            else
+            {
+                <button class="btn btn-success" style="float:right; margin-right: 10px" id="btn_ratting" data-toggle="modal" data-target="#Modal_rate">Đánh giá câu hỏi này</button>
+            }
+
         }
         else
         {
-            <button class="btn btn-success" style="float:right; margin-right: 10px" disabled >Đánh giá câu hỏi này</button>
+            <button class="btn btn-success" style="float:right; margin-right: 10px" onclick="alertRatting()">Đánh giá câu hỏi này</button>
         }
 
         <button class="btn btn-primary" style="float:right; margin-right: 10px" id="seeSolution" data-toggle="modal" data-target="#Modal_Solution">Xem lời giải</button>
@@ -101,14 +124,100 @@
 
                 <div class="signin-form profile" style="height: 300px">
                     <h3 class="agileinfo_sign">Đánh giá câu hỏi này</h3>
+                    @using (Html.BeginForm("RattingQuestion", "Question")) {
 
-                   
+                        @Html.Hidden("questionId", question.Id)
+                    <div style="text-align:center">
+                        <span style="font-size:40px" class="fa fa-star checked" id="1s"></span>
+                        <span style="font-size:40px" class="fa fa-star checked" id="2s"></span>
+                        <span style="font-size:40px" class="fa fa-star checked" id="3s"></span>
+                        <span style="font-size:40px" class="fa fa-star checked" id="4s"></span>
+                        <span style="font-size:40px" class="fa fa-star checked" id="5s"></span>
+                    </div>
+                    <div style="text-align:center; margin-top:50px">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                            <input type="radio" name="ratting" value="1" class="form-control" /><span> 1 Sao</span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="radio" name="ratting" value="2" class="form-control" /><span> 2 Sao</span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="radio" name="ratting" value="3" class="form-control" /><span> 3 Sao</span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="radio" name="ratting" value="4" class="form-control" /><span> 4 Sao</span>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="radio" name="ratting" value="5" class="form-control" checked="checked" /><span> 5 Sao</span>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <div style="margin-top:50px; text-align:center">
+                        <input type="submit" value="Xác nhận" class="btn btn-default " id=btnRate />
+                    </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    function alertRatting() {
+        alert("Bạn cần đăng nhập trước khi đánh giá");
+    }
+    function alertRated() {
+        alert("Bạn đã đánh giá câu hỏi này !!!");
+    }
+    $("#btnRate").click(function () {
+        $("#Modal_rate").hide();
+        alert("Cảm ơn bạn đã đánh giá câu hỏi này !!!");
+    })
 
+    $('input[type=radio][name=ratting]').change(function () {
+        if (this.value == '1') {
+            $("#1s").css("color", "orangered");
+            $("#2s").css("color", "black");
+            $("#3s").css("color", "black");
+            $("#4s").css("color", "black");
+            $("#5s").css("color", "black");
+        }
+        else if (this.value == '2') {
+            $("#1s").css("color", "orangered");
+            $("#2s").css("color", "orangered");
+            $("#3s").css("color", "black");
+            $("#4s").css("color", "black");
+            $("#5s").css("color", "black");
+        }
+        else if (this.value == '3') {
+            $("#1s").css("color", "orangered");
+            $("#2s").css("color", "orangered");
+            $("#3s").css("color", "orangered");
+            $("#4s").css("color", "black");
+            $("#5s").css("color", "black");
+        }
+        else if (this.value == '4') {
+            $("#1s").css("color", "orangered");
+            $("#2s").css("color", "orangered");
+            $("#3s").css("color", "orangered");
+            $("#4s").css("color", "orangered");
+            $("#5s").css("color", "black");
+        }
+        else if (this.value == '5') {
+            $("#1s").css("color", "orangered");
+            $("#2s").css("color", "orangered");
+            $("#3s").css("color", "orangered");
+            $("#4s").css("color", "orangered");
+            $("#5s").css("color", "orangered");
+        }
+    });
+
+</script>
+<style>
+    .checked {
+        color: orangered;
+    }
+</style>
 
 

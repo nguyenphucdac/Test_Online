@@ -95,15 +95,37 @@ namespace Test_Online.Controllers
         }
         
         [HttpPost]
-        public ActionResult Update(Member member)
+        public ActionResult Update(Member member, HttpPostedFileBase image)
         {
             try
             {
+                if (Session["member"] == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
                 Member checkMember = db.Members.SingleOrDefault(n => n.Name.ToLower() == member.Name.ToLower());
                 if (checkMember != null)
                 {
                     return Json("Tên người dùng đã được sử dụng", JsonRequestBehavior.AllowGet);
                 }
+
+                if (image != null && image.ContentLength > 0)
+                {
+                    var imageName = Path.GetFileName(image.FileName);
+                    var imagePath = Path.Combine(Server.MapPath("~/Content/common/images"), imageName);
+
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        member.image = image.FileName;
+                    }
+                    else
+                    {
+                        image.SaveAs(imagePath);
+                        member.image = image.FileName;
+                    }
+                }
+
                 member.Password = EncodePass(member.Password.ToString());
 
                 db.Entry(member).State = System.Data.EntityState.Modified;

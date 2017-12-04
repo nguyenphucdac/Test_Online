@@ -535,7 +535,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -552,7 +554,6 @@
     <Content Include="Views\Partial\Menu.cshtml" />
     <Content Include="Views\Acount\SignUp.cshtml" />
     <Content Include="Views\Partial\BannerBottom.cshtml" />
-    <Content Include="Views\Acount\ChangeInfo.cshtml" />
     <Content Include="Views\Acount\ViewProfile.cshtml" />
     <Content Include="Views\Exam\Index.cshtml" />
     <Content Include="Views\Exam\OptionTest.cshtml" />

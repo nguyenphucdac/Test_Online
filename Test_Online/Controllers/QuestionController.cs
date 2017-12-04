@@ -24,6 +24,8 @@ namespace Test_Online.Controllers
                 var lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
                 ViewBag.lstQuestion = lstQuestion;
 
+                ViewBag.lstRateQuestion = db.Rate_Question;
+
                 return View(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch(Exception ex)
@@ -39,7 +41,8 @@ namespace Test_Online.Controllers
                 ViewBag.question = db.Questions.SingleOrDefault(n => n.Id == questionId);
                 ViewBag.lstAnswer = db.Answers.Where(n => n.Question_Id == questionId);
                 ViewBag.lstSolution = db.Solutions.Where(n => n.Question_Id == questionId);
-
+                ViewBag.lstMemberRated = db.Rate_Question.Where(n=>n.Question_Id == questionId);
+                
                 return View();
             }
             catch (Exception ex)
@@ -49,7 +52,7 @@ namespace Test_Online.Controllers
             }
         }
        
-        public ActionResult RattingQuestion(int questionId, int valueRate)
+        public ActionResult RattingQuestion(int questionId, int ratting)
         {
             try
             {
@@ -58,14 +61,14 @@ namespace Test_Online.Controllers
                     Member member = (Member) Session["member"];
                     Rate_Question rateQuestion = new Rate_Question();
                     rateQuestion.Question_Id = questionId;
-                    rateQuestion.Rate = valueRate;
+                    rateQuestion.Rate = ratting;
                     rateQuestion.Member_Id = member.Id;
 
                     db.Rate_Question.Add(rateQuestion);
                     db.SaveChanges();
                 }
-                
-                return View();
+
+                return RedirectToAction("QuestionDetail", "Question", new { @questionId = questionId});
             }
             catch (Exception ex)
             {
