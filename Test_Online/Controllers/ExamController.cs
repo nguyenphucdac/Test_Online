@@ -150,6 +150,7 @@ namespace Test_Online.Controllers
 
                 ViewBag.Score = score;
                 ViewBag.NumBerTrue = numberTrue;
+                ViewBag.lstAnswer = lstAnswer;
                 return View();
             }
             catch (Exception ex)
