@@ -265,7 +265,7 @@ namespace Test_Online.Controllers
                 db.Documents.Add(document);
                 db.SaveChanges();
 
-                return Content("<script>alert('Tải tài liệu lên thành công !!!');location.reload();</script>");
+                return RedirectToAction("GetListDocument", "Document", new { @topicId = document.Topic_Id });
             }
             catch (Exception ex)
             {

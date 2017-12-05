@@ -20,21 +20,36 @@
                     <th>Người đăng</th>
                     <th>Đánh giá</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @for (int i = 0; i < lstDocument.Count(); i++)
                 {
                     <tr>
-                        <td style="color:black" class="col-md-6"><span style="font-weight:bold">Tài liệu @(i + 1) : </span> @Html.Raw(lstDocument.ElementAt(i).Link)</td>
+                        <td style="color:black" class="col-md-4"><span style="font-weight:bold">Tài liệu @(i + 1) : </span> @Html.Raw(lstDocument.ElementAt(i).Link)</td>
                         <td style="color:black" class="col-md-3">@lstDocument.ElementAt(i).Member.Name</td>
-                        <td style="color:black" class="col-md-2"><img width="100" height="20" src="~/Content/web/images/ratting.jpg" /></td>
+                        <td style="color:black" class="col-md-2">
+                            <span class="fa fa-star checked" id="1s"></span>
+                            <span class="fa fa-star checked" id="2s"></span>
+                            <span class="fa fa-star checked" id="3s"></span>
+                            <span class="fa fa-star checked" id="4s"></span>
+                            <span class="fa fa-star " id="5s"></span>
+                        </td>
 
-                        <td style="color:black" class="col-md-1">@Html.ActionLink("Tải về", "DownLoadDocument", new { @id = @lstDocument.ElementAt(i).Id })</td>
+                        <td style="color:black" class="col-md-2"><a class="btn btn-default" style="color:black" href="@Url.Action("Review", "Document", new { @id = @lstDocument.ElementAt(i).Id })">Xem trước</a></td>
+                        <td style="color:black" class="col-md-1"><a class="btn btn-primary" style="color:white" href="@Url.Action("DownLoadDocument", "Document", new { @id = @lstDocument.ElementAt(i).Id })">Tải về</a></td>
                     </tr>
+                   
                 }
             </tbody>
         </table>
     </div>
 </div>
 
+
+<style>
+    .checked {
+        color: orangered;
+    }
+</style>

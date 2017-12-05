@@ -160,6 +160,7 @@
     <Compile Include="Areas\Admin\Controllers\Home_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Member_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\News_AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NotificationController.cs" />
     <Compile Include="Areas\Admin\Controllers\Partial_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Question_AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\Role_AdminController.cs" />
@@ -522,6 +523,7 @@
     <Content Include="Areas\Admin\Views\Maintain\NotFound.cshtml" />
     <Content Include="Areas\Admin\Views\Maintain\ErrorRole.cshtml" />
     <Content Include="Areas\Admin\Views\Question_Admin\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Notification\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -570,6 +572,7 @@
     <Content Include="Views\Acount\PractiseResult.cshtml" />
     <Content Include="Views\Exam\GetAnswer.cshtml" />
     <Content Include="Views\Acount\UploadDocument.cshtml" />
+    <Content Include="Views\Document\Review.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

@@ -54,6 +54,7 @@ namespace Test_Online.Controllers
                 {
                     FileDownloadName = document.File
                 };
+
                 return fileResult;
             }
             catch (Exception ex)
@@ -62,12 +63,19 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult DocumentDetail(int documentId)
+        public ActionResult Review(int id)
         {
             try
             {
+                Document document = db.Documents.SingleOrDefault(n => n.Id == id);
 
-                return View();
+                var fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/Content/common/file/" + document.File));
+                var fileResult = new FileContentResult(fileBytes, "application/octet-stream")
+                {
+                    FileDownloadName = document.File
+                };
+                Response.AddHeader("Content-Disposition", "inline; filename=test.pdf");
+                return File(fileResult.FileContents, "application/pdf");
             }
             catch (Exception ex)
             {
