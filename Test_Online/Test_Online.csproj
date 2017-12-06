@@ -178,6 +178,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\advice.cs">
+      <DependentUpon>Test_Online_Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Answer.cs">
       <DependentUpon>Test_Online_Model.tt</DependentUpon>
     </Compile>
@@ -573,6 +576,8 @@
     <Content Include="Views\Exam\GetAnswer.cshtml" />
     <Content Include="Views\Acount\UploadDocument.cshtml" />
     <Content Include="Views\Document\Review.cshtml" />
+    <Content Include="Views\Acount\CreateHelp.cshtml" />
+    <Content Include="Views\Acount\HistoryTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

@@ -169,5 +169,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="advices">
+      <EntityTypeMapping TypeName="Test_Online_DBModel.advice">
+        <MappingFragment StoreEntitySet="advice">
+          <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
+          <ScalarProperty Name="Created_By" ColumnName="Created_By" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

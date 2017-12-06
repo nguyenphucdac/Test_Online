@@ -6,6 +6,7 @@
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
 
     Member member = (Member)Session["member"];
+    List<Topic> lstTopic = ViewBag.lstTopicPractice;
 
 }
 
@@ -29,22 +30,25 @@
         }
         @using (Ajax.BeginForm("ChangeInfomation", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
         {
-            <div style="background-color:#808080;text-align:center; margin-top:10px">
-                <input type="submit" value="Thay đổi thông tin" style="font-weight:bold; background-color:#808080;border:0px solid black;color:white; font-size:18px" width="350" />
+            <div style="margin-top:10px;border:1px solid red">
+                <input type="submit" class="btn btn-default" value="Thay đổi thông tin" style="font-weight:bold; border:0px solid black;font-size:18px" width="350"  />
             </div>
         }
         @using (Ajax.BeginForm("UploadDocument", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
         {
-            <div style="background-color:#808080;text-align:center; margin-top:10px">
-                <input type="submit" value="Up load tài liệu" style="font-weight:bold; background-color:#808080;border:0px solid black;color:white; font-size:18px" width="350" />
+            <div style="margin-top:10px;border:1px solid red">
+                <input type="submit" class="btn btn-default" value="Upload tài liệu" style="font-weight:bold; border:0px solid black;font-size:18px" width="350" />
             </div>
         }
-        @using (Ajax.BeginForm("ChangeInfomation", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
+        @using (Ajax.BeginForm("CreateHelp", "Acount", new AjaxOptions { @UpdateTargetId = "AjaxReplace", InsertionMode = InsertionMode.Replace }))
         {
-            <div style="background-color:#808080;text-align:center; margin-top:10px">
-                <input type="submit" value="Gửi câu hỏi về hệ thống" style="font-weight:bold; background-color:#808080;border:0px solid black;color:white; font-size:18px" width="350" />
+            <div style="margin-top:10px;border:1px solid red">
+                <input type="submit" class="btn btn-default" value="Gửi câu hỏi" style="font-weight:bold; border:0px solid black;font-size:18px" width="350" />
             </div>
         }
+        <div style="margin-top:10px;border:1px solid red">
+            <a class="btn btn-default" style="font-weight:bold; border:0px solid black;font-size:18px" width="350" href="@Url.Action("HistoryTest","Acount")" >Các câu hỏi đã làm</a>
+        </div>
     </div>
     <div class="col-md-9" id="AjaxReplace" style="height:500px">
         <div class="modal-content">
@@ -54,14 +58,20 @@
                     <h3 class="agileinfo_sign">Thành tích học tập</h3>
                     <div class="login-form">
                         <div class="w3layouts_mail_grid">
-                            <div class="col-md-4 agileits_mail_grid_left agileinfo_mail_grid_left">
+                            <div class="col-md-6 agileits_mail_grid_left agileinfo_mail_grid_left">
                                 <div class="agileits_mail_grid_lft_grid wthree_mail_grid_lft_grid">
                                     <ul>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số câu hỏi trả lời đúng : </li>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số câu hỏi đã làm  : </li>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Số tài liệu tải lên : </li>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Thứ tự xếp hạng : </li>
-                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> Chủ đề cần cải thiện : </li>
+                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="result">Số câu hỏi đã làm : @ViewBag.sum</span></li>
+                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="result">Số câu hỏi trả lời đúng  : @ViewBag.numberTrue</span></li>
+                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="result"> Chủ đề cần cải thiện : </span></li>
+                                        <li style="float:left">
+                                            
+                                            @for (int i = 0; i < lstTopic.Count; i++)
+                                            {
+                                                <a href="#" class="btn btn-default" style="margin-left:20px">@lstTopic.ElementAt(i).Name</a>
+                                            }
+                                        </li>
+                                        <li style="float:left"><i class="fa fa-long-arrow-right" aria-hidden="true"></i> <span class="result">Số tài liệu tải lên : @ViewBag.numberDocument</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -73,3 +83,8 @@
         </div>
     </div>
 </div>
+<style>
+    .result{
+        font-size:18px;
+    }
+</style>

@@ -79,6 +79,18 @@ namespace Test_Online.Controllers
             }
         }
         
+        public ActionResult AutoCreateTest()
+        {
+            try
+            {
+                return View();
+            }catch(Exception ex)
+            {
+                Console.WriteLine("Error in Exam/Autocreate test error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+
         public ActionResult ResultTest(IEnumerable<Answer> lstAnswer, int subjectId, int topicId,int rank)
         {
             try
@@ -107,6 +119,7 @@ namespace Test_Online.Controllers
                             history.Member_Id = member.Id;
                             history.Question_Id = answer.Question_Id;
                             history.isTrue = answer.IsTrue;
+                            history.Created_Time = DateTime.Now;
 
                             db.Histories.Add(history);
                             db.SaveChanges();

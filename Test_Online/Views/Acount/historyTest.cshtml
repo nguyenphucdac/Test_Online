@@ -1,0 +1,108 @@
+﻿@using Test_Online.Models;
+
+@{
+    ViewBag.Title = "historyTest";
+    Layout = "~/Views/Layout/web/Home_Layout.cshtml";
+
+    IEnumerable<History> lstHistory = ViewBag.lstHistory;
+}
+
+<div class="container" style="margin-bottom:500px">
+    <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+        <span style="color:white; font-size: 20px;font-weight:bold">Các câu hỏi đã làm</span>
+        <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Đánh giá</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < lstHistory.Count(); i++)
+                {
+                    float midleRate = 0;
+                    int count = 0;
+                    <tr>
+                        <td style="color:black" class="col-md-9"><span style="font-weight:bold"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></span> @Html.Raw(lstHistory.ElementAt(i).Question.Title)</td>
+                        <td style="color:black" class="col-md-2">
+
+
+                            @*@for (int j = 0; j < lstRateQuestion.Count(); j++)
+                            {
+                                if (Model.ElementAt(i).Id == lstRateQuestion.ElementAt(j).Question_Id)
+                                {
+                                    midleRate += lstRateQuestion.ElementAt(j).Rate;
+                                    count++;
+                                }
+                            }
+
+                            @if ((midleRate / count) <= 1)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 1 && (midleRate / count) <= 2)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 2 && (midleRate / count) <= 3)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 3 && (midleRate / count) <= 4)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 4 && (midleRate / count) <= 5)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star checked" id="5s"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star " id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }*@
+
+                        </td>
+
+                        <td style="color:black" class="col-md-1"><a href="@Url.Action("QuestionDetail", "Question", new { @questionId = lstHistory.ElementAt(i).Question_Id })">Xem chi tiết</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+  
+
+</div>
+<style>
+    .checked {
+        color: orangered;
+    }
+</style>
+

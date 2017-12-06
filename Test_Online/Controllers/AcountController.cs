@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -176,8 +177,57 @@ namespace Test_Online.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 Member member = (Member) Session["member"];
-                var history = db.Histories.Where(n => n.Member_Id == member.Id);
+                IEnumerable<History> history = db.Histories.Where(n => n.Member_Id == member.Id);
+                IEnumerable<Document> lstDocument = db.Documents.Where(n => n.Created_by == member.Id);
+                IEnumerable<Topic> lstTopic = db.Topics;
 
+                int sum = history.Count();
+                int numberTrue = 0;
+                int numberDocument = 0;
+
+                if(history.Any())
+                {
+                    for (int i = 0; i < history.Count(); i++)
+                    {
+                        if (history.ElementAt(i).isTrue == true)
+                        {
+                            numberTrue++;
+                        }
+                    }
+                }
+                if(lstDocument != null)
+                {
+                    numberDocument = lstDocument.Count();
+                }
+
+                List<Topic> lstTopicPractice = new List<Topic>();
+
+                for(int i = 0; i < lstTopic.Count(); i++)
+                {
+                    int sumQuestion = 0;
+                    float questionTrue = 0;
+
+                   for(int k = 0; k < history.Count(); k++)
+                    {
+                        if(lstTopic.ElementAt(i).Id == history.ElementAt(k).Question.Topic_Id)
+                        {
+                            sumQuestion++;
+                            if(history.ElementAt(k).isTrue == true)
+                            {
+                                questionTrue++;
+                            }
+                        }
+                    }
+                   if(sumQuestion != 0 && (questionTrue / sumQuestion) < 0.6)
+                    {
+                        lstTopicPractice.Add(lstTopic.ElementAt(i));
+                    }
+                }
+                
+                ViewBag.sum = sum;
+                ViewBag.numberTrue = numberTrue;
+                ViewBag.numberDocument = numberDocument;
+                ViewBag.lstTopicPractice = lstTopicPractice;
                 return View();
             }
             catch (Exception ex)
@@ -195,6 +245,7 @@ namespace Test_Online.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 Member member = (Member)Session["member"];
+
                 return PartialView(member);
             }
             catch (Exception ex)
@@ -212,7 +263,51 @@ namespace Test_Online.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                Member member = (Member)Session["member"];
+                IEnumerable<History> history = db.Histories.Where(n => n.Member_Id == member.Id);
+                IEnumerable<Document> lstDocument = db.Documents.Where(n => n.Created_by == member.Id);
+
+                int sum = history.Count();
+                int numberTrue = 0;
+                int numberDocument = 0;
+
+                if (history != null)
+                {
+                    for (int i = 0; i < history.Count(); i++)
+                    {
+                        if (history.ElementAt(i).isTrue == true)
+                        {
+                            numberTrue++;
+                        }
+                    }
+                }
+                if (lstDocument != null)
+                {
+                    numberDocument = lstDocument.Count();
+                }
+
+
+                ViewBag.sum = sum;
+                ViewBag.numberTrue = numberTrue;
+                ViewBag.numberDocument = numberDocument;
                 return PartialView();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Topic Controller error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult HistoryTest()
+        {
+            try
+            {
+                Member member = (Member)Session["member"];
+                var lstHistory = db.Histories.Where(n => n.Member_Id == member.Id);
+
+                ViewBag.lstHistory = lstHistory;
+
+                return View();
             }
             catch (Exception ex)
             {
@@ -273,6 +368,40 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
 
+        }
+        public ActionResult CreateHelp()
+        {
+            try
+            {
+
+                return PartialView();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Acount/Adice is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
+        public ActionResult PostQuestion(String content)
+        {
+            try
+            {
+                advice advice = new advice();
+                Member member = (Member)Session["member"];
+
+                advice.content = content;
+                advice.Created_By = member.Id;
+                advice.Created_Time = DateTime.Now;
+                
+                db.advices.Add(advice);
+                db.SaveChanges();
+                return Content("Đã gửi câu hỏi về hệ thống");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in Acount/Adice is " + ex);
+                return Content("Đã có lỗi xảy ra");
+            }
         }
     }
 }

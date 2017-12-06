@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Test_Online_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="advice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Created_By" Type="int" Nullable="false" />
+    <Property Name="Created_Time" Type="date" Nullable="false" />
+  </EntityType>
   <EntityType Name="Answer">
     <Key>
       <PropertyRef Name="Id" />
@@ -394,6 +403,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Table_ToTable1">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="advice" Type="Self.advice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="advice">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Table_ToTable12">
     <End Role="Member" Type="Self.Member" Multiplicity="1" />
     <End Role="History" Type="Self.History" Multiplicity="*" />
@@ -421,6 +442,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Test_Online_DBModelStoreContainer">
+    <EntitySet Name="advice" EntityType="Self.advice" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
@@ -512,6 +534,10 @@
     <AssociationSet Name="FK_Table_ToTable_1" Association="Self.FK_Table_ToTable_1">
       <End Role="Question" EntitySet="Question" />
       <End Role="History" EntitySet="History" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable1" Association="Self.FK_Table_ToTable1">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="advice" EntitySet="advice" />
     </AssociationSet>
     <AssociationSet Name="FK_Table_ToTable12" Association="Self.FK_Table_ToTable12">
       <End Role="Member" EntitySet="Member" />

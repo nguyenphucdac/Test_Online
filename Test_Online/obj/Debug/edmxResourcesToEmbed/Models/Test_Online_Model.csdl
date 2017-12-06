@@ -68,6 +68,7 @@
     <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Member" ToRole="Rate_Document" />
     <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Member" ToRole="Rate_Question" />
     <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="advices" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="Member" ToRole="advice" />
   </EntityType>
   <EntityType Name="News">
     <Key>
@@ -457,6 +458,11 @@
       <End Role="Rank" EntitySet="Ranks" />
       <End Role="Question" EntitySet="Questions" />
     </AssociationSet>
+    <EntitySet Name="advices" EntityType="Test_Online_DBModel.advice" />
+    <AssociationSet Name="FK_Table_ToTable1" Association="Test_Online_DBModel.FK_Table_ToTable1">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="advice" EntitySet="advices" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_Document_ToTable_1">
     <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
@@ -581,6 +587,28 @@
       </Principal>
       <Dependent Role="Question">
         <PropertyRef Name="Rank_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="advice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="advice" ToRole="Member" />
+  </EntityType>
+  <Association Name="FK_Table_ToTable1">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.advice" Role="advice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="advice">
+        <PropertyRef Name="Created_By" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
