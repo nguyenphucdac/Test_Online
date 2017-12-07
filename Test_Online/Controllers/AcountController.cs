@@ -1,10 +1,12 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using Test_Online.Models;
@@ -96,7 +98,7 @@ namespace Test_Online.Controllers
         }
         
         [HttpPost]
-        public ActionResult Update(Member member, HttpPostedFileBase image)
+        public ActionResult Update(Member member, string newPassword, string confirmNewPassword)
         {
             try
             {
@@ -104,31 +106,24 @@ namespace Test_Online.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                Member currentMember = (Member)Session["member"];
 
-                Member checkMember = db.Members.SingleOrDefault(n => n.Name.ToLower() == member.Name.ToLower());
-                if (checkMember != null)
+                //Member checkMember = db.Members.SingleOrDefault(n => n.Name == member.Name);
+                //if (checkMember != null && checkMember.Id != member.Id)
+                //{
+                //    return Json("Tên người dùng đã được sử dụng", JsonRequestBehavior.AllowGet);
+                //}
+
+                if (EncodePass(member.Password.ToString()) != currentMember.Password)
                 {
-                    return Json("Tên người dùng đã được sử dụng", JsonRequestBehavior.AllowGet);
+                    return Json("Mật khẩu cũ không chính xác", JsonRequestBehavior.AllowGet);
+                }
+                if (newPassword.ToString() != confirmNewPassword.ToString())
+                {
+                    return Json("Xác nhận mật khẩu không trùng khớp", JsonRequestBehavior.AllowGet);
                 }
 
-                if (image != null && image.ContentLength > 0)
-                {
-                    var imageName = Path.GetFileName(image.FileName);
-                    var imagePath = Path.Combine(Server.MapPath("~/Content/common/images"), imageName);
-
-                    if (System.IO.File.Exists(imagePath))
-                    {
-                        member.image = image.FileName;
-                    }
-                    else
-                    {
-                        image.SaveAs(imagePath);
-                        member.image = image.FileName;
-                    }
-                }
-
-                member.Password = EncodePass(member.Password.ToString());
-
+                member.Password = EncodePass(newPassword.ToString());
                 db.Entry(member).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
                 Session["member"] = null;
@@ -185,7 +180,8 @@ namespace Test_Online.Controllers
                 int numberTrue = 0;
                 int numberDocument = 0;
 
-                if(history.Any())
+                // statistical question and docment
+                if (history != null)
                 {
                     for (int i = 0; i < history.Count(); i++)
                     {
@@ -223,7 +219,7 @@ namespace Test_Online.Controllers
                         lstTopicPractice.Add(lstTopic.ElementAt(i));
                     }
                 }
-                
+
                 ViewBag.sum = sum;
                 ViewBag.numberTrue = numberTrue;
                 ViewBag.numberDocument = numberDocument;
@@ -266,6 +262,7 @@ namespace Test_Online.Controllers
                 Member member = (Member)Session["member"];
                 IEnumerable<History> history = db.Histories.Where(n => n.Member_Id == member.Id);
                 IEnumerable<Document> lstDocument = db.Documents.Where(n => n.Created_by == member.Id);
+                IEnumerable<Topic> lstTopic = db.Topics;
 
                 int sum = history.Count();
                 int numberTrue = 0;
@@ -286,10 +283,34 @@ namespace Test_Online.Controllers
                     numberDocument = lstDocument.Count();
                 }
 
+                List<Topic> lstTopicPractice = new List<Topic>();
+
+                for (int i = 0; i < lstTopic.Count(); i++)
+                {
+                    int sumQuestion = 0;
+                    float questionTrue = 0;
+
+                    for (int k = 0; k < history.Count(); k++)
+                    {
+                        if (lstTopic.ElementAt(i).Id == history.ElementAt(k).Question.Topic_Id)
+                        {
+                            sumQuestion++;
+                            if (history.ElementAt(k).isTrue == true)
+                            {
+                                questionTrue++;
+                            }
+                        }
+                    }
+                    if (sumQuestion != 0 && (questionTrue / sumQuestion) < 0.6)
+                    {
+                        lstTopicPractice.Add(lstTopic.ElementAt(i));
+                    }
+                }
 
                 ViewBag.sum = sum;
                 ViewBag.numberTrue = numberTrue;
                 ViewBag.numberDocument = numberDocument;
+                ViewBag.lstTopicPractice = lstTopicPractice;
                 return PartialView();
             }
             catch (Exception ex)
@@ -298,7 +319,7 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
-        public ActionResult HistoryTest()
+        public ActionResult HistoryTest(int? pageIndex)
         {
             try
             {
@@ -307,7 +328,10 @@ namespace Test_Online.Controllers
 
                 ViewBag.lstHistory = lstHistory;
 
-                return View();
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                return View(lstHistory.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
             }
             catch (Exception ex)
             {
@@ -401,6 +425,24 @@ namespace Test_Online.Controllers
             {
                 Console.WriteLine("Error in Acount/Adice is " + ex);
                 return Content("Đã có lỗi xảy ra");
+            }
+        }
+        
+        public ActionResult MakeChart()
+        {
+            try
+            {
+                new Chart(width: 700, height: 200).AddSeries
+               (
+                   chartType: "column",
+                   xValue: new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" },
+                   yValues: new[] { "1", "0", "3", "0", "5", "6", "0", "8", "9", "0", "11", "12" }
+               ).Write("png");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

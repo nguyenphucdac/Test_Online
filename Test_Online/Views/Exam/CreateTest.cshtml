@@ -11,111 +11,116 @@
 <div class="container" style="margin-bottom: 50px">
     @using (Html.BeginForm("ResultTest", "Exam"))
     {
-
-     @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
-     @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
-     @Html.Hidden("rank", rank)
     
     <div class="col-md-1">
         
     </div>
-    <div class="col-md-10" style="border: 1px solid black; border-radius: 5px">
-        <div style="height: 100px; margin-top:20px">
-            <div class="col-md-6" style="text-align:center">
+        if (lstQuestion.Count() != 0)
+        {
+            @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
+            @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
+            @Html.Hidden("rank", rank)
+        <div class="col-md-10" style="border: 1px solid black; border-radius: 5px">
+            <div style="height: 100px; margin-top:20px">
+                <div class="col-md-6" style="text-align:center">
 
-            </div>
-            <div class="col-md-6" style="border:1px solid black; text-align:center">
-                <h3>Đề thi thử đại học tại testonline.com</h3><br />
-                <span style="font-weight:bold">Môn: @lstQuestion.First().Subject.Name</span><br />
-                <i>Thời gian làm bài 40 phút : không kể thời gian giao đề</i>
-            </div>
-        </div>
-        
-        <div style="margin-top:30px">
-            @for (int i = 0; i < lstQuestion.Count(); i++)
-            {
-                if (i % 2 == 0)
-                {
-            <div class="col-md-12" style="margin-top: 20px">
-                <div style="font-size: 15px;">
-                    <span style="font-weight:bold">Câu @(i + 1):</span>  @Html.Raw(lstQuestion.ElementAt(i).Title)
                 </div>
+                <div class="col-md-6" style="border:1px solid black; text-align:center">
+                    <h3>Đề thi thử đại học tại testonline.com</h3><br />
+                    <span style="font-weight:bold">Môn: @lstQuestion.First().Subject.Name</span><br />
+                    <i>Thời gian làm bài 40 phút : không kể thời gian giao đề</i>
+                </div>
+            </div>
 
-                @for (int j = 0; j < lstQuestion.ElementAt(i).Answers.Count(); j++)
+            <div style="margin-top:30px">
+                @for (int i = 0; i < lstQuestion.Count(); i++)
+                {
+                    if (i % 2 == 0)
                     {
-                        <div class="col-md-12">
-                            <input type="radio" class="ckb_click" style="width: 20px" name="@Url.Content("[" + i + "].Id")" value="@lstQuestion.ElementAt(i).Answers.ElementAt(j).Id" />
-                            @if (j == 0)
+                        <div class="col-md-12" style="margin-top: 20px">
+                            <div style="font-size: 15px;">
+                                <span style="font-weight:bold">Câu @(i + 1):</span>  @Html.Raw(lstQuestion.ElementAt(i).Title)
+                            </div>
+
+                            @for (int j = 0; j < lstQuestion.ElementAt(i).Answers.Count(); j++)
+                            {
+                                <div class="col-md-12">
+                                    <input type="radio" class="ckb_click" style="width: 20px" name="@Url.Content("[" + i + "].Id")" value="@lstQuestion.ElementAt(i).Answers.ElementAt(j).Id" />
+                                    @if (j == 0)
                                 {
-                                <span style="font-size: 13px;font-weight: bold">
-                                    A. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
-                                </span>
-                                }
-                                else if (j == 1)
-                                {
-                                <span style="font-size: 13px;font-weight: bold">
-                                    B. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
-                                </span>
-                                }
-                                else if (j == 2)
-                                {
-                                <span style="font-size: 13px;font-weight: bold">
-                                    C. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
-                                </span>
-                                }
-                                else
-                                {
-                                <span style="font-size: 13px;font-weight: bold">
-                                    D. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
-                                </span>
-                                }
+                                        <span style="font-size: 13px;font-weight: bold">
+                                            A. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
+                                        </span>
+                                    }
+                                    else if (j == 1)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">
+                                            B. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
+                                        </span>
+                                    }
+                                    else if (j == 2)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">
+                                            C. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">
+                                            D. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)
+                                        </span>
+                                    }
+
+                                </div>
+                            }
 
                         </div>
-                        }
-
-            </div>
-                }
-                else
-                {
-            <div class="col-md-12" style="background-color:#eef2f2; margin-top: 20px">
-                <div style="font-size: 15px;">
-                    <span style="font-weight:bold">Câu @(i + 1):</span>  @Html.Raw(lstQuestion.ElementAt(i).Title)
-                </div>
-
-                @for (int j = 0; j < lstQuestion.ElementAt(i).Answers.Count(); j++)
+                    }
+                    else
                     {
-                        <div class="col-md-12">
-                            <input type="radio" class="ckb_click" style="width: 20px" name="@Url.Content("[" + i + "].Id")" value="@lstQuestion.ElementAt(i).Answers.ElementAt(j).Id" />
-                            @if (j == 0)
+                        <div class="col-md-12" style="background-color:#eef2f2; margin-top: 20px">
+                            <div style="font-size: 15px;">
+                                <span style="font-weight:bold">Câu @(i + 1):</span>  @Html.Raw(lstQuestion.ElementAt(i).Title)
+                            </div>
+
+                            @for (int j = 0; j < lstQuestion.ElementAt(i).Answers.Count(); j++)
+                            {
+                                <div class="col-md-12">
+                                    <input type="radio" class="ckb_click" style="width: 20px" name="@Url.Content("[" + i + "].Id")" value="@lstQuestion.ElementAt(i).Answers.ElementAt(j).Id" />
+                                    @if (j == 0)
                                 {
-                                <span style="font-size: 13px;font-weight: bold">A. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
-                                }
-                                else if (j == 1)
-                                {
-                                <span style="font-size: 13px;font-weight: bold">B. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
-                                }
-                                else if (j == 2)
-                                {
-                                <span style="font-size: 13px;font-weight: bold">C. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
-                                }
-                                else
-                                {
-                                <span style="font-size: 13px;font-weight: bold">D. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
-                                }
+                                        <span style="font-size: 13px;font-weight: bold">A. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
+                                    }
+                                    else if (j == 1)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">B. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
+                                    }
+                                    else if (j == 2)
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">C. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-size: 13px;font-weight: bold">D. @Html.Raw(lstQuestion.ElementAt(i).Answers.ElementAt(j).Content)</span>
+                                    }
+
+                                </div>
+                            }
 
                         </div>
-                        }
+                    }
 
-            </div>
                 }
+            </div>
 
-            }
+            <div class="col-md-12" style="height: 100px; margin-top:20px; text-align:center">
+                <input type="submit" class="btn btn-primary" value="Nộp bài" />
+            </div>
         </div>
-
-        <div class="col-md-12" style="height: 100px; margin-top:20px; text-align:center">
-            <input type="submit" class="btn btn-primary" value="Nộp bài" />
-        </div>
-    </div>
+    }
+    else{
+	    <div style="text-align:center;"><h3>Môn này hiện chưa có câu hỏi</h3></div>
+    }
     <div class="col-md-1">
         <div id="time_mount" style="text-align:center; margin-top:15%; position:fixed; float:right; font-weight:bold">
             Thời gian còn lại 

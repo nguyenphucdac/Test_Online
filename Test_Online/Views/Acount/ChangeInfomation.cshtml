@@ -1,7 +1,6 @@
 ﻿@model Test_Online.Models.Member
 
-
-@using (Html.BeginForm("Update", "Acount", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Ajax.BeginForm("Update", "Acount", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "alert" }))
 {
     @Html.AntiForgeryToken()
 
@@ -14,49 +13,59 @@
         <div class="modal-content">
             <div class="modal-header">
                 
-                <div class="signin-form profile" style="height:400px">
+                <div class="signin-form profile" style="height:500px">
                     <h3 class="agileinfo_sign">Thay đổi thông tin cá nhân</h3>
                     <hr />
                     <div class="login-form">
                         <div class="form-group">
-                            @Html.Label("Tên", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Tên", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-5">
                                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                <span id="checkName" style="font-size:12px; color:red"></span>
+                                
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        
                         <div class="form-group">
-                            @Html.Label("Mật khẩu", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-5">
-                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-5">
                                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        
                         <div class="form-group">
-                            @Html.Label("Ảnh đại diện", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Mật khẩu cũ", htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-5">
-                                <input type="file" name="image" class = "form-control" />
-                                @*@if(Model.image != null)
-                                {
-                                    <img src="~/Content/common/images/@Model.image" height="100" width="100" />
-                                }*@
-                                
+                                <input type="password" name="Password" class="form-control" required />
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-5" style="height:40px">
+                            @Html.Label("Mật khẩu mới", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-5">
+                                <input type="password" name="newPassword" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            @Html.Label("Xác nhận mật khẩu mới", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-5">
+                                <input type="password" name="confirmNewPassword" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                           
+                            <div class="col-md-offset-3 col-md-5">
+                                <span id="alert" style="font-size:14px; color:red"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="clearfix"></div>
+                       
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-5" style="height:40px">
                                 <input type="submit" value="Lưu" class="btn btn-default"/>
                             </div>
                         </div>

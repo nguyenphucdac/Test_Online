@@ -37,7 +37,7 @@
 
     <div class="col-md-12" style="margin-top: 50px;text-align:center">
         <input type="submit" value="Tạo đề thi & bắt đầu làm bài" class="btn btn-danger" />
-        <a class="btn btn-default" href="#">Tự động tạo đề thi</a>
+        <a class="btn btn-default" href="@Url.Action("AutoCreateTest", "Exam", new { @subjectId = lstTopic.First().Subject_Id})">Tự động tạo đề thi</a>
     </div>
     <div class="col-md-12" style="margin-top: 50px;">
         <span class="glyphicon glyphicon-pencil"></span>

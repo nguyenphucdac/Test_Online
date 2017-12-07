@@ -10,6 +10,7 @@
     IEnumerable<Topic> lstTopicPhysical = ViewBag.lstTopicPhysical;
     IEnumerable<Topic> lstTopicChemistry = ViewBag.lstTopicChemistry;
     IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
+    IEnumerable<Topic> lstTopicForMember = ViewBag.lstTopicForMember;
 
 }
 <div class="container" style="margin-bottom: 50px">
@@ -45,7 +46,8 @@
                                 <div class="w3_event_right_grid">
                                     <div class="w3layouts_event_right_para">
                                         <p style="padding-left: 60px; font-weight:bold">
-                                            Học, học nữa, học mãi
+                                            Học bao nhiều vẫn thiếu, 
+                                            Hiểu bao nhiêu vẫn chẳng thừa
                                         </p>
                                         <div class="w3layouts_event_right_para_pos">
                                             <i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -71,13 +73,13 @@
         </div>
 
         <div class="col-md-5">
-            <div class="col-md-12" style="height: 30px; background-color:#4e9b1f;">
+            <div class="col-md-12" style="height: 30px; background-color:#d1d313;">
                 <span style="color:white; font-size: 20px;font-weight:bold">Tin tức giáo dục</span>
                 
             </div>
             <div style="padding-left:10px; background-color:#ebeaea" class="col-md-12">
                 @for (int i = 0; i < lstNews.Count(); i++)
-            {
+                {
 
                     <div>
                         <div class="col-md-8">
@@ -101,8 +103,11 @@
         </div>
         <div class="clearfix"> </div>
     </div>
+
+
+
     <div style="background-color:white">
-        <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+        <div class="col-md-12" style="height: 28px; background-color:#e94040; margin-bottom: 20px">
             <span style="color:white; font-size: 20px;font-weight:bold">Thư viện đề thi</span>
             <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
         </div>
@@ -128,8 +133,35 @@
     </div>
 
     <div style="background-color:white;margin-top:20px">
-        <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
-            <span style="color:white; font-size: 20px;font-weight:bold">Ôn tập các chủ đề</span>
+       
+
+        @if (Session["member"] != null && lstTopicForMember.Count() != 0)
+        {
+            <div class="col-md-12" style="height: 28px; background-color:#e94040; margin-bottom: 20px">
+                <span style="color:white; font-size: 20px;font-weight:bold">chủ đề của bạn</span>
+                <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
+            </div>
+            <div class="agileits_banner_bottom_grids">
+                @for (int i = 0; i < lstTopicForMember.Count(); i++)
+                {
+                    <div class="col-md-3 agileits_banner_bottom_grid" style="background-color:#ebeaea">
+                        <div class="hovereffect w3ls_banner_bottom_grid">
+                            <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicForMember.ElementAt(i).Id})"><img height="150" src="@Url.Content("~/Content/common/images/" + lstTopicForMember.ElementAt(i).Image)" alt=" " /></a>
+                        </div>
+                        <div class="w3-agile-post-info" style="margin : 20px; text-align:center">
+                            <a href="@Url.Action("Index", "Question", new { @topicid = lstTopicForMember.ElementAt(i).Id})" style="color:black; font-size: 13px; font-weight: bold">@lstTopicForMember.ElementAt(i).Name</a>
+
+                        </div>
+                    </div>
+                }
+
+
+                <div class="clearfix"> </div>
+            </div>
+        }
+
+        <div class="col-md-12" style="height: 28px; background-color:#e94040; margin-bottom: 20px; margin-top:30px;">
+            <span style="color:white; font-size: 20px;font-weight:bold">chủ đề thông dụng</span>
             <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
         </div>
 

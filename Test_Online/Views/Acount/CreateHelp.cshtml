@@ -3,21 +3,21 @@
 @using (Html.BeginForm("PostQuestion", "Acount", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
    
-    <div class="form-horizontal" style="height:400px">
+    <div class="form-horizontal" style="height:500px">
 
         <div class="modal-content">
             <div class="modal-header">
 
-                <div class="signin-form profile" style="height:400px">
+                <div class="signin-form profile" style="height:500px">
                     <h3 class="agileinfo_sign">Gửi câu hỏi về hệ thống</h3>
                     <hr />
                     <div class="login-form">
 
                         
                         <div class="form-group">
-                            @Html.LabelFor(model => model.content, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.Label("Nội dung", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-8">
-                                <input type="text" name="content" />
+                                <input type="text" name="content"  />
                             </div>
                         </div>
                        

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,12 +12,15 @@ namespace Test_Online.Areas.Admin.Controllers
     public class Question_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex)
         {
             try
             {
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
                 var lstQuestion = db.Questions;
-                return View(lstQuestion);
+                return View(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch(Exception ex)
             {

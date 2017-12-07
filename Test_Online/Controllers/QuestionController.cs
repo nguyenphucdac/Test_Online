@@ -15,7 +15,7 @@ namespace Test_Online.Controllers
         {
             try
             {
-                int pageSize = 5;
+                int pageSize = 10;
                 int pageNumber = (pageIndex ?? 1);
 
                 Topic topic = db.Topics.SingleOrDefault(n => n.Id == topicId);

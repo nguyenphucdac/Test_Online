@@ -46,10 +46,12 @@
                         </ul>
                     </li>
                     <li class="menu__item menu__item--current">
-                        
-                            <input class="btn-default btn" type="search" name="Search" placeholder="Tìm kiếm" required="">
+                        @using (Html.BeginForm("Search", "Search"))
+                        {
+                            <input class="btn-default btn" type="search" name="keyWord" placeholder="Tìm kiếm" required="">
                             <button id="btnsearch" type="submit" class="btn-default btn"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                       
+                        }
+                            
                     </li>
                 </ul>
 
