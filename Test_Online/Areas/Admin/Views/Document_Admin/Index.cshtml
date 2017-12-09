@@ -1,5 +1,6 @@
 ﻿@using Test_Online.Models
-@model IEnumerable<Document>
+@using PagedList.Mvc
+@model PagedList.IPagedList<Document>
 
 @{
     ViewBag.Title = "Tài liệu";
@@ -41,6 +42,13 @@
         </tbody>
     </table>
 }
+<div class="dlink container">
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Question_Admin", new
+{
+    @pageIndex = page
+}))
+</div>
+
 <style>
     .gridFooter {
         border: 1px solid black;

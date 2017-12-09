@@ -1,0 +1,89 @@
+﻿@using Test_Online.Models;
+
+@{
+    int typeInfo = ViewBag.typeInfo;
+}
+
+<div id="result_search">
+
+    <div>
+        @if (typeInfo == 1)
+        {
+            IEnumerable<Document> lstData = ViewBag.lstData;
+            if (lstData.Count() != 0)
+            {
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstData.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("Review","Document", new { @id = lstData.ElementAt(i).Id})"> @lstData.ElementAt(i).Link</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <h3>Kết quả tìm kiếm trống </h3>
+                </div>
+            }
+        }
+        else if (typeInfo == 2)
+        {
+            IEnumerable<Question> lstData = ViewBag.lstData;
+            if (lstData.Count() != 0)
+            {
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstData.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("QuestionDetail","Question", new { @id = lstData.ElementAt(i).Id})"> @Html.Raw(lstData.ElementAt(i).Title)</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <h3>Kết quả tìm kiếm trống </h3>
+                </div>
+            }
+        }
+        else if (typeInfo == 3)
+        {
+            IEnumerable<News> lstData = ViewBag.lstData;
+            if (lstData.Count() != 0)
+            {
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstData.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("NewsDetail","News", new { @id = lstData.ElementAt(i).Id})"> @Html.Raw(lstData.ElementAt(i).title)</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </table>
+            }
+            else
+            {
+                <div style="text-align:center">
+                    <h3>Kết quả tìm kiếm trống </h3>
+                </div>
+            }
+        }
+    </div>
+</div>

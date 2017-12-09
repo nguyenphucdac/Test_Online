@@ -4,22 +4,23 @@
     ViewBag.Title = "ToTest";
     Layout = "~/Views/Layout/web/Home_Layout.cshtml";
 
-    IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
+    List<Question> lstQuestion = ViewBag.lstQuestion;
     List<Answer> lstAnswer = new List<Answer>();
-    int rank = ViewBag.rank;
+    string lstQuestionId = "";
+    for(int i = 0; i < lstQuestion.Count(); i++)
+    {
+        lstQuestionId += lstQuestion.ElementAt(i).Id + "@";
+    }
 }
 <div class="container" style="margin-bottom: 50px">
     @using (Html.BeginForm("ResultTest", "Exam"))
     {
-    
+    @Html.Hidden("lstId", lstQuestionId)
     <div class="col-md-1">
         
     </div>
         if (lstQuestion.Count() != 0)
         {
-            @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
-            @Html.Hidden("topicId", lstQuestion.First().Topic_Id)
-            @Html.Hidden("rank", rank)
         <div class="col-md-10" style="border: 1px solid black; border-radius: 5px">
             <div style="height: 100px; margin-top:20px">
                 <div class="col-md-6" style="text-align:center">
@@ -114,7 +115,7 @@
             </div>
 
             <div class="col-md-12" style="height: 100px; margin-top:20px; text-align:center">
-                <input type="submit" class="btn btn-primary" value="Nộp bài" />
+                <input  class="btn btn-primary" value="Nộp bài" type="submit"/>
             </div>
         </div>
     }
@@ -142,14 +143,37 @@
     </script>
     }
 </div>
+@*<script>
+    $("#release").click(function () {
+        alert("pesss");
+        $.ajax({
+            contentType: 'application/json',
+            dataType: 'json',
+            traditional: true,
+            async: false,
+            cache: false,
+            type: 'POST',
+            url: '/Exam/ResultTest',
+            data: JSON.stringify({ 'lstAnswer': '@lstAnswer', 'lstQuestion': '@lstQuestion'}),
+            success: function () {
+                alert("pass");
+            },
+            failure: function (response) {
+                alert("not pass");
+            }
+        });
+    })
+
+</script>*@
 <script>
+   
     function startTimer(duration, display) {
         var start = Date.now(),
             diff,
             minutes,
             seconds;
         function timer() {
-            // get the number of seconds that have elapsed since 
+            // get the number of seconds that have elapsed since
             // startTimer() was called
             diff = duration - (((Date.now() - start) / 1000) | 0);
 
@@ -172,10 +196,11 @@
         timer();
         setInterval(timer, 1000);
     }
-
     window.onload = function () {
         var fiveMinutes = 60 * 40,
             display = document.querySelector('#count_down');
         startTimer(fiveMinutes, display);
     };
+
+
 </script>

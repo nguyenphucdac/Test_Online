@@ -7,18 +7,21 @@
 
     IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
     List<Answer> lstAnswer = new List<Answer>();
+    string lstQuestionId = "";
+    for (int i = 0; i < lstQuestion.Count(); i++)
+    {
+        lstQuestionId += lstQuestion.ElementAt(i).Id + "@";
+    }
 }
 <div class="container" style="margin-bottom: 50px">
-    @using (Html.BeginForm("ResultTestAuto", "Exam"))
+    @using (Html.BeginForm("ResultTest", "Exam"))
     {
-
+        @Html.Hidden("lstId", lstQuestionId)
         <div class="col-md-1">
 
         </div>
         if (lstQuestion.Count() != 0)
         {
-            @Html.Hidden("subjectId", lstQuestion.First().Subject_Id)
-          
             <div class="col-md-10" style="border: 1px solid black; border-radius: 5px">
                 <div style="height: 100px; margin-top:20px">
                     <div class="col-md-6" style="text-align:center">
@@ -83,7 +86,7 @@
                                 </div>
 
                                 @for (int j = 0; j < lstQuestion.ElementAt(i).Answers.Count(); j++)
-                            {
+                                {
                                     <div class="col-md-12">
                                         <input type="radio" class="ckb_click" style="width: 20px" name="@Url.Content("[" + i + "].Id")" value="@lstQuestion.ElementAt(i).Answers.ElementAt(j).Id" />
                                         @if (j == 0)
@@ -130,15 +133,15 @@
             </div>
         </div>
         <script>
-    $(".ckb_click").click(function () {
-        i = 0;
-        $(".ckb_click").each(function () {
-            if ($(this).is(':checked')) {
-                $(this).attr("name", "[" + i + "].Id");
-                i++;
-            }
-        })
-    })
+            $(".ckb_click").click(function () {
+                i = 0;
+                $(".ckb_click").each(function () {
+                    if ($(this).is(':checked')) {
+                        $(this).attr("name", "[" + i + "].Id");
+                        i++;
+                    }
+                })
+            })
         </script>
     }
 </div>

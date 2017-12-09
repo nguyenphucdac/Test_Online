@@ -1,0 +1,125 @@
+﻿@using Test_Online.Models;
+@using PagedList.Mvc
+@model PagedList.IPagedList<Question>
+
+@{
+    IEnumerable<Rate_Question> lstRateQuestion = ViewBag.lstRateQuestion;
+}   
+    <div class="col-md-12">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Đánh giá</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    float midleRate = 0;
+                    int count = 0;
+                    <tr>
+                        <td style="color:black" class="col-md-9"><span style="font-weight:bold">Câu @(i + 1) : </span> @Html.Raw(Model.ElementAt(i).Title)</td>
+                        <td style="color:black" class="col-md-2">
+
+
+                            @for (int j = 0; j < lstRateQuestion.Count(); j++)
+                            {
+                                if (Model.ElementAt(i).Id == lstRateQuestion.ElementAt(j).Question_Id)
+                                {
+                                    midleRate += lstRateQuestion.ElementAt(j).Rate;
+                                    count++;
+                                }
+                            }
+
+                            @if ((midleRate / count) <= 1)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 1 && (midleRate / count) <= 2)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 2 && (midleRate / count) <= 3)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 3 && (midleRate / count) <= 4)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+                            else if ((midleRate / count) > 4 && (midleRate / count) <= 5)
+                            {
+                                <span class="fa fa-star checked" id="1s"></span>
+                                <span class="fa fa-star checked" id="2s"></span>
+                                <span class="fa fa-star checked" id="3s"></span>
+                                <span class="fa fa-star checked" id="4s"></span>
+                                <span class="fa fa-star checked" id="5s"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-star " id="1s"></span>
+                                <span class="fa fa-star " id="2s"></span>
+                                <span class="fa fa-star " id="3s"></span>
+                                <span class="fa fa-star " id="4s"></span>
+                                <span class="fa fa-star " id="5s"></span>
+                            }
+
+                        </td>
+
+                        <td style="color:black" class="col-md-1"><a class="btn btn-danger" href="@Url.Action("QuestionDetail", "Question", new { @questionId = Model.ElementAt(i).Id })">Xem chi tiết</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    
+<style>
+    .checked {
+        color: orangered;
+    }
+</style>
+<script>
+    $("#select_sort").change(function () {
+        var selectedVal = $(this).find(':selected').val();
+        var param = JSON.stringify({
+                    'topicId': @ViewBag.topicId,
+                    'typeSort': selectedVal
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/Question/Sort",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    datatype: "html",
+                    contentType: 'application/json',
+                    data: { 'topicId': @ViewBag.topicId, 'typeSort': selectedVal},
+                    success: function (data) {
+                        debugger;
+                        $('#ajaxReplace').empty();
+                        $('#ajaxReplace').html(data);
+                    },
+                    error: function (arg, data, value) {
+
+                    }
+                });
+    });
+</script>

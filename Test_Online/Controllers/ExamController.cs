@@ -34,40 +34,83 @@ namespace Test_Online.Controllers
         {
             try
             {
+                int sumQuestion = 10;
+                List<Question> lstQuestion = new List<Question>();
+                // chủ đề tổng hợp và có độ khó các câu hỏi ngẫu nhiên
                 if(topicId == 0)
                 {
-                    if(rank == 0)
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
-                    }
-                    else
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId &&
-                            n.Rank_Id == rank
-                            );
-                    }
+                    
+                        IEnumerable<Topic> lstTopic = db.Topics.Where(n => n.Subject_Id == subjectId);
+                        
+                        for (int i = 0; i < lstTopic.Count(); i++)
+                        {
+                            double? percen = lstTopic.ElementAt(i).Percen;
+                            int numberQuestion = (int) (percen * sumQuestion);
+                            int topicIdItem = lstTopic.ElementAt(i).Id;
+                            IEnumerable<Question> lstQuestionOfTopic = db.Questions.Where(n => n.Topic_Id == topicIdItem);
+
+                            int count = 0;
+                            while(count < numberQuestion)
+                            {
+                                Random random = new Random();
+                                int position = random.Next(0, lstQuestionOfTopic.Count() - 1);
+                                if(lstQuestionOfTopic.ElementAt(position).Rank_Id != -1)
+                                {
+                                    if(lstQuestion.Count >= sumQuestion)
+                                    {
+                                        break;
+                                    }
+                                    lstQuestion.Add(lstQuestionOfTopic.ElementAt(position));
+                                    count++;
+                                    lstQuestionOfTopic.ElementAt(position).Rank_Id = -1;
+                                }
+                            }
+                            if (lstQuestion.Count >= sumQuestion)
+                            {
+                                break;
+                            }
+                        }
+                        
                 }
+                
+                // chủ đề xác định
                 else
                 {
+                    // độ khó ngẫu nhiên
                     if(rank == 0)
                     {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId && 
-                            n.Topic_Id == topicId
-                            );
+                        IEnumerable<Question> lstQuestionOfTopic = db.Questions.Where(n => n.Topic_Id == topicId);
+                        
+                        while (lstQuestion.Count < sumQuestion)
+                        {
+                            Random random = new Random();
+                            int position = random.Next(0, lstQuestionOfTopic.Count() - 1);
+                            if (lstQuestionOfTopic.ElementAt(position).Rank_Id != -1)
+                            {
+                                lstQuestion.Add(lstQuestionOfTopic.ElementAt(position));
+
+                                // đánh dấu là đã được chọn
+                                lstQuestionOfTopic.ElementAt(position).Rank_Id = -1;
+                            }
+                        }
+
                     }
+                    // độ khó xác định
                     else
                     {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId &&
-                            n.Topic_Id == topicId &&
+                        IEnumerable<Question> lstQuestionOfTopic = db.Questions.Where(
+                            n => n.Topic_Id == topicId && 
                             n.Rank_Id == rank
-                            );
+                            ).Take(sumQuestion);
+                        
+                        for(int i = 0; i < lstQuestionOfTopic.Count(); i++)
+                        {
+                            lstQuestion.Add(lstQuestionOfTopic.ElementAt(i));
+                        }
                     }
                 }
 
-
+                ViewBag.lstQuestion = lstQuestion;
                 ViewBag.rank = rank;
 
                 return View();
@@ -88,72 +131,53 @@ namespace Test_Online.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
+                int sumQuestion = 10;
                 Member member = (Member)Session["member"];
                 IEnumerable<History> history = db.Histories.Where(n => n.Member_Id == member.Id && n.isTrue == false);
-                IEnumerable<Question> question = db.Questions.Where(n => n.Subject_Id == subjectId);
-                List<Question> lstQuestionToTest = new List<Question>();
+                
+                List<Question> lstQuestion = new List<Question>();
 
-                if(history.Any())
+                // kiểm tra lịch sử làm bài của người dùng nếu tồn tại lịch sử làm bài
+                if (history.Any())
                 {
                     for (int i = 0; i < history.Count(); i++)
                     {
-                        int questionId = history.ElementAt(i).Question_Id;
-                        int topicId = history.ElementAt(i).Question.Topic_Id;
-                        IEnumerable<Question> lstSubQuestion = db.Questions.Where(
-                                n=>n.Subject_Id == subjectId &&
-                                n.Id != questionId &&
-                                n.Topic_Id == topicId
-                            );
-
-                        
-                        if (lstSubQuestion.Any())
+                        if (history.ElementAt(i).isTrue == false)
                         {
-                            for(int j = 0; j < lstSubQuestion.Count(); j++)
+                            int questionId = history.ElementAt(i).Question_Id;
+                            Question question = db.Questions.SingleOrDefault(n => n.Id == questionId && n.Subject_Id == subjectId);
+
+                            if(lstQuestion.Count >= sumQuestion)
                             {
-                                if (lstQuestionToTest.Count >= 20)
-                                    break;
-                                lstQuestionToTest.Add(lstSubQuestion.ElementAt(j));
+                                break;
+                            }
+                            if(question != null)
+                            {
+                                lstQuestion.Add(question);
                             }
                         }
-                        for (int k = 0; k < history.Count(); k++)
-                        {
-                            if (history.ElementAt(k) != null && history.ElementAt(k).Question.Topic_Id == topicId)
-                            {
-                                history.ElementAt(k).Question.Topic_Id = -1;
-                            }
-                        }
-
                     }
-
-                    for(int i = 0; i < question.Count(); i++)
+                    if(lstQuestion.Count < sumQuestion)
                     {
-                        if (lstQuestionToTest.Count >= 20)
+                        IEnumerable<Question> lstQ = db.Questions.Where(n => n.Subject_Id == subjectId);
+                        while(lstQuestion.Count < sumQuestion)
                         {
-                            break;
-                        }
-                        for (int j = 0; j < lstQuestionToTest.Count(); j++)
-                        {
-                            if(lstQuestionToTest.Count >= 20)
+                            Random random = new Random();
+                            int position = random.Next(1, lstQ.Count() - 1);
+                            Question question = lstQ.ElementAt(position);
+
+                            if(!checkExits(lstQuestion, question))
                             {
-                                break;
-                            }
-                            if(lstQuestionToTest.ElementAt(j).Id != question.ElementAt(i).Id)
-                            {
-                                lstQuestionToTest.Add(question.ElementAt(i));
-                                break;
-                            }
-                            else
-                            {
-                                continue;
+                                lstQuestion.Add(question);
                             }
                         }
                     }
-
-                    ViewBag.lstQuestion = lstQuestionToTest;
+                    ViewBag.lstQuestion = lstQuestion;
                 }
+                // nếu chưa có lích sử làm bài
                 else
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    RedirectToAction("CreateTest", "Exam", new { @subjectId = subjectId, @topicId = 0, @rank = 0 });
                 }
 
                 return View();
@@ -164,14 +188,23 @@ namespace Test_Online.Controllers
             }
         }
 
-        public ActionResult ResultTest(IEnumerable<Answer> lstAnswer, int subjectId, int topicId,int rank)
+        public ActionResult ResultTest(List<Answer> lstAnswer, string lstId)
         {
             try
             {
                 float score = 0f;
                 int numberTrue = 0;
-                
-                if(lstAnswer != null)
+                List<Question> lstQuestion = new List<Question>();
+
+                string[] arrQuestionId = lstId.Split('@');
+                for(int i = 0; i < arrQuestionId.Length - 1; i++)
+                {
+                    int id = Int32.Parse(arrQuestionId[i]);
+                    Question question = db.Questions.SingleOrDefault(n => n.Id == id);
+                    lstQuestion.Add(question);
+                }
+
+                if (lstAnswer.Count() != 0)
                 {
                     for (int i = 0; i < lstAnswer.Count(); i++)
                     {
@@ -183,65 +216,38 @@ namespace Test_Online.Controllers
                             score += 0.5f;
                             numberTrue++;
                         }
-                        
-                        if(Session["member"] != null)
+                        // lưu lịch sử làm bài nếu người dùng đã đăng nhập
+                        if (Session["member"] != null)
                         {
                             Member member = (Member) Session["member"];
+                            History historyCheckExits = db.Histories.SingleOrDefault(n => n.Member_Id == member.Id && n.Question_Id == answer.Question_Id);
 
-                            History check = db.Histories.SingleOrDefault(n => n.Member_Id == member.Id && n.Question_Id == answer.Question_Id);
-
-                            if (check == null)
+                            if(historyCheckExits != null)
                             {
-                                History historyOb = new History();
-                                historyOb.Member_Id = member.Id;
-                                historyOb.Question_Id = answer.Question_Id;
-                                historyOb.isTrue = answer.IsTrue;
-                                historyOb.Created_Time = DateTime.Now;
+                                historyCheckExits.isTrue = answer.IsTrue;
+                                historyCheckExits.Created_Time = DateTime.Now;
 
-                                db.Histories.Add(historyOb);
+                                db.Entry(historyCheckExits).State = System.Data.EntityState.Modified;
                                 db.SaveChanges();
+                            }
+                            else
+                            {
+                                History history = new History();
+                                history.Member_Id = member.Id;
+                                history.Question_Id = answer.Question_Id;
+                                history.isTrue = answer.IsTrue;
+                                history.Created_Time = DateTime.Now;
                             }
                         }
                         
                     }
                 }
 
-                if (topicId == 0)
-                {
-                    if (rank == 0)
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
-                    }
-                    else
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId &&
-                            n.Rank_Id == rank
-                            );
-                    }
-                }
-                else
-                {
-                    if (rank == 0)
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId &&
-                            n.Topic_Id == topicId
-                            );
-                    }
-                    else
-                    {
-                        ViewBag.lstQuestion = db.Questions.Where(
-                            n => n.Subject_Id == subjectId &&
-                            n.Topic_Id == topicId &&
-                            n.Rank_Id == rank
-                            );
-                    }
-                }
-
                 ViewBag.Score = score;
                 ViewBag.NumBerTrue = numberTrue;
                 ViewBag.lstAnswer = lstAnswer;
+                ViewBag.lstQuestion = lstQuestion;
+
                 return View();
             }
             catch (Exception ex)
@@ -252,118 +258,11 @@ namespace Test_Online.Controllers
 
         }
 
-        public ActionResult ResultTestAuto(IEnumerable<Answer> lstAnswer, int subjectId)
+        public ActionResult ResultTestAuto(List<Answer> lstAnswer, string lstId)
         {
             try
             {
-                Member member = (Member)Session["member"];
-                float score = 0f;
-                int numberTrue = 0;
-                if (lstAnswer != null)
-                {
-                    for (int i = 0; i < lstAnswer.Count(); i++)
-                    {
-                        int id = lstAnswer.ElementAt(i).Id;
-                        Answer answer = db.Answers.SingleOrDefault(n => n.Id == id);
-
-                        if (answer.IsTrue == true)
-                        {
-                            score += 0.5f;
-                            numberTrue++;
-                        }
-
-                        if (Session["member"] != null)
-                        {
-
-                            History check = db.Histories.SingleOrDefault(n => n.Member_Id == member.Id && n.Question_Id == answer.Question_Id);
-
-                            if(check == null)
-                            {
-                                History historyOb = new History();
-                                historyOb.Member_Id = member.Id;
-                                historyOb.Question_Id = answer.Question_Id;
-                                historyOb.isTrue = answer.IsTrue;
-                                historyOb.Created_Time = DateTime.Now;
-
-                                db.Histories.Add(historyOb);
-                                db.SaveChanges();
-                            }
-                        }
-
-                    }
-                }
-
-                
-                IEnumerable<History> history = db.Histories.Where(n => n.Member_Id == member.Id && n.isTrue == false);
-                IEnumerable<Question> question = db.Questions.Where(n => n.Subject_Id == subjectId);
-                List<Question> lstQuestionToTest = new List<Question>();
-
-                if (history.Any())
-                {
-                    for (int i = 0; i < history.Count(); i++)
-                    {
-                        int questionId = history.ElementAt(i).Question_Id;
-                        int topicId = history.ElementAt(i).Question.Topic_Id;
-                        IEnumerable<Question> lstSubQuestion = db.Questions.Where(
-                                n => n.Subject_Id == subjectId &&
-                                n.Id != questionId &&
-                                n.Topic_Id == topicId
-                            );
-
-
-                        if (lstSubQuestion.Any())
-                        {
-                            for (int j = 0; j < lstSubQuestion.Count(); j++)
-                            {
-                                if (lstQuestionToTest.Count >= 20)
-                                    break;
-                                lstQuestionToTest.Add(lstSubQuestion.ElementAt(j));
-                            }
-                        }
-                        for (int k = 0; k < history.Count(); k++)
-                        {
-                            if (history.ElementAt(k) != null && history.ElementAt(k).Question.Topic_Id == topicId)
-                            {
-                                history.ElementAt(k).Question.Topic_Id = -1;
-                            }
-                        }
-
-                    }
-
-                    for (int i = 0; i < question.Count(); i++)
-                    {
-                        if (lstQuestionToTest.Count >= 20)
-                        {
-                            break;
-                        }
-                        for (int j = 0; j < lstQuestionToTest.Count(); j++)
-                        {
-                            if (lstQuestionToTest.Count >= 20)
-                            {
-                                break;
-                            }
-                            if (lstQuestionToTest.ElementAt(j).Id != question.ElementAt(i).Id)
-                            {
-                                lstQuestionToTest.Add(question.ElementAt(i));
-                                break;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                    }
-
-                    ViewBag.lstQuestion = lstQuestionToTest;
-                }
-                else
-                {
-                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
-                }
-
-                ViewBag.lstAnswer = lstAnswer;
-                ViewBag.Score = score;
-                ViewBag.NumBerTrue = numberTrue;
+               
 
                 return PartialView();
             }
@@ -374,30 +273,41 @@ namespace Test_Online.Controllers
             }
         }
 
-        public ActionResult GetAnswer(int subjectId, int topicId)
+        public Boolean checkExits(List<Question> lstQuestion, Question question)
         {
-            try
+            for(int i = 0; i < lstQuestion.Count; i++)
             {
-                if (topicId == 0)
+                if(question.Id == lstQuestion.ElementAt(i).Id)
                 {
-                    ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+                    return true;
                 }
-                else
-                {
-                    ViewBag.lstQuestion = db.Questions.Where(
-                        n => n.Subject_Id == subjectId
-                        && n.Topic_Id == topicId
-                    );
-                }
-
-
-                return PartialView();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in OptionTst : " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
+            return false;
         }
+        //public ActionResult GetAnswer(int subjectId, int topicId)
+        //{
+        //    try
+        //    {
+        //        if (topicId == 0)
+        //        {
+        //            ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
+        //        }
+        //        else
+        //        {
+        //            ViewBag.lstQuestion = db.Questions.Where(
+        //                n => n.Subject_Id == subjectId
+        //                && n.Topic_Id == topicId
+        //            );
+        //        }
+
+
+        //        return PartialView();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error in OptionTst : " + ex);
+        //        return RedirectToAction("Index", "Maintain");
+        //    }
+        //}
     }
 }

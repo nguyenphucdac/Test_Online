@@ -9,12 +9,30 @@
     IEnumerable<Rate_Question> lstRateQuestion = ViewBag.lstRateQuestion;
 }
 
-<div class="container" style="margin-bottom:500px">
-    <div class="col-md-12" style="height: 28px; background-color:#4e9b1f; margin-bottom: 20px">
+<div class="container" style="margin-bottom:200px">
+    <div class="col-md-12" style="height: 28px; background-color:#e94040; margin-bottom: 20px">
         <span style="color:white; font-size: 20px;font-weight:bold">Câu hỏi chủ đề : @ViewBag.nameTopic</span>
         <div class="col-md-12" style="background-color:#ede7e7; height:1px"></div>
     </div>
     <div class="col-md-12">
+        <div class="col-md-2">
+            <select required name="typeInfo" class="form-control btn-primary" id="select_sort">
+                <option value="0">---Sắp xếp---</option>
+                <option value="1">Cũ nhất</option>
+                <option value="2">Mới nhất</option>
+                <option value="3">Độ khó</option>
+                <option value="4">Đánh giá cao nhất</option>
+                <option value="5">Đánh giá thấp nhất</option>
+                
+            </select>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+        
+       
+    </div>
+    <div class="col-md-12" id="ajaxReplace">
         <table class="table table-condensed">
             <thead>
                 <tr>
@@ -113,3 +131,30 @@
         color: orangered;
     }
 </style>
+<script>
+    $("#select_sort").change(function () {
+        var selectedVal = $(this).find(':selected').val();
+        var param = JSON.stringify({
+                    'topicId': @ViewBag.topicId,
+                    'typeSort': selectedVal
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "/Question/Sort",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    datatype: "json",
+                    contentType: 'application/json',
+                    data: { 'topicId': @ViewBag.topicId, 'typeSort': selectedVal},
+                    success: function (data) {
+                        debugger;
+                        $('#ajaxReplace').empty();
+                        $('#ajaxReplace').html(data);
+                    },
+                    error: function (arg, data, value) {
+
+                    }
+                });
+    });
+</script>

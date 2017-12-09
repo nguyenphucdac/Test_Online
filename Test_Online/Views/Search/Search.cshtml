@@ -7,87 +7,134 @@
     IEnumerable<Document> lstDocument = ViewBag.lstDocument;
     IEnumerable<Question> lstQuestion = ViewBag.lstQuestion;
     IEnumerable<News> lstNews = ViewBag.lstNews;
-}
 
+    IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
+    IEnumerable<Topic> lstTopic = ViewBag.lstTopic;
+
+    string keyWord = ViewBag.keyWord;
+}
+@using (Ajax.BeginForm("Fill", "Search", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "result_search" }))
+{ 
 <div class="container" style="margin-bottom:500px">
     <div>
         <h3 class="agileinfo_sign">Kết quả tìm kiếm</h3>
         <hr />
     </div>
+    @Html.Hidden("keyWord", keyWord)
     <div style="margin-bottom:40px;">
         <div class="col-md-12 agileinfo_sign" style="margin-bottom:30px">
             <div class="col-md-3">
-                <span style="font-weight:bold">Loại thông tin : </span>
-                <select required  name="typeInfo">
+                <select required name="typeInfo" class="form-control" id="select_typeinfo">
+                    <option value="0">---Chọn loại tin---</option>
                     <option value="1">Tài liệu</option>
                     <option value="2">Câu hỏi</option>
                     <option value="3">Tin tức</option>
                 </select>
             </div>
-            <div class="col-md-3">
-                <span style="font-weight:bold">Môn học : </span>
-                <select required  name="typeInfo">
-                    <option value="1">Tài liệu</option>
-                    <option value="2">Câu hỏi</option>
-                    <option value="3">Tin tức</option>
+            <div class="col-md-3" id="select_subject" hidden="hidden">
+                <select required name="subjectId" class="form-control">
+                    <option value="0">---Chọn môn học---</option>
+                    @for (int i = 0; i < lstSubject.Count(); i++)
+                    {
+                        <option value="@lstSubject.ElementAt(i).Id">@lstSubject.ElementAt(i).Name</option>
+                     }
                 </select>
             </div>
-            <div class="col-md-3">
-                <span style="font-weight:bold" >Chủ đề : </span>
-                <select required  name="typeInfo">
-                    <option value="1">Tài liệu</option>
-                    <option value="2">Câu hỏi</option>
-                    <option value="3">Tin tức</option>
+            <div class="col-md-3" id="select_topic" hidden="hidden" >
+                <select required name="topicId" class="form-control">
+                    <option value="0">---Chọn chủ đề---</option>
+                    @for (int i = 0; i < lstTopic.Count(); i++)
+                    {
+                        <option value="@lstTopic.ElementAt(i).Id">@lstTopic.ElementAt(i).Name</option>
+                    }
                 </select>
             </div>
-            <div class="col-md-2">
-                <span style="font-weight:bold">Độ khó : </span>
-                <select required  name="typeInfo">
-                    <option value="1">Tài liệu</option>
-                    <option value="2">Câu hỏi</option>
-                    <option value="3">Tin tức</option>
+            <div class="col-md-2" id="select_rank" hidden="hidden">
+                <select required name="rank" class="form-control">
+                    <option value="0">---Chọn độ khó---</option>
+                    <option value="1">Dễ</option>
+                    <option value="2">Trung bình</option>
+                    <option value="3">Khó</option>
                 </select>
             </div>
-            <div class="col-md-1">
-                <button class="btn btn-success">Lọc</button>
+            <div class="col-md-1" style="float:right">
+                <input type="submit" class="btn btn-primary" value="Lọc" />
             </div>
         </div>
-       
+
         <div class="col-md-12" style="background-color:#808080; height:1px"></div>
     </div>
-    
-    <div>
-       @if (lstDocument.Count() != 0)
-       {
-           for (int i = 0; i < lstDocument.Count(); i++)
-           {
-                
-               <div style="margin-bottom:20px">
-                   <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("Review","Document", new { @id = lstDocument.ElementAt(i).Id})">@lstDocument.ElementAt(i).Link</a>
-               </div>
-           }
-       }
-    </div>
-    <div>
-        @if (lstQuestion.Count() != 0)
+
+    <div id="result_search">
+
+        <div>
+            @if (lstDocument.Count() != 0)
         {
-            for (int i = 0; i < lstQuestion.Count(); i++)
-            {
-                <div style="margin-bottom:20px">
-                   <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px;color:#6c2d2d" href="@Url.Action("QuestionDetail","Question", new { @questionId = lstQuestion.ElementAt(i).Id})">@Html.Raw(lstQuestion.ElementAt(i).Title)</a>
-               </div>            }
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstDocument.Count(); i++)
+                {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("Review","Document", new { @id = lstDocument.ElementAt(i).Id})"> @lstDocument.ElementAt(i).Link</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                }
+                </table>
         }
-    </div>
-    <div>
-        @if (lstNews.Count() != 0)
+        </div>
+        <div>
+            @if (lstQuestion.Count() != 0)
         {
-            for (int i = 0; i < lstNews.Count(); i++)
-            {
-                <div style="margin-bottom:20px">
-                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("NewsDetail","News", new { @newsId = lstNews.ElementAt(i).Id})">@Html.Raw(lstNews.ElementAt(i).title)</a>
-                </div>
-            }
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstQuestion.Count(); i++)
+                {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("QuestionDetail","Question", new { @questionId = lstQuestion.ElementAt(i).Id})"> @Html.Raw(lstQuestion.ElementAt(i).Title)</a>
+                                </div>
+                            </td>
+                        </tr>
+
+                }
+                </table>
         }
+        </div>
+        <div>
+            @if (lstNews.Count() != 0)
+        {
+                <table class="table table-striped">
+                    @for (int i = 0; i < lstNews.Count(); i++)
+                {
+                        <tr>
+                            <td>
+                                <div style="margin-bottom:20px">
+                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i><a style="font-size:16px; color:#6c2d2d" href="@Url.Action("NewsDetail","News", new { @newsId = lstNews.ElementAt(i).Id})"> @Html.Raw(lstNews.ElementAt(i).title)</a>
+                                </div>
+                            </td>
+                        </tr>
+                }
+                </table>
+        }
+        </div>
     </div>
 </div>
-
+}
+<script>
+    $("#select_typeinfo").change(function () {
+        var selectedVal = $(this).find(':selected').val();
+        if (selectedVal == "2") {
+            $("#select_subject").show();
+            $("#select_topic").show();
+            $("#select_rank").show();
+        }
+        else {
+            $("#select_subject").hide();
+            $("#select_topic").hide();
+            $("#select_rank").hide();
+        }
+    });
+</script>

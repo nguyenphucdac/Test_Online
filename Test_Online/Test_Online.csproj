@@ -582,6 +582,8 @@
     <Content Include="Views\Exam\AutoCreateTest.cshtml" />
     <Content Include="Views\Exam\ResultTestAuto.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Search\Fill.cshtml" />
+    <Content Include="Views\Question\Sort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />

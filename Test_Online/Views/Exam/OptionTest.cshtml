@@ -8,52 +8,68 @@
     IEnumerable<Topic> lstTopic = ViewBag.lstTopic;
 }
 
-<div class="container" style="margin-bottom: 100px; margin-top: 100px">
-    @using (Html.BeginForm("CreateTest", "Exam")) { 
-    
-    <input hidden name="subjectId" value="@lstTopic.First().Subject.Id" />
+<div class="container" style="margin-bottom:300px; margin-top:100px;">
 
-    <div class="col-md-12">
-        <span style="font-weight:bold" class="col-md-2">Chọn chủ đề : </span>
-        <select required class="col-md-4" name="topicId">
-            <option value="0">Tổng hợp</option>
-            @for (int i = 0; i < lstTopic.Count(); i++)
-            {
-                <option value="@lstTopic.ElementAt(i).Id">@lstTopic.ElementAt(i).Name</option>
-            }
-        </select>
+    <div class="col-md-8">
+        @using (Html.BeginForm("CreateTest", "Exam"))
+        {
 
+            <input hidden name="subjectId" value="@lstTopic.First().Subject.Id" />
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <span style="font-weight:bold">Chọn chủ đề : </span>
+                </div>
+                <div class="col-md-8">
+                    <select required class="form-control" name="topicId">
+                        <option value="0">Tổng hợp</option>
+                        @for (int i = 0; i < lstTopic.Count(); i++)
+                        {
+                            <option value="@lstTopic.ElementAt(i).Id">@lstTopic.ElementAt(i).Name</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12" style="margin-top: 30px">
+                <div class="col-md-4">
+                    <span style="font-weight:bold">Chọn độ khó : </span>
+                </div>
+                <div class="col-md-8">
+                    <select required class="form-control" name="rank">
+                        <option value="0">Ngẫu nhiên</option>
+                        <option value="1">Dễ</option>
+                        <option value="2">Trung bình</option>
+                        <option value="3">khó</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-offset-4 col-md-8" style="margin-top: 50px;">
+                <input type="submit" value="Tạo đề thi & bắt đầu làm bài" class="btn btn-primary" />
+                <a class="btn btn-danger" style="margin-left:20px" href="@Url.Action("AutoCreateTest", "Exam", new { @subjectId = lstTopic.First().Subject_Id})">Tự động tạo đề thi & bắt đầu</a>
+            </div>
+
+        }
     </div>
-    <div class="clearfix"></div>
-    <div class="col-md-12" style="margin-top: 30px">
-        <span style="font-weight:bold" class="col-md-2">Chọn độ khó : </span>
-        <select required class="col-md-4" name="rank">
-            <option value="0">Ngẫu nhiên</option>
-            <option value="1">Dễ</option>
-            <option value="2">Trung bình</option>
-            <option value="3">khó</option>
-        </select>
+    <div class="col-md-4" style="border:1px solid red; border-radius:5px ">
+
+        <div class="col-md-12" style="padding-top:10px">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <span style="margin-left:10px ; font-weight:bold">
+                Tạo đề thi thủ công :
+            </span>
+            <i>bạn không cần tài khoản chỉ cần chọn chủ đề và độ khó câu hỏi, hệ thống sẽ tạo đề thi mới cho bạn</i>
+
+        </div>
+        <div class="col-md-12" style="margin-top: 20px;">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <span style="margin-left:10px;font-weight:bold">
+                Tự động tạo đề thi :
+            </span>
+            <i>bạn cần đăng ký một tài khoản hệ thống sẽ ghi lại lịch sử làm bài của bạn và theo đó sẽ tự động tạo đề thi giúp bạn rèn luyện một cách hiệu quả nhất</i>
+        </div>
     </div>
 
-    <div class="col-md-12" style="margin-top: 50px;text-align:center">
-        <input type="submit" value="Tạo đề thi & bắt đầu làm bài" class="btn btn-danger" />
-        <a class="btn btn-default" href="@Url.Action("AutoCreateTest", "Exam", new { @subjectId = lstTopic.First().Subject_Id})">Tự động tạo đề thi</a>
-    </div>
-    <div class="col-md-12" style="margin-top: 50px;">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span style="margin-left:10px;font-weight:bold">
-            Tạo đề thi thủ công : 
-        </span>
-        bạn không cần tài khoản chỉ cần chọn chủ đề và độ khó câu hỏi, hệ thống sẽ tạo đề thi mới cho bạn
-      
-    </div>
-    <div class="col-md-12" style="margin-top: 20px;">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span style="margin-left:10px;font-weight:bold">
-            Tự động tạo đề thi : 
-        </span>
-        bạn cần đăng ký một tài khoản hệ thống sẽ ghi lại lịch sử làm bài của bạn và theo đó sẽ tự động tạo đề thi giúp bạn rèn luyện một cách hiệu quả nhất 
-    </div>
-    }
 </div>
-

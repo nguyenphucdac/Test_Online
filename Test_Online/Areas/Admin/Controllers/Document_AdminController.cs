@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,12 +13,15 @@ namespace Test_Online.Areas.Admin.Controllers
     public class Document_AdminController : Controller
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex)
         {
             try
             {
                 var lstDocument = db.Documents;
-                return View(lstDocument);
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                return View(lstDocument.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
             }
             catch (Exception ex)
             {

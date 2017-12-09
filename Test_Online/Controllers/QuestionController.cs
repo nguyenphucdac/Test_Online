@@ -34,6 +34,53 @@ namespace Test_Online.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
+        public ActionResult Sort(int topicId, int? pageIndex, int typeSort)
+        {
+            try
+            {
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                Topic topic = db.Topics.SingleOrDefault(n => n.Id == topicId);
+                ViewBag.nameTopic = topic.Name;
+                ViewBag.topicId = topic.Id;
+                var lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
+                ViewBag.lstQuestion = lstQuestion;
+
+                ViewBag.lstRateQuestion = db.Rate_Question;
+                ViewBag.typeSort = typeSort;
+
+                if (typeSort == 1)
+                {
+                    return PartialView(lstQuestion.OrderByDescending(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if(typeSort == 2)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 3)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Rank_Id).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 4)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 5)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
         public ActionResult QuestionDetail(int questionId)
         {
             try
