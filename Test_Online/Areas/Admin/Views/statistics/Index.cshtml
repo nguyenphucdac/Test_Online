@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+}
+
+<div class="content-top">
+    <div class="col-md-4 ">
+        <div class="content-top-1">
+            <div class="col-md-6 top-content">
+                <h5>Số người đang online</h5>
+            </div>
+            <div class="col-md-6 top-content1">
+                <h3>@ViewBag.onlineuser</h3>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="content-top-1">
+            <div class="col-md-6 top-content">
+                <h5>Số lượng truy cập</h5>
+                
+            </div>
+            <div class="col-md-6 top-content1">
+                <h3>@ViewBag.visituser</h3>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+       
+    </div>
+    <div class="col-md-8 content-top-2">
+        <!---start-chart---->
+        <!----->
+        <div class="content-graph">
+            <!--graph-->
+            <link rel="stylesheet" href="~/Content/admin/css/graph.css">
+            <!--//graph-->
+            <script src="~/Content/admin/js/jquery.flot.js"></script>
+            <script>
+									$(document).ready(function () {
+
+										// Graph Data ##############################################
+										var graphData = [{
+												// Visits
+												data: [ [6, 1300], [7, 1600], [8, 1900], [9, 2100], [10, 2500], [11, 2200], [12, 2000], [13, 1950], [14, 1900], [15, 2000] ],
+												color: '#999999'
+											}, {
+												// Returning Visits
+												data: [ [6, 500], [7, 600], [8, 550], [9, 600], [10, 800], [11, 900], [12, 800], [13, 850], [14, 830], [15, 1000] ],
+												color: '#999999',
+												points: { radius: 4, fillColor: '#7f8c8d' }
+											}
+										];
+
+										// Lines Graph #############################################
+										$.plot($('#graph-lines'), graphData, {
+											series: {
+												points: {
+													show: true,
+													radius: 5
+												},
+												lines: {
+													show: true
+												},
+												shadowSize: 0
+											},
+											grid: {
+												color: '#7f8c8d',
+												borderColor: 'transparent',
+												borderWidth: 20,
+												hoverable: true
+											},
+											xaxis: {
+												tickColor: 'transparent',
+												tickDecimals: 2
+											},
+											yaxis: {
+												tickSize: 1000
+											}
+										});
+
+										// Bars Graph ##############################################
+										$.plot($('#graph-bars'), graphData, {
+											series: {
+												bars: {
+													show: true,
+													barWidth: .9,
+													align: 'center'
+												},
+												shadowSize: 0
+											},
+											grid: {
+												color: '#7f8c8d',
+												borderColor: 'transparent',
+												borderWidth: 20,
+												hoverable: true
+											},
+											xaxis: {
+												tickColor: 'transparent',
+												tickDecimals: 2
+											},
+											yaxis: {
+												tickSize: 1000
+											}
+										});
+
+										// Graph Toggle ############################################
+										$('#graph-bars').hide();
+
+										$('#lines').on('click', function (e) {
+											$('#bars').removeClass('active');
+											$('#graph-bars').fadeOut();
+											$(this).addClass('active');
+											$('#graph-lines').fadeIn();
+											e.preventDefault();
+										});
+
+										$('#bars').on('click', function (e) {
+											$('#lines').removeClass('active');
+											$('#graph-lines').fadeOut();
+											$(this).addClass('active');
+											$('#graph-bars').fadeIn().removeClass('hidden');
+											e.preventDefault();
+										});
+
+										// Tooltip #################################################
+										function showTooltip(x, y, contents) {
+											$('<div id="tooltip">' + contents + '</div>').css({
+												top: y - 16,
+												left: x + 20
+											}).appendTo('body').fadeIn();
+										}
+
+										var previousPoint = null;
+
+										$('#graph-lines, #graph-bars').bind('plothover', function (event, pos, item) {
+											if (item) {
+												if (previousPoint != item.dataIndex) {
+													previousPoint = item.dataIndex;
+													$('#tooltip').remove();
+													var x = item.datapoint[0],
+														y = item.datapoint[1];
+														showTooltip(item.pageX, item.pageY, y + ' visitors at ' + x + '.00h');
+												}
+											} else {
+												$('#tooltip').remove();
+												previousPoint = null;
+											}
+										});
+
+									});
+            </script>
+            <div class="graph-container">
+
+                <div id="graph-lines" style="padding: 0px;"> <canvas class="flot-base" width="685" height="528" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 685px; height: 528px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 49px; text-align: center;">6.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 116px; text-align: center;">7.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 181px; text-align: center;">8.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 248px; text-align: center;">9.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 310px; text-align: center;">10.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 379px; text-align: center;">11.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 443px; text-align: center;">12.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 510px; text-align: center;">13.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 576px; text-align: center;">14.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 68px; top: 486px; left: 642px; text-align: center;">15.00</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 470px; left: 51px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 316px; left: 23px; text-align: right;">1000</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 163px; left: 20px; text-align: right;">2000</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 9px; left: 20px; text-align: right;">3000</div></div></div><canvas class="flot-overlay" width="685" height="528" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 685px; height: 528px;"></canvas></div>
+                <div id="graph-bars" style="padding: 0px; display: none;"> <canvas class="flot-base" width="685" height="528" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 685px; height: 528px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 76px; text-align: center;">6.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 137px; text-align: center;">7.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 196px; text-align: center;">8.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 257px; text-align: center;">9.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 313px; text-align: center;">10.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 376px; text-align: center;">11.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 434px; text-align: center;">12.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 495px; text-align: center;">13.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 555px; text-align: center;">14.00</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 57px; top: 486px; left: 615px; text-align: center;">15.00</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 470px; left: 51px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 316px; left: 23px; text-align: right;">1000</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 163px; left: 20px; text-align: right;">2000</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 9px; left: 20px; text-align: right;">3000</div></div></div><canvas class="flot-overlay" width="685" height="528" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 685px; height: 528px;"></canvas></div>
+            </div>
+
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+

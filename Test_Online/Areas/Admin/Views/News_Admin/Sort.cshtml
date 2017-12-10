@@ -1,0 +1,33 @@
+﻿@using Test_Online.Models
+@model IEnumerable<News>
+
+
+<div id="ajaxReplace">
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Mã tin</th>
+                <th>Tiêu đề </th>
+                <th>Ngày đăng </th>
+                <th>Lượt xem</th>
+                <th>Người đăng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>@Model.ElementAt(i).Id</td>
+                    <td>@Html.Raw(Model.ElementAt(i).title)</td>
+                    <td>@Model.ElementAt(i).Created_Time</td>
+                    <td>@Model.ElementAt(i).View</td>
+                    <td>@Model.ElementAt(i).Member.Name</td>
+
+                    <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
+                    <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

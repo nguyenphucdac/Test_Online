@@ -18,14 +18,231 @@ namespace Test_Online.Areas.Admin.Controllers
             {
                 int pageSize = 10;
                 int pageNumber = (pageIndex ?? 1);
-
                 var lstQuestion = db.Questions;
+               
+                ViewBag.lstSubject = db.Subjects;
+                ViewBag.lstTopic = db.Topics;
                 return View(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch(Exception ex)
             {
                 Console.WriteLine(" Question / Index Error is " + ex);
                 return RedirectToAction("Index", "Question");
+            }
+        }
+
+        public ActionResult Sort(int? pageIndex, int typeSort)
+        {
+           
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+                var lstQuestion = db.Questions;
+                ViewBag.lstQuestion = lstQuestion;
+
+                if (typeSort == 1)
+                {
+                    return PartialView(lstQuestion.OrderByDescending(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 2)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 3)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.View).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 4)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 5)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+
+            
+        }
+
+        public ActionResult SortFill(int typeSort, int subjectId, int topicId, int rank)
+        {
+            try
+            {
+                IEnumerable<Question> lstQuestion = db.Questions;
+
+                // mã môn học khác 0
+                if (subjectId != 0)
+                {
+                    if (topicId != 0)
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Subject_Id == subjectId &&
+                                n.Topic_Id == topicId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Subject_Id == subjectId &&
+                                n.Topic_Id == topicId
+                            );
+                        }
+                    }
+                    else
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Subject_Id == subjectId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId
+                            );
+                        }
+                    }
+                }
+                // mã môn học bằng 0
+                else
+                {
+                    if (topicId != 0)
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Topic_Id == topicId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
+                        }
+                    }
+                    else
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(n => n.Rank_Id == rank);
+                        }
+                    }
+                }
+
+                if (typeSort == 1)
+                {
+                    return PartialView(lstQuestion.OrderByDescending(n => n.Created_Time));
+                }
+                else if (typeSort == 2)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Created_Time));
+                }
+                else if (typeSort == 3)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.View));
+                }
+                else if (typeSort == 4)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id));
+                }
+                else if (typeSort == 5)
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id));
+                }
+                else
+                {
+                    return PartialView(lstQuestion.OrderBy(n => n.Id));
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(" Question / Index Error is " + ex);
+                return RedirectToAction("Index", "Question");
+            }
+        }
+
+        public ActionResult Fill(int subjectId, int topicId, int rank)
+        {
+            try
+            {
+                IEnumerable<Question> lstQuestion = db.Questions;
+
+                // mã môn học khác 0
+                if (subjectId != 0)
+                {
+                    if (topicId != 0)
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n=>n.Subject_Id == subjectId &&
+                                n.Topic_Id == topicId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Subject_Id == subjectId &&
+                                n.Topic_Id == topicId
+                            );
+                        }
+                    }
+                    else
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Subject_Id == subjectId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId
+                            );
+                        }
+                    }
+                }
+                // mã môn học bằng 0
+                else
+                {
+                    if (topicId != 0)
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(
+                                n => n.Topic_Id == topicId &&
+                                n.Rank_Id == rank
+                            );
+                        }
+                        else
+                        {
+                            lstQuestion = db.Questions.Where(n => n.Topic_Id == topicId);
+                        }
+                    }
+                    else
+                    {
+                        if (rank != 0)
+                        {
+                            lstQuestion = db.Questions.Where(n=>n.Rank_Id == rank);
+                        }
+                    }
+                }
+
+                return PartialView(lstQuestion);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is " + ex);
+                return Content("Có lỗi xảy ra");
             }
         }
 
@@ -82,7 +299,7 @@ namespace Test_Online.Areas.Admin.Controllers
 
                 Answer answer4 = new Answer();
                 answer4.Question_Id = lastQuestion.Id;
-                answer4.Content = an1;
+                answer4.Content = an4;
 
                if(isTrue == "1")
                 {

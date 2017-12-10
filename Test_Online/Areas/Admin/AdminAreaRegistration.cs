@@ -17,7 +17,7 @@ namespace Test_Online.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index",Controller="Home_Admin", id = UrlParameter.Optional }
+                new { action = "Index",Controller= "Statistics", id = UrlParameter.Optional }
             );
         }
     }

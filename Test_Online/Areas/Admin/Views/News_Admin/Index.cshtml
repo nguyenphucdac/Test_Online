@@ -9,37 +9,50 @@
 <div class="header">
     <h2>Quản Lý Tin Tức</h2>
     <div style="height:1px;background-color:black; margin-top: 10px"></div>
+
+    <div class="col-md-2" style="margin-top:10px">
+        <select required name="typeInfo" class="form-control" id="select_sort">
+            <option value="0">---Sắp xếp---</option>
+            <option value="1">mới nhất</option>
+            <option value="2">cũ nhất</option>
+            <option value="3">lượt xem</option>
+            
+        </select>
+    </div>
+
     <a href="@Url.Action("Create", "News_Admin")" class="btn btn-default" style="float:right; margin-top : 10px; margin-right : 10px;">Thêm Mới</a>
 
 </div>
 @if (Model != null)
 {
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>Mã tin</th>
-                <th>Tiêu đề </th>
-                <th>Ngày đăng </th>
-                <th>Lượt xem</th>
-                <th>Người đăng</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Count(); i++)
-            {
+    <div id="ajaxReplace">
+        <table class="table table-condensed">
+            <thead>
                 <tr>
-                    <td>@Model.ElementAt(i).Id</td>
-                    <td>@Html.Raw(Model.ElementAt(i).title)</td>
-                    <td>@Model.ElementAt(i).Created_Time</td>
-                    <td>@Model.ElementAt(i).View</td>
-                    <td>@Model.ElementAt(i).Member.Name</td>
-                    
-                    <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
-                    <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                    <th>Mã tin</th>
+                    <th>Tiêu đề </th>
+                    <th>Ngày đăng </th>
+                    <th>Lượt xem</th>
+                    <th>Người đăng</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model.ElementAt(i).Id</td>
+                        <td>@Html.Raw(Model.ElementAt(i).title)</td>
+                        <td>@Model.ElementAt(i).Created_Time</td>
+                        <td>@Model.ElementAt(i).View</td>
+                        <td>@Model.ElementAt(i).Member.Name</td>
+
+                        <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
+                        <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 <style>
     .gridFooter {
@@ -59,4 +72,33 @@
         margin-top: 20px;
     }
 </style>
+<script>
+    $("#select_sort").change(function () {
+       
+        var selectedVal = $(this).find(':selected').val();
+        var Helpers = {
+            Domain: 'http://' + location.hostname + ':' + location.port
+        };
+        var param = JSON.stringify({
+                    'typeSort': selectedVal
+                });
+                $.ajax({
+                    type: "GET",
+                    url: Helpers.Domain + "/Admin/News_Admin/Sort",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    datatype: "json",
+                    contentType: 'application/json',
+                    data: {'typeSort': selectedVal},
+                    success: function (data) {
+                        debugger;
+                        $('#ajaxReplace').empty();
+                        $('#ajaxReplace').html(data);
+                    },
+                    error: function (arg, data, value) {
 
+                    }
+                });
+    });
+</script>

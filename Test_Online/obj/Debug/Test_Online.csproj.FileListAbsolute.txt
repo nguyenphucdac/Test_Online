@@ -141,3 +141,17 @@ D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\PagedList.Mvc.xml
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\obj\Debug\Test_Online.csproj.CoreCompileInputs.cache
 D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\obj\Debug\Test_Online.csprojResolveAssemblyReference.cache
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\itextsharp.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\itextsharp.xmlworker.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\itextsharp.xml
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\PdfSharp.Charting.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\PdfSharp.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\PdfSharp.xml
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\PdfSharp.Charting.xml
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\de\PdfSharp.resources.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\de\PdfSharp.Charting.resources.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Spire.License.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Spire.Pdf.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Microsoft.mshtml.dll
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Spire.License.xml
+D:\20171\Phát Triển Phần Mềm Chuyên Nghiệp\Test_Online\Test_Online\bin\Spire.Pdf.xml

@@ -32,6 +32,7 @@ namespace Test_Online.Models
         public int Created_By { get; set; }
         public System.DateTime Created_Time { get; set; }
         public Nullable<int> Rank_Id { get; set; }
+        public Nullable<int> View { get; set; }
     
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

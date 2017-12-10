@@ -15,8 +15,17 @@
         {
 
             <input hidden name="subjectId" value="@lstTopic.First().Subject.Id" />
-
             <div class="col-md-12">
+                <div class="col-md-4">
+                    <span style="font-weight:bold">Môn học : </span>
+                </div>
+                <div class="col-md-8">
+                    <h3 style="color:#217480">@lstTopic.First().Subject.Name</h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12" style="margin-top:30px">
                 <div class="col-md-4">
                     <span style="font-weight:bold">Chọn chủ đề : </span>
                 </div>

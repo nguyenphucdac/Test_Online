@@ -143,28 +143,6 @@
     </script>
     }
 </div>
-@*<script>
-    $("#release").click(function () {
-        alert("pesss");
-        $.ajax({
-            contentType: 'application/json',
-            dataType: 'json',
-            traditional: true,
-            async: false,
-            cache: false,
-            type: 'POST',
-            url: '/Exam/ResultTest',
-            data: JSON.stringify({ 'lstAnswer': '@lstAnswer', 'lstQuestion': '@lstQuestion'}),
-            success: function () {
-                alert("pass");
-            },
-            failure: function (response) {
-                alert("not pass");
-            }
-        });
-    })
-
-</script>*@
 <script>
    
     function startTimer(duration, display) {

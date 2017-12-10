@@ -35,6 +35,7 @@
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Document" ToRole="Member" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="File" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Download" Type="Int32" />
   </EntityType>
   <EntityType Name="History">
     <Key>
@@ -105,6 +106,7 @@
     <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
     <Property Name="Rank_Id" Type="Int32" />
     <NavigationProperty Name="Rank1" Relationship="Test_Online_DBModel.FK_Question_ToTable_3" FromRole="Question" ToRole="Rank" />
+    <Property Name="View" Type="Int32" />
   </EntityType>
   <EntityType Name="Role">
     <Key>

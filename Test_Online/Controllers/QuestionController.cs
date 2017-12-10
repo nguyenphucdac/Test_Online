@@ -64,7 +64,7 @@ namespace Test_Online.Controllers
                 }
                 else if (typeSort == 4)
                 {
-                    return PartialView(lstQuestion.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
+                    return PartialView(lstQuestion.OrderBy(n => n.View).ToPagedList(pageNumber, pageSize));
                 }
                 else if (typeSort == 5)
                 {
@@ -78,6 +78,7 @@ namespace Test_Online.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("System error in Question controller errorr is : " + ex);
                 return RedirectToAction("Index", "Maintain");
             }
         }
@@ -85,7 +86,12 @@ namespace Test_Online.Controllers
         {
             try
             {
-                ViewBag.question = db.Questions.SingleOrDefault(n => n.Id == questionId);
+                Question question = db.Questions.SingleOrDefault(n => n.Id == questionId);
+                question.View += 1;
+                db.Entry(question).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                ViewBag.question = question;
                 ViewBag.lstAnswer = db.Answers.Where(n => n.Question_Id == questionId);
                 ViewBag.lstSolution = db.Solutions.Where(n => n.Question_Id == questionId);
                 ViewBag.lstMemberRated = db.Rate_Question.Where(n=>n.Question_Id == questionId);

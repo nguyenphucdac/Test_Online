@@ -29,7 +29,40 @@ namespace Test_Online.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
+        public ActionResult Sort(int typeSort)
+        {
+            try
+            {
+                int? pageIndex = 1;
 
+                var lstDocument = db.Documents;
+
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                if (typeSort == 1)
+                {
+                    return PartialView(lstDocument.OrderByDescending(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 2)
+                {
+                    return PartialView(lstDocument.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 3)
+                {
+                    return PartialView(lstDocument.OrderByDescending(n => n.Download).ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return PartialView(lstDocument.OrderByDescending(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("News/index Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
         public ActionResult Create()
         {
             try

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -12,12 +13,16 @@ namespace Test_Online.Areas.Admin.Controllers
     {
         private Test_Online_DBEntities db = new Test_Online_DBEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int? pageIndex)
         {
             try
             {
                 var lstNews = db.News;
-                return View(lstNews);
+
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                return View(lstNews.OrderBy(n => n.Id).ToPagedList(pageNumber, pageSize));
             }
             catch(Exception ex)
             {
@@ -25,7 +30,40 @@ namespace Test_Online.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Maintain");
             }
         }
+        public ActionResult Sort(int typeSort)
+        {
+            try
+            {
+                int? pageIndex = 1;
 
+                var lstNews = db.News;
+
+                int pageSize = 10;
+                int pageNumber = (pageIndex ?? 1);
+
+                if(typeSort == 1)
+                {
+                    return PartialView(lstNews.OrderByDescending(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 2)
+                {
+                    return PartialView(lstNews.OrderBy(n => n.Created_Time).ToPagedList(pageNumber, pageSize));
+                }
+                else if (typeSort == 3)
+                {
+                    return PartialView(lstNews.OrderByDescending(n => n.View).ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    return PartialView(lstNews.OrderByDescending(n => n.Id).ToPagedList(pageNumber, pageSize));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("News/index Error is " + ex);
+                return RedirectToAction("Index", "Maintain");
+            }
+        }
         public ActionResult Create()
         {
             return View();

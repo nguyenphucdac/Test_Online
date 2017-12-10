@@ -1,9 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Test_Online.Models;
+using Spire.Pdf;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.text.html;
+using iTextSharp.text.html.simpleparser;
 
 namespace Test_Online.Controllers
 {
@@ -213,7 +222,7 @@ namespace Test_Online.Controllers
 
                         if (answer.IsTrue == true)
                         {
-                            score += 0.5f;
+                            score++;
                             numberTrue++;
                         }
                         // lưu lịch sử làm bài nếu người dùng đã đăng nhập
@@ -237,6 +246,9 @@ namespace Test_Online.Controllers
                                 history.Question_Id = answer.Question_Id;
                                 history.isTrue = answer.IsTrue;
                                 history.Created_Time = DateTime.Now;
+
+                                db.Histories.Add(history);
+                                db.SaveChanges();
                             }
                         }
                         
@@ -258,21 +270,6 @@ namespace Test_Online.Controllers
 
         }
 
-        public ActionResult ResultTestAuto(List<Answer> lstAnswer, string lstId)
-        {
-            try
-            {
-               
-
-                return PartialView();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error in OptionTst : " + ex);
-                return RedirectToAction("Index", "Maintain");
-            }
-        }
-
         public Boolean checkExits(List<Question> lstQuestion, Question question)
         {
             for(int i = 0; i < lstQuestion.Count; i++)
@@ -284,30 +281,76 @@ namespace Test_Online.Controllers
             }
             return false;
         }
-        //public ActionResult GetAnswer(int subjectId, int topicId)
-        //{
-        //    try
-        //    {
-        //        if (topicId == 0)
-        //        {
-        //            ViewBag.lstQuestion = db.Questions.Where(n => n.Subject_Id == subjectId);
-        //        }
-        //        else
-        //        {
-        //            ViewBag.lstQuestion = db.Questions.Where(
-        //                n => n.Subject_Id == subjectId
-        //                && n.Topic_Id == topicId
-        //            );
-        //        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult PrintExam(string contentExam)
+        {
+            String htmlText = contentExam.ToString();
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
+            string filePath = HostingEnvironment.MapPath("~/Content/common/file/");
+            PdfWriter.GetInstance(document, new FileStream(filePath + "\\pdf-" + "test" + ".pdf", FileMode.Create));
+            document.Open();
+            //Path to our font
+            string arialuniTff = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "l_10646.ttf");
+            //Register the font with iTextSharp
+            iTextSharp.text.FontFactory.Register(arialuniTff);
+
+            //Create a new stylesheet
+            iTextSharp.text.html.simpleparser.StyleSheet ST = new iTextSharp.text.html.simpleparser.StyleSheet();
+
+            
+            ST.LoadTagStyle(HtmlTags.BODY, HtmlTags.FACE, "Arial Unicode MS");
+            ST.LoadTagStyle(HtmlTags.DIV, HtmlTags.FACE, "Arial Unicode MS");
+            ST.LoadTagStyle(HtmlTags.SPAN, HtmlTags.FACE, "Arial Unicode MS");
+            ST.LoadTagStyle("h3", "encoding", "arial unicode ms");
+
+            //Set the default encoding to support Unicode characters
+            ST.LoadTagStyle(HtmlTags.BODY, HtmlTags.ENCODING, BaseFont.IDENTITY_H);
+            ST.LoadTagStyle(HtmlTags.DIV, HtmlTags.ENCODING, BaseFont.IDENTITY_H);
+            ST.LoadTagStyle(HtmlTags.SPAN, HtmlTags.ENCODING, BaseFont.IDENTITY_H);
+            ST.LoadTagStyle("h3", "encoding", "Identity-H");
+
+            List<IElement> list = HTMLWorker.ParseToList(new StringReader(contentExam.ToString()), ST);
+
+           
+
+            
+#pragma warning disable CS0612 // Type or member is obsolete
+            iTextSharp.text.html.simpleparser.HTMLWorker hw = new iTextSharp.text.html.simpleparser.HTMLWorker(document);
+#pragma warning restore CS0612 // Type or member is obsolete
+            hw.Parse(new StringReader(htmlText));
+            document.Close();
+
+            System.Diagnostics.Process.Start("D:\\20171\\Phát Triển Phần Mềm Chuyên Nghiệp\\Test_Online\\Test_Online\\Content\\common\\file\\pdf-test.pdf");
 
 
-        //        return PartialView();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error in OptionTst : " + ex);
-        //        return RedirectToAction("Index", "Maintain");
-        //    }
-        //}
+            return null;
+        }
+        public ActionResult Export(string url)
+        {
+            try
+            {
+                Spire.Pdf.PdfDocument doc = new Spire.Pdf.PdfDocument();
+                String url1 = url;
+                Thread thread = new Thread(() =>
+                { doc.LoadFromHTML(url1, false, true, true); });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.Start();
+                thread.Join();
+                doc.SaveToFile("D:\\sample.pdf");
+                doc.Close();
+                System.Diagnostics.Process.Start("D:\\sample.pdf");
+
+                return null;
+
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error in OptionTst : " + ex);
+                return null;
+            }
+        }
     }
 }

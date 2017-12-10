@@ -48,6 +48,9 @@ namespace Test_Online.Controllers
             try
             {
                 Document document = db.Documents.SingleOrDefault(n => n.Id == id);
+                document.Download += 1;
+                db.Entry(document).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
 
                 var fileBytes = System.IO.File.ReadAllBytes(Server.MapPath("~/Content/common/file/" + document.File));
                 var fileResult = new FileContentResult(fileBytes, "application/octet-stream")

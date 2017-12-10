@@ -1,0 +1,616 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Test_Online_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Answer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_Solution_ToTable12" FromRole="Answer" ToRole="Question" />
+    <Property Name="IsTrue" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Comment_ToTable" FromRole="Comment" ToRole="Member" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_Comment_ToTable_1" FromRole="Comment" ToRole="Question" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Topic_Id" Type="Int32" Nullable="false" />
+    <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Topic" Relationship="Self.FK_Document_ToTable" FromRole="Document" ToRole="Topic" />
+    <Property Name="Created_by" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Document" ToRole="Member" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="File" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Question_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="isTrue" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_Table_ToTable_1" FromRole="History" ToRole="Question" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Table_ToTable12" FromRole="History" ToRole="Member" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type_Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Rank" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ToTable" FromRole="Member" ToRole="Comment" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_Table_ToTable12" FromRole="Member" ToRole="History" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_2" FromRole="Member" ToRole="Question" />
+    <NavigationProperty Name="Type_Member" Relationship="Self.FK_Table_ToTable" FromRole="Member" ToRole="Type_Member" />
+    <NavigationProperty Name="Documents" Relationship="Test_Online_DBModel.FK_Document_ToTable_1" FromRole="Member" ToRole="Document" />
+    <NavigationProperty Name="News" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="Member" ToRole="News" />
+    <NavigationProperty Name="Solutions" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Member" ToRole="Solution" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Member" ToRole="Rate_Document" />
+    <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Member" ToRole="Rate_Question" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="advices" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="Member" ToRole="advice" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="View" Type="Int32" Nullable="false" />
+    <Property Name="Created_Time" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_News_ToTable" FromRole="News" ToRole="Member" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+    <Property Name="Topic_Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Answers" Relationship="Self.FK_Solution_ToTable12" FromRole="Question" ToRole="Answer" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ToTable_1" FromRole="Question" ToRole="Comment" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_Table_ToTable_1" FromRole="Question" ToRole="History" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Question_ToTable_2" FromRole="Question" ToRole="Member" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_Question_ToTable" FromRole="Question" ToRole="Subject" />
+    <NavigationProperty Name="Topic" Relationship="Self.FK_Question_ToTable_1" FromRole="Question" ToRole="Topic" />
+    <NavigationProperty Name="Solutions" Relationship="Self.FK_Solution_ToTable" FromRole="Question" ToRole="Solution" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Rate_Document" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Question" ToRole="Rate_Document" />
+    <NavigationProperty Name="Rate_Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Question" ToRole="Rate_Question" />
+    <Property Name="Rank_Id" Type="Int32" />
+    <NavigationProperty Name="Rank1" Relationship="Test_Online_DBModel.FK_Question_ToTable_3" FromRole="Question" ToRole="Rank" />
+    <Property Name="View" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role_Member" Relationship="Self.FK_Role_Member_ToTable_1" FromRole="Role" ToRole="Role_Member" />
+  </EntityType>
+  <EntityType Name="Role_Member">
+    <Key>
+      <PropertyRef Name="Type_Member_Id" />
+      <PropertyRef Name="Role_Id" />
+    </Key>
+    <Property Name="Type_Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Role_Id" Type="Int32" Nullable="false" />
+    <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_Role_Member_ToTable_1" FromRole="Role_Member" ToRole="Role" />
+    <NavigationProperty Name="Type_Member" Relationship="Self.FK_Role_Member_Type_Member" FromRole="Role_Member" ToRole="Type_Member" />
+  </EntityType>
+  <EntityType Name="Solution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Question" Relationship="Self.FK_Solution_ToTable" FromRole="Solution" ToRole="Question" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Created_by" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Solution_ToTable_1" FromRole="Solution" ToRole="Member" />
+    <Property Name="Rate" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable" FromRole="Subject" ToRole="Question" />
+    <NavigationProperty Name="Topics" Relationship="Self.FK_Topic_ToTable" FromRole="Subject" ToRole="Topic" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Topic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Documents" Relationship="Self.FK_Document_ToTable" FromRole="Topic" ToRole="Document" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK_Question_ToTable_1" FromRole="Topic" ToRole="Question" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK_Topic_ToTable" FromRole="Topic" ToRole="Subject" />
+    <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Percen" Type="Double" />
+  </EntityType>
+  <EntityType Name="Type_Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Members" Relationship="Self.FK_Table_ToTable" FromRole="Type_Member" ToRole="Member" />
+    <NavigationProperty Name="Role_Member" Relationship="Self.FK_Role_Member_Type_Member" FromRole="Type_Member" ToRole="Role_Member" />
+  </EntityType>
+  <Association Name="FK_Solution_ToTable12">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Answer">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comment_ToTable_1">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Document_ToTable">
+    <End Role="Topic" Type="Self.Topic" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Document" Type="Self.Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Topic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable_1">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable12">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_ToTable_2">
+    <End Role="Member" Type="Self.Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable">
+    <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Member" Type="Self.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type_Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="Type_Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_ToTable">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Subject_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Question_ToTable_1">
+    <End Role="Topic" Type="Self.Topic" Multiplicity="1" />
+    <End Role="Question" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Topic">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Topic_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solution_ToTable">
+    <End Role="Question" Type="Self.Question" Multiplicity="1" />
+    <End Role="Solution" Type="Self.Solution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solution">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role_Member_ToTable_1">
+    <End Role="Role" Type="Self.Role" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Role_Member" Type="Self.Role_Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Role_Member">
+        <PropertyRef Name="Role_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Role_Member_Type_Member">
+    <End Role="Type_Member" Type="Self.Type_Member" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Role_Member" Type="Self.Role_Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Type_Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Role_Member">
+        <PropertyRef Name="Type_Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Topic_ToTable">
+    <End Role="Subject" Type="Self.Subject" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Topic" Type="Self.Topic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Topic">
+        <PropertyRef Name="Subject_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Test_Online_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Answers" EntityType="Self.Answer" />
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Documents" EntityType="Self.Document" />
+    <EntitySet Name="Histories" EntityType="Self.History" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="News" EntityType="Self.News" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Role_Member" EntityType="Self.Role_Member" />
+    <EntitySet Name="Solutions" EntityType="Self.Solution" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <EntitySet Name="Topics" EntityType="Self.Topic" />
+    <EntitySet Name="Type_Member" EntityType="Self.Type_Member" />
+    <AssociationSet Name="FK_Solution_ToTable12" Association="Self.FK_Solution_ToTable12">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Answer" EntitySet="Answers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable" Association="Self.FK_Comment_ToTable">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comment_ToTable_1" Association="Self.FK_Comment_ToTable_1">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Comment" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_ToTable" Association="Self.FK_Document_ToTable">
+      <End Role="Topic" EntitySet="Topics" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable_1" Association="Self.FK_Table_ToTable_1">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable12" Association="Self.FK_Table_ToTable12">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_ToTable_2" Association="Self.FK_Question_ToTable_2">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable" Association="Self.FK_Table_ToTable">
+      <End Role="Type_Member" EntitySet="Type_Member" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_ToTable" Association="Self.FK_Question_ToTable">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Question_ToTable_1" Association="Self.FK_Question_ToTable_1">
+      <End Role="Topic" EntitySet="Topics" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solution_ToTable" Association="Self.FK_Solution_ToTable">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Solution" EntitySet="Solutions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role_Member_ToTable_1" Association="Self.FK_Role_Member_ToTable_1">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Role_Member" EntitySet="Role_Member" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Role_Member_Type_Member" Association="Self.FK_Role_Member_Type_Member">
+      <End Role="Type_Member" EntitySet="Type_Member" />
+      <End Role="Role_Member" EntitySet="Role_Member" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Topic_ToTable" Association="Self.FK_Topic_ToTable">
+      <End Role="Subject" EntitySet="Subjects" />
+      <End Role="Topic" EntitySet="Topics" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Document_ToTable_1" Association="Test_Online_DBModel.FK_Document_ToTable_1">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_News_ToTable" Association="Test_Online_DBModel.FK_News_ToTable">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="News" EntitySet="News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solution_ToTable_1" Association="Test_Online_DBModel.FK_Solution_ToTable_1">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Solution" EntitySet="Solutions" />
+    </AssociationSet>
+    <EntitySet Name="Rate_Document" EntityType="Test_Online_DBModel.Rate_Document" />
+    <EntitySet Name="Rate_Question" EntityType="Test_Online_DBModel.Rate_Question" />
+    <AssociationSet Name="FK_Rate_Document_Member" Association="Test_Online_DBModel.FK_Rate_Document_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Member" Association="Test_Online_DBModel.FK_Rate_Question_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Document_Document" Association="Test_Online_DBModel.FK_Rate_Document_Document">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Rate_Document" EntitySet="Rate_Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rate_Question_Question" Association="Test_Online_DBModel.FK_Rate_Question_Question">
+      <End Role="Question" EntitySet="Questions" />
+      <End Role="Rate_Question" EntitySet="Rate_Question" />
+    </AssociationSet>
+    <EntitySet Name="Ranks" EntityType="Test_Online_DBModel.Rank" />
+    <AssociationSet Name="FK_Question_ToTable_3" Association="Test_Online_DBModel.FK_Question_ToTable_3">
+      <End Role="Rank" EntitySet="Ranks" />
+      <End Role="Question" EntitySet="Questions" />
+    </AssociationSet>
+    <EntitySet Name="advices" EntityType="Test_Online_DBModel.advice" />
+    <AssociationSet Name="FK_Table_ToTable1" Association="Test_Online_DBModel.FK_Table_ToTable1">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="advice" EntitySet="advices" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Document_ToTable_1">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Document" Role="Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_News_ToTable">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.News" Role="News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="News">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solution_ToTable_1">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Solution" Role="Solution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solution">
+        <PropertyRef Name="Created_by" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Rate_Document">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Document_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Document_Id" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Rate_Document_Member" FromRole="Rate_Document" ToRole="Member" />
+    <NavigationProperty Name="Question" Relationship="Test_Online_DBModel.FK_Rate_Document_Document" FromRole="Rate_Document" ToRole="Question" />
+  </EntityType>
+  <EntityType Name="Rate_Question">
+    <Key>
+      <PropertyRef Name="Member_Id" />
+      <PropertyRef Name="Question_Id" />
+    </Key>
+    <Property Name="Member_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Rate" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Rate_Question_Member" FromRole="Rate_Question" ToRole="Member" />
+    <NavigationProperty Name="Question" Relationship="Test_Online_DBModel.FK_Rate_Question_Question" FromRole="Rate_Question" ToRole="Question" />
+  </EntityType>
+  <Association Name="FK_Rate_Document_Member">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Document" Role="Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Member">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Question" Role="Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Document_Document">
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Document" Role="Rate_Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Document">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rate_Question_Question">
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.Rate_Question" Role="Rate_Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Rate_Question">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Rank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Questions" Relationship="Test_Online_DBModel.FK_Question_ToTable_3" FromRole="Rank" ToRole="Question" />
+  </EntityType>
+  <Association Name="FK_Question_ToTable_3">
+    <End Type="Test_Online_DBModel.Rank" Role="Rank" Multiplicity="0..1" />
+    <End Type="Test_Online_DBModel.Question" Role="Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rank">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Question">
+        <PropertyRef Name="Rank_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="advice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Created_By" Type="Int32" Nullable="false" />
+    <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="advice" ToRole="Member" />
+  </EntityType>
+  <Association Name="FK_Table_ToTable1">
+    <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
+    <End Type="Test_Online_DBModel.advice" Role="advice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="advice">
+        <PropertyRef Name="Created_By" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

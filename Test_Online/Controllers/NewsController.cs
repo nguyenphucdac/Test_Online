@@ -30,7 +30,12 @@ namespace Test_Online.Controllers
         {
             try
             {
-                ViewBag.News = db.News.SingleOrDefault(n => n.Id == newsId);
+                News news = db.News.SingleOrDefault(n => n.Id == newsId);
+                news.View += 1;
+                db.Entry(news).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                ViewBag.News = news;
                 ViewBag.lstNews = db.News;
                 return View();
             }

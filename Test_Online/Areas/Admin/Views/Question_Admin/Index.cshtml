@@ -6,51 +6,96 @@
     WebGrid grid = new WebGrid(source: Model, rowsPerPage: 10);
     ViewBag.Title = "Câu hỏi";
     Layout = "~/Areas/Admin/Views/Layout/admin/Admin_Layout.cshtml";
+
+    IEnumerable<Subject> lstSubject = ViewBag.lstSubject;
+    IEnumerable<Topic> lstTopic = ViewBag.lstTopic;
 }
 
+
 <div class="header">
-    <h2>Quản Lý Câu Hỏi</h2>
+        <h2>Quản Lý Câu Hỏi</h2>
+    
     <div style="height:1px;background-color:black; margin-top: 10px"></div>
-    <a href="@Url.Action("Create", "Question_Admin")" class="btn btn-default" style="float:right; margin-top : 10px; margin-right : 10px;">Thêm Mới</a>
+    <div class="col-md-2" style="margin-top:10px">
+        <select required name="typeInfo" class="form-control" id="select_sort">
+            <option value="0">---Sắp xếp---</option>
+            <option value="1">Cũ nhất</option>
+            <option value="2">Mới nhất</option>
+            <option value="3">xem nhiều nhất</option>
+        </select>
+    </div>
+    <div class="col-md-2" id="select_subject" style="margin-top:10px">
+        <select required name="subjectId" class="form-control" id="subject">
+            <option value="0">---Chọn môn học---</option>
+            @for (int i = 0; i < lstSubject.Count(); i++)
+            {
+                <option value="@lstSubject.ElementAt(i).Id">@lstSubject.ElementAt(i).Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2" id="select_topic" style="margin-top:10px">
+        <select required name="topicId" class="form-control" id="topic">
+            <option value="0">---Chọn chủ đề---</option>
+            @for (int i = 0; i < lstTopic.Count(); i++)
+            {
+                <option value="@lstTopic.ElementAt(i).Id">@lstTopic.ElementAt(i).Name</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-2" id="select_rank" style="margin-top:10px">
+        <select required name="rank" class="form-control" id="rank">
+            <option value="0">---Chọn độ khó---</option>
+            <option value="1">Dễ</option>
+            <option value="2">Trung bình</option>
+            <option value="3">Khó</option>
+        </select>
+    </div>
+   
+    
+        <a href="@Url.Action("Create", "Question_Admin")" class="btn btn-default" style="float:right; margin-top : 10px; margin-right : 10px;">Thêm mới</a>
+   
+    
 
 </div>
 @if (Model != null)
 {
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>Mã câu hỏi</th>
-                <th>Môn học </th>
-                <th>Chủ đề</th>
-                <th>Tiêu đề</th>
-                @*<th>Ngày tạo</th>*@
-                <th>Người tạo</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Count(); i++)
-            {
+    <div id="ajaxReplace">
+        <table class="table table-condensed">
+            <thead>
                 <tr>
-                    <td>@Model.ElementAt(i).Id</td>
-                    <td>@Model.ElementAt(i).Subject.Name</td>
-                    <td>@Model.ElementAt(i).Topic.Name</td>
-                    <td style="color:black">@Html.Raw(Model.ElementAt(i).Title)</td>
-                    @*<td>@Model.ElementAt(i).Created_Time</td>*@
-                    <td>@Model.ElementAt(i).Member.Name</td>
-                    <td>@Html.ActionLink("chi tiết", "Detail", new { @Id = @Model.ElementAt(i).Id })</td>
-                    <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
-                    <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                    <th>Mã câu hỏi</th>
+                    <th>Môn học </th>
+                    <th>Chủ đề</th>
+                    <th>Tiêu đề</th>
+                    @*<th>Ngày tạo</th>*@
+                    <th>Người tạo</th>
+
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td>@Model.ElementAt(i).Id</td>
+                        <td>@Model.ElementAt(i).Subject.Name</td>
+                        <td>@Model.ElementAt(i).Topic.Name</td>
+                        <td style="color:black">@Html.Raw(Model.ElementAt(i).Title)</td>
+                        @*<td>@Model.ElementAt(i).Created_Time</td>*@
+                        <td>@Model.ElementAt(i).Member.Name</td>
+                        <td>@Html.ActionLink("chi tiết", "Detail", new { @Id = @Model.ElementAt(i).Id })</td>
+                        <td>@Html.ActionLink("Sửa", "Edit", new { @Id = @Model.ElementAt(i).Id })</td>
+                        <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
-<div class="dlink container">
-    @Html.PagedListPager(Model, page => Url.Action("Index", "Question_Admin", new
-  {
-      @pageIndex = page
-  }))
+<div class="dlink container" id="page">
+@Html.PagedListPager(Model, page => Url.Action("Index", "Question_Admin", new
+{
+    @pageIndex = page
+}))
 </div>
 
 <style>
@@ -71,6 +116,139 @@
         margin-top: 20px;
     }
 </style>
+<script>
+    $("#select_sort").change(function () {
+        $("#page").hide();
+        var selectedVal = $(this).find(':selected').val();
+        var subjectSelected = $("#subject").find(':selected').val();
+        var topicSelected = $("#topic").find(':selected').val();
+        var rankSelected = $("#rank").find(':selected').val();
 
+
+        var Helpers = {
+            Domain: 'http://' + location.hostname + ':' + location.port
+        };
+        var param = JSON.stringify({
+                    'typeSort': selectedVal
+                });
+                $.ajax({
+                    type: "GET",
+                    url: Helpers.Domain + "/Admin/Question_Admin/SortFill",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    datatype: "json",
+                    contentType: 'application/json',
+                    data: { 'typeSort': selectedVal, 'subjectId': subjectSelected, 'topicId': topicSelected, 'rank': rankSelected},
+                    success: function (data) {
+                        debugger;
+                        $('#ajaxReplace').empty();
+                        $('#ajaxReplace').html(data);
+                    },
+                    error: function (arg, data, value) {
+
+                    }
+                });
+    });
+    $("#subject").change(function () {
+        $("#page").hide();
+        var selectedVal = $(this).find(':selected').val();
+        var subjectSelected = $("#subject").find(':selected').val();
+        var topicSelected = $("#topic").find(':selected').val();
+        var rankSelected = $("#rank").find(':selected').val();
+
+
+        var Helpers = {
+            Domain: 'http://' + location.hostname + ':' + location.port
+        };
+        var param = JSON.stringify({
+            'typeSort': selectedVal
+        });
+        $.ajax({
+            type: "GET",
+            url: Helpers.Domain + "/Admin/Question_Admin/SortFill",
+            traditional: true,
+            async: false,
+            cache: false,
+            datatype: "json",
+            contentType: 'application/json',
+            data: { 'typeSort': selectedVal, 'subjectId': subjectSelected, 'topicId': topicSelected, 'rank': rankSelected },
+            success: function (data) {
+                debugger;
+                $('#ajaxReplace').empty();
+                $('#ajaxReplace').html(data);
+            },
+            error: function (arg, data, value) {
+
+            }
+        });
+    });
+    $("#topic").change(function () {
+        $("#page").hide();
+        var selectedVal = $(this).find(':selected').val();
+        var subjectSelected = $("#subject").find(':selected').val();
+        var topicSelected = $("#topic").find(':selected').val();
+        var rankSelected = $("#rank").find(':selected').val();
+
+
+        var Helpers = {
+            Domain: 'http://' + location.hostname + ':' + location.port
+        };
+        var param = JSON.stringify({
+            'typeSort': selectedVal
+        });
+        $.ajax({
+            type: "GET",
+            url: Helpers.Domain + "/Admin/Question_Admin/SortFill",
+            traditional: true,
+            async: false,
+            cache: false,
+            datatype: "json",
+            contentType: 'application/json',
+            data: { 'typeSort': selectedVal, 'subjectId': subjectSelected, 'topicId': topicSelected, 'rank': rankSelected },
+            success: function (data) {
+                debugger;
+                $('#ajaxReplace').empty();
+                $('#ajaxReplace').html(data);
+            },
+            error: function (arg, data, value) {
+
+            }
+        });
+    });
+    $("#rank").change(function () {
+        $("#page").hide();
+        var selectedVal = $(this).find(':selected').val();
+        var subjectSelected = $("#subject").find(':selected').val();
+        var topicSelected = $("#topic").find(':selected').val();
+        var rankSelected = $("#rank").find(':selected').val();
+
+
+        var Helpers = {
+            Domain: 'http://' + location.hostname + ':' + location.port
+        };
+        var param = JSON.stringify({
+                    'typeSort': selectedVal
+                });
+                $.ajax({
+                    type: "GET",
+                    url: Helpers.Domain + "/Admin/Question_Admin/SortFill",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    datatype: "json",
+                    contentType: 'application/json',
+                    data: { 'typeSort': selectedVal, 'subjectId': subjectSelected, 'topicId': topicSelected, 'rank': rankSelected},
+                    success: function (data) {
+                        debugger;
+                        $('#ajaxReplace').empty();
+                        $('#ajaxReplace').html(data);
+                    },
+                    error: function (arg, data, value) {
+
+                    }
+                });
+    });
+</script>
 
 

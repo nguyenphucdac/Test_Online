@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using Test_Online.Areas.Admin.Controllers;
 using Test_Online.Models;
 
 
@@ -107,12 +108,6 @@ namespace Test_Online.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 Member currentMember = (Member)Session["member"];
-
-                //Member checkMember = db.Members.SingleOrDefault(n => n.Name == member.Name);
-                //if (checkMember != null && checkMember.Id != member.Id)
-                //{
-                //    return Json("Tên người dùng đã được sử dụng", JsonRequestBehavior.AllowGet);
-                //}
 
                 if (EncodePass(member.Password.ToString()) != currentMember.Password)
                 {
@@ -383,6 +378,8 @@ namespace Test_Online.Controllers
 
                 db.Documents.Add(document);
                 db.SaveChanges();
+
+                NotificationController.SendMessage(member.Name + " Vừa tải lên một tài liệu !!!" + document.Link);
 
                 return RedirectToAction("GetListDocument", "Document", new { @topicId = document.Topic_Id });
             }
