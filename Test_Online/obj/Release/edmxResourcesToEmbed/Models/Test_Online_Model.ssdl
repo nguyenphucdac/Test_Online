@@ -8,6 +8,7 @@
     <Property Name="content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
     <Property Name="Created_Time" Type="date" Nullable="false" />
+    <Property Name="State" Type="bit" />
   </EntityType>
   <EntityType Name="Answer">
     <Key>
@@ -39,6 +40,7 @@
     <Property Name="File" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created_Time" Type="datetime" Nullable="false" />
     <Property Name="Created_by" Type="int" Nullable="false" />
+    <Property Name="Download" Type="int" />
   </EntityType>
   <EntityType Name="History">
     <Key>

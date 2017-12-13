@@ -413,6 +413,7 @@ namespace Test_Online.Controllers
                 advice.content = content;
                 advice.Created_By = member.Id;
                 advice.Created_Time = DateTime.Now;
+                advice.State = false;
                 
                 db.advices.Add(advice);
                 db.SaveChanges();

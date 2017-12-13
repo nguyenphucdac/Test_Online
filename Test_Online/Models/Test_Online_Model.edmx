@@ -13,6 +13,7 @@
           <Property Name="content" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Created_By" Type="int" Nullable="false" />
           <Property Name="Created_Time" Type="date" Nullable="false" />
+          <Property Name="State" Type="bit" />
         </EntityType>
         <EntityType Name="Answer">
           <Key>
@@ -1160,6 +1161,7 @@
           <Property Name="Created_By" Type="Int32" Nullable="false" />
           <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="advice" ToRole="Member" />
+          <Property Name="State" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Table_ToTable1">
           <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />
@@ -1352,6 +1354,7 @@
           <EntitySetMapping Name="advices">
             <EntityTypeMapping TypeName="Test_Online_DBModel.advice">
               <MappingFragment StoreEntitySet="advice">
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
                 <ScalarProperty Name="Created_By" ColumnName="Created_By" />
                 <ScalarProperty Name="content" ColumnName="content" />

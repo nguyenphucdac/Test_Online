@@ -5,10 +5,10 @@
 }
 
 <div class="content-top">
-    <div class="col-md-4 ">
+    <div class="col-md-12 ">
         <div class="content-top-1">
             <div class="col-md-6 top-content">
-                <h5>Số người đang online</h5>
+                <h5>Số Thành viên online</h5>
             </div>
             <div class="col-md-6 top-content1">
                 <h3>@ViewBag.onlineuser</h3>
@@ -25,9 +25,18 @@
             </div>
             <div class="clearfix"> </div>
         </div>
-       
+        <div class="content-top-1">
+            <div class="col-md-6 top-content">
+                <h5>Số lượng thành viên</h5>
+
+            </div>
+            <div class="col-md-6 top-content1">
+                <h3>@ViewBag.CountMemBer</h3>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
     </div>
-    <div class="col-md-8 content-top-2">
+    @*<div class="col-md-8 content-top-2">
         <!---start-chart---->
         <!----->
         <div class="content-graph">
@@ -156,7 +165,7 @@
             </div>
 
         </div>
-    </div>
+    </div>*@
     <div class="clearfix"> </div>
 </div>
 

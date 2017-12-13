@@ -26,6 +26,7 @@
     <EntitySetMapping Name="Documents">
       <EntityTypeMapping TypeName="Test_Online_DBModel.Document">
         <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="Download" ColumnName="Download" />
           <ScalarProperty Name="File" ColumnName="File" />
           <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Created_by" ColumnName="Created_by" />
@@ -173,6 +174,7 @@
     <EntitySetMapping Name="advices">
       <EntityTypeMapping TypeName="Test_Online_DBModel.advice">
         <MappingFragment StoreEntitySet="advice">
+          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Created_Time" ColumnName="Created_Time" />
           <ScalarProperty Name="Created_By" ColumnName="Created_By" />
           <ScalarProperty Name="content" ColumnName="content" />

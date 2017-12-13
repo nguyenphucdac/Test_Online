@@ -601,6 +601,7 @@
     <Property Name="Created_By" Type="Int32" Nullable="false" />
     <Property Name="Created_Time" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Member" Relationship="Test_Online_DBModel.FK_Table_ToTable1" FromRole="advice" ToRole="Member" />
+    <Property Name="State" Type="Boolean" />
   </EntityType>
   <Association Name="FK_Table_ToTable1">
     <End Type="Test_Online_DBModel.Member" Role="Member" Multiplicity="1" />

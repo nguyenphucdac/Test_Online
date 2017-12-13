@@ -11,7 +11,8 @@ namespace Test_Online.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Question
     {
         public Question()
@@ -27,6 +28,7 @@ namespace Test_Online.Models
         public int Id { get; set; }
         public int Subject_Id { get; set; }
         public int Topic_Id { get; set; }
+        [AllowHtml]
         public string Title { get; set; }
         public string Image { get; set; }
         public int Created_By { get; set; }

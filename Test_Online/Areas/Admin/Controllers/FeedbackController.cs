@@ -26,6 +26,9 @@ namespace Test_Online.Areas.Admin.Controllers
 
             advice advice = db.advices.SingleOrDefault(n => n.Id == id);
             NotificationController.SendMessageToPerson(message, advice.Member.Email);
+            advice.State = true;
+            db.Entry(advice).State = System.Data.EntityState.Modified;
+            db.SaveChanges();
             return Content("<script>alert('đã gửi tới người dùng');</script>");
         }
     }

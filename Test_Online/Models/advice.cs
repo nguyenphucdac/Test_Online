@@ -18,6 +18,7 @@ namespace Test_Online.Models
         public string content { get; set; }
         public int Created_By { get; set; }
         public System.DateTime Created_Time { get; set; }
+        public Nullable<bool> State { get; set; }
     
         public virtual Member Member { get; set; }
     }

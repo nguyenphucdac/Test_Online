@@ -21,6 +21,7 @@
                 <th>Nội dung</th>
                 <th>Thời gian tạo</th>
                 <th>Người tạo</th>
+                <th>Trạng thái</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,14 @@
                     <td>@Model.ElementAt(i).content</td>
                     <td>@Model.ElementAt(i).Created_Time</td>
                     <td>@Model.ElementAt(i).Member.Name</td>
+                    @if (Model.ElementAt(i).State == true)
+                    {
+                        <td>Đã phản hồi</td>
+                    }
+                    else
+                    {
+                        <td>Chưa phản hồi</td>
+                    }
                     <td>@Html.ActionLink("Phản hồi", "CreatedFeedback", new { @id = @Model.ElementAt(i).Id })</td>
                     <td>@Html.ActionLink("Xóa", "Delete", new { @Id = @Model.ElementAt(i).Id })</td>
                 </tr>

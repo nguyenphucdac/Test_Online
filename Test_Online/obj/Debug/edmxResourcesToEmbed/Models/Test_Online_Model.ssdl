@@ -8,6 +8,7 @@
     <Property Name="content" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Created_By" Type="int" Nullable="false" />
     <Property Name="Created_Time" Type="date" Nullable="false" />
+    <Property Name="State" Type="bit" />
   </EntityType>
   <EntityType Name="Answer">
     <Key>

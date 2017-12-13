@@ -59,7 +59,6 @@ namespace Test_Online.Areas.Admin.Controllers
 
             try
             {
-                IEnumerable<Member> lstMember = db.Members;
 
                 SmtpClient client = new SmtpClient("smtp.gmail.com");
                 client.Port = 587;
@@ -69,20 +68,16 @@ namespace Test_Online.Areas.Admin.Controllers
                 NetworkCredential nc = new NetworkCredential("testonline0411@gmail.com", "testonline04");
                 client.Credentials = nc;
 
-                for (int i = 0; i < lstMember.Count(); i++)
-                {
-                    Member member = lstMember.ElementAt(i);
-                    MailMessage mailMessage = new MailMessage();
-                    mailMessage.From = new MailAddress(email);
-                    mailMessage.To.Add((member.Email).ToString() + "");
-                    mailMessage.Subject = "Testonline website";
-                    mailMessage.Body = message;
-                    mailMessage.BodyEncoding = Encoding.UTF8;
-                    mailMessage.SubjectEncoding = Encoding.UTF8;
-                    mailMessage.IsBodyHtml = true;
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(email);
+                mailMessage.To.Add(email);
+                mailMessage.Subject = "Testonline website";
+                mailMessage.Body = message;
+                mailMessage.BodyEncoding = Encoding.UTF8;
+                mailMessage.SubjectEncoding = Encoding.UTF8;
+                mailMessage.IsBodyHtml = true;
 
-                    client.Send(mailMessage);
-                }
+                client.Send(mailMessage);
 
 
                 return "<script> alert('Đã gửi thông báo tới người dùng');</script >";
